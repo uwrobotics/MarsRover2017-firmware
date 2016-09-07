@@ -9,9 +9,7 @@
 #define CAN_PROPERTIES_H_
 
 #include "stm32f0xx.h"
-#include "stm32f0xx_hal_gpio.h"
-#include "stm32f0xx_hal_can.h"
-
+#include <string.h>
 
 //CONSTANTS FOR CAN BUS CONFIGURATION
 #define CAN_GPIO_RX_PIN			GPIO_PIN_11
@@ -33,43 +31,43 @@
 #define CAN_INIT_NART			DISABLE
 #define CAN_INIT_RFLM			DISABLE
 #define CAN_INIT_TXFP			DISABLE
+#define CAN_INIT_FIFO			CAN_FIFO0
 #define CAN_LOCK				HAL_UNLOCKED
 #define CAN_IDE_TYPE			CAN_ID_STD
 #define CAN_RTR_TYPE			CAN_RTR_DATA
 
 #define CAN_ABSTRACTION_TYPE_INT8			(uint8_t)0
 #define CAN_ABSTRACTION_TYPE_UINT32 		(uint8_t)1
-#define CAN_ABSTRACTION_TYPE_UINT64_LSB		(uint8_t)2
-#define CAN_ABSTRACTION_TYPE_UINT64_MSB		(uint8_t)3
-#define CAN_ABSTRACTION_TYPE_FLOAT			(uint8_t)4
-#define CAN_ABSTRACTION_TYPE_DOUBLE			(uint8_t)5
+#define CAN_ABSTRACTION_TYPE_INT32 			(uint8_t)2
+#define CAN_ABSTRACTION_TYPE_FLOAT			(uint8_t)3
 #define CAN_ABSTRACTION_TYPE_CHAR  			(uint8_t)10
-#define CAN_ABSTRACTION_TYPE_SHORT_STRING	(uint8_t)11
-#define CAN_ABSTRACTION_TYPE_LONG_STRING	(uint8_t)12
-
-#define CAN_ABSTRACTION_NEGATIVE				(uint8_t)16
-
-typedef enum{
-	POSITIVE=0,
-	NEGATIVE = 16
-} sign_enum;
+#define CAN_ABSTRACTION_TYPE_STRING			(uint8_t)11
 
 typedef union{
-	uint32_t result;
-	float input;
-} float_union;
+	uint8_t byte_array[4];
+	int32_t integer;
+	uint32_t uinteger;
+	float floatingpt;
+} encoding_union;
 
 typedef struct{
 	uint8_t return_type;
+	uint8_t return_ID;
 	union{
-		int64_t return_int;
-		uint64_t return_uint;
-		char return_char;
+		uint8_t byte_array[6];
+		int32_t return_int;
+		uint32_t return_uint;
 		float return_float;
-		char** return_string_ptr;
+		char return_string[6];
 	};
 } return_struct;
 
-void CANAbstract_Transmit_Uint(uint64_t message);
+void CANAbstract_Rx_Decode(void);
+int CANAbstract_CAN_NetworkInit(void);
+void CANAbstract_Transmit_Uint(uint32_t message, uint8_t id);
+int CANAbstract_GPIO_Init(void);
+void CANAbstract_Tx_SetData(encoding_union* this_union);
+
+void CANAbstract_Tx_SendShortData(void);
 
 #endif

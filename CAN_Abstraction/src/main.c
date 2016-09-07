@@ -17,10 +17,8 @@
 
 int main(void)
 {
+	printf("this works");
 
-	uint64_t this = 3;
-	int64_t signed_this = -3;
-	CANAbstract_Transmit_Uint(this);
-	CANAbstract_Transmit_Int(signed_this);
+//	testing stuff goes here
 
 }
