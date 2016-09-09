@@ -62,8 +62,11 @@ typedef struct{
 	};
 } return_struct;
 
+int CANAbstract_Init(uint32_t node_ID);
+
 void CANAbstract_Rx_Decode(void);
 int CANAbstract_CAN_NetworkInit(void);
+int CANAbstract_CAN_NodeInit(uint32_t node_ID);
 void CANAbstract_Transmit_Uint(uint32_t message, uint8_t id);
 int CANAbstract_GPIO_Init(void);
 void CANAbstract_Tx_SetData(encoding_union* this_union);

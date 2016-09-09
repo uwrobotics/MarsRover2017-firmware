@@ -16,21 +16,24 @@ static CAN_HandleTypeDef CAN_HandleStruct;
 
 static return_struct received_message;
 
-void CANAbstract__Init(uint32_t node_id){
+int CANAbstract_Init(uint32_t node_id){
     __HAL_RCC_CAN1_CLK_ENABLE();
 
     __HAL_RCC_GPIOA_CLK_ENABLE();
 
     if(!CANAbstract_GPIO_Init()){
-    	//TODO: Error handling
+    	return -1;
     }
 
     if(!CANAbstract_CAN_NetworkInit()){
-    	//TODO: Error handling
+    	return -2;
     }
 
-    CANAbstract_CAN_NodeInit(node_id);
+    if(!CANAbstract_CAN_NodeInit(node_id)){
+    	return -3;
+    }
 
+    return 0;
 }
 
 int CANAbstract_GPIO_Init(){
@@ -74,10 +77,12 @@ int CANAbstract_CAN_NetworkInit(){
 	return 0;
 }
 
-void CANAbstract_CAN_NodeInit(uint32_t id){
+int CANAbstract_CAN_NodeInit(uint32_t id){
 	CAN_HandleStruct.pTxMsg->StdId = id;
 	CAN_HandleStruct.pTxMsg->IDE = CAN_IDE_TYPE;
 	CAN_HandleStruct.pTxMsg->RTR = CAN_RTR_TYPE;
+
+	return 0;
 }
 
 void CEC_CAN_IRQHandler()
