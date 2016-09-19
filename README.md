@@ -1,5 +1,5 @@
 # MarsRover2017-firmware
-#update
+
 Firmware for the 2017 University of Waterloo Mars Rover. Will contain:
 - CAN drivers for the STM32F072RB microprocessor
 - Sensor software (GPS, IMU)

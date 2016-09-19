@@ -1,0 +1,1365 @@
+Archive member included to satisfy reference by file (symbol)
+
+/home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+                              src/main.o (STM_EVAL_LEDInit)
+/home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+                              /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o) (EXTI_Init)
+/home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+                              /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o) (GPIO_Init)
+/home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+                              /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o) (NVIC_Init)
+/home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+                              /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o) (RCC_AHBPeriphClockCmd)
+/home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+                              /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o) (SYSCFG_EXTILineConfig)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_udivsi3.o)
+                              src/system_stm32f0xx.o (__aeabi_uidiv)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_dvmd_tls.o)
+                              /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_udivsi3.o) (__aeabi_idiv0)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-errno.o)
+                              src/syscalls.o (__errno)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-exit.o)
+                              /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o (exit)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-impure.o)
+                              /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-exit.o) (_global_impure_ptr)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-init.o)
+                              /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o (__libc_init_array)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-memset.o)
+                              /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o (memset)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o)
+                              /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-exit.o) (__call_exitprocs)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-atexit.o)
+                              /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o) (atexit)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-fini.o)
+                              /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o) (__libc_fini_array)
+/home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__atexit.o)
+                              /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-atexit.o) (__register_exitproc)
+
+Discarded input sections
+
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crti.o
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crti.o
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crti.o
+ .data          0x00000000        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+ .text          0x00000000       0x78 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .ARM.extab     0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .ARM.exidx     0x00000000        0x8 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .ARM.attributes
+                0x00000000       0x1b /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
+ .text          0x00000000        0x0 src/main.o
+ .data          0x00000000        0x0 src/main.o
+ .bss           0x00000000        0x0 src/main.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .group         0x00000000        0x8 src/syscalls.o
+ .text          0x00000000        0x0 src/syscalls.o
+ .data          0x00000000        0x4 src/syscalls.o
+ .bss           0x00000000        0x8 src/syscalls.o
+ .text.initialise_monitor_handles
+                0x00000000        0xc src/syscalls.o
+ .text._getpid  0x00000000        0xc src/syscalls.o
+ .text._kill    0x00000000       0x20 src/syscalls.o
+ .text._exit    0x00000000       0x18 src/syscalls.o
+ .text._read    0x00000000       0x3c src/syscalls.o
+ .text._write   0x00000000       0x38 src/syscalls.o
+ .text._sbrk    0x00000000       0x58 src/syscalls.o
+ .text._close   0x00000000       0x14 src/syscalls.o
+ .text._fstat   0x00000000       0x1c src/syscalls.o
+ .text._isatty  0x00000000       0x14 src/syscalls.o
+ .text._lseek   0x00000000       0x18 src/syscalls.o
+ .text._open    0x00000000       0x1c src/syscalls.o
+ .text._wait    0x00000000       0x20 src/syscalls.o
+ .text._unlink  0x00000000       0x20 src/syscalls.o
+ .text._times   0x00000000       0x14 src/syscalls.o
+ .text._stat    0x00000000       0x1c src/syscalls.o
+ .text._link    0x00000000       0x20 src/syscalls.o
+ .text._fork    0x00000000       0x18 src/syscalls.o
+ .text._execve  0x00000000       0x24 src/syscalls.o
+ .debug_info    0x00000000      0x667 src/syscalls.o
+ .debug_abbrev  0x00000000      0x177 src/syscalls.o
+ .debug_aranges
+                0x00000000       0xb0 src/syscalls.o
+ .debug_ranges  0x00000000       0xa0 src/syscalls.o
+ .debug_macro   0x00000000      0x1f3 src/syscalls.o
+ .debug_macro   0x00000000      0x844 src/syscalls.o
+ .debug_macro   0x00000000       0x58 src/syscalls.o
+ .debug_macro   0x00000000       0x22 src/syscalls.o
+ .debug_macro   0x00000000       0x35 src/syscalls.o
+ .debug_macro   0x00000000       0x9c src/syscalls.o
+ .debug_macro   0x00000000      0x174 src/syscalls.o
+ .debug_macro   0x00000000       0x4a src/syscalls.o
+ .debug_macro   0x00000000       0x52 src/syscalls.o
+ .debug_macro   0x00000000       0x16 src/syscalls.o
+ .debug_macro   0x00000000       0x43 src/syscalls.o
+ .debug_macro   0x00000000      0x187 src/syscalls.o
+ .debug_macro   0x00000000       0x10 src/syscalls.o
+ .debug_macro   0x00000000       0x35 src/syscalls.o
+ .debug_macro   0x00000000       0x10 src/syscalls.o
+ .debug_macro   0x00000000       0x10 src/syscalls.o
+ .debug_macro   0x00000000      0x329 src/syscalls.o
+ .debug_macro   0x00000000       0x10 src/syscalls.o
+ .debug_macro   0x00000000       0x22 src/syscalls.o
+ .debug_macro   0x00000000       0x22 src/syscalls.o
+ .debug_macro   0x00000000       0x3a src/syscalls.o
+ .debug_macro   0x00000000       0x10 src/syscalls.o
+ .debug_macro   0x00000000       0x40 src/syscalls.o
+ .debug_macro   0x00000000       0x65 src/syscalls.o
+ .debug_macro   0x00000000       0x35 src/syscalls.o
+ .debug_macro   0x00000000      0x122 src/syscalls.o
+ .debug_macro   0x00000000       0x16 src/syscalls.o
+ .debug_macro   0x00000000       0x16 src/syscalls.o
+ .debug_macro   0x00000000       0x29 src/syscalls.o
+ .debug_macro   0x00000000       0x10 src/syscalls.o
+ .debug_macro   0x00000000      0x241 src/syscalls.o
+ .debug_macro   0x00000000       0x1c src/syscalls.o
+ .debug_macro   0x00000000       0x10 src/syscalls.o
+ .debug_macro   0x00000000       0x16 src/syscalls.o
+ .debug_macro   0x00000000      0x197 src/syscalls.o
+ .debug_macro   0x00000000      0x159 src/syscalls.o
+ .debug_macro   0x00000000       0x16 src/syscalls.o
+ .debug_macro   0x00000000       0x88 src/syscalls.o
+ .debug_line    0x00000000      0x5a7 src/syscalls.o
+ .debug_str     0x00000000     0x7173 src/syscalls.o
+ .comment       0x00000000       0x6f src/syscalls.o
+ .debug_frame   0x00000000      0x264 src/syscalls.o
+ .ARM.attributes
+                0x00000000       0x31 src/syscalls.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .group         0x00000000        0x8 src/system_stm32f0xx.o
+ .text          0x00000000        0x0 src/system_stm32f0xx.o
+ .bss           0x00000000        0x0 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x844 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x80 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x3a src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x22 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x44 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0xfd src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x22 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x1df src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x1f src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x242 src/system_stm32f0xx.o
+ .debug_macro   0x00000000     0x5b9e src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x2eb src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x3cf src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x191 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x46 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0xd9 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0xef src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x184 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x7c src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x295 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0xd5 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x2b7 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x185 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x184 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x2a0 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x70 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0xdf src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x522 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x4c5 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x396 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x750 src/system_stm32f0xx.o
+ .debug_macro   0x00000000      0x353 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x34 src/system_stm32f0xx.o
+ .debug_macro   0x00000000       0x3a src/system_stm32f0xx.o
+ .text          0x00000000       0x14 startup/startup_stm32f072.o
+ .data          0x00000000        0x0 startup/startup_stm32f072.o
+ .bss           0x00000000        0x0 startup/startup_stm32f072.o
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .text          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .bss           0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .text.STM_EVAL_LEDToggle
+                0x00000000       0x44 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .text.STM_EVAL_PBInit
+                0x00000000       0xc4 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .text.STM_EVAL_PBGetState
+                0x00000000       0x30 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x80 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x44 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0xfd /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x1df /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x1f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x242 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000     0x5b9e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x2eb /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x3cf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x191 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x46 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0xd9 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0xef /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x7c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x295 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0xd5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x2b7 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x185 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x2a0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x70 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0xdf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x522 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x4c5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x396 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x750 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000      0x353 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .text          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .data          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .bss           0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .text.EXTI_DeInit
+                0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .text.EXTI_Init
+                0x00000000       0xe0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .text.EXTI_StructInit
+                0x00000000       0x28 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .text.EXTI_GenerateSWInterrupt
+                0x00000000       0x20 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .text.EXTI_GetFlagStatus
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .text.EXTI_ClearFlag
+                0x00000000       0x1c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .text.EXTI_GetITStatus
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .text.EXTI_ClearITPendingBit
+                0x00000000       0x1c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_info    0x00000000      0x325 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_abbrev  0x00000000      0x19b /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_aranges
+                0x00000000       0x58 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_ranges  0x00000000       0x48 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x18a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x83e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x80 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x44 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0xfd /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x1df /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x1f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x242 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000     0x5b9e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x2eb /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x3cf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x191 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x46 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0xd9 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0xef /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x7c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x295 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x2b7 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x185 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x2a0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x70 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0xdf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x522 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x4c5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x396 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x750 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000      0x353 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_macro   0x00000000       0xcf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_line    0x00000000      0x6a4 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_str     0x00000000    0x3f615 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .comment       0x00000000       0x6f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .debug_frame   0x00000000      0x10c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .ARM.attributes
+                0x00000000       0x31 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_exti.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .data          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .bss           0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_DeInit
+                0x00000000       0xf0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_StructInit
+                0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_PinLockConfig
+                0x00000000       0x48 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_ReadInputDataBit
+                0x00000000       0x48 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_ReadInputData
+                0x00000000       0x18 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_ReadOutputDataBit
+                0x00000000       0x48 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_ReadOutputData
+                0x00000000       0x18 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_SetBits
+                0x00000000       0x20 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_ResetBits
+                0x00000000       0x20 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_WriteBit
+                0x00000000       0x3c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_Write
+                0x00000000       0x20 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .text.GPIO_PinAFConfig
+                0x00000000       0xa4 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x83e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x80 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x44 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0xfd /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x1df /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x1f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x242 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000     0x5b9e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x2eb /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x3cf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x191 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x46 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0xd9 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0xef /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x7c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x295 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0xd5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x2b7 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x2a0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x70 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0xdf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x522 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x4c5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x396 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x750 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000      0x353 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .text          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .data          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .bss           0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .text.NVIC_Init
+                0x00000000       0xac /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .text.NVIC_SystemLPConfig
+                0x00000000       0x48 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .text.SysTick_CLKSourceConfig
+                0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_info    0x00000000      0x376 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_abbrev  0x00000000      0x14a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_aranges
+                0x00000000       0x30 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_ranges  0x00000000       0x20 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x83e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x80 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x44 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0xfd /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x1df /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x1f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x242 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000     0x5b9e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x2eb /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x3cf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x191 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x46 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0xd9 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0xef /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x7c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x295 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0xd5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x2b7 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x185 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x2a0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x70 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0xdf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x522 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x4c5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x396 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x750 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000      0x353 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_macro   0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_line    0x00000000      0x631 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_str     0x00000000    0x3f5ba /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .comment       0x00000000       0x6f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .debug_frame   0x00000000       0x70 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .ARM.attributes
+                0x00000000       0x31 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_misc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .data          0x00000000       0x10 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .bss           0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_DeInit
+                0x00000000       0x88 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_HSEConfig
+                0x00000000       0x28 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_WaitForHSEStartUp
+                0x00000000       0x60 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_AdjustHSICalibrationValue
+                0x00000000       0x3c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_HSICmd
+                0x00000000       0x3c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_AdjustHSI14CalibrationValue
+                0x00000000       0x3c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_HSI14Cmd
+                0x00000000       0x3c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_HSI14ADCRequestCmd
+                0x00000000       0x3c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_LSEConfig
+                0x00000000       0x38 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_LSEDriveConfig
+                0x00000000       0x2c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_LSICmd
+                0x00000000       0x3c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_PLLConfig
+                0x00000000       0x38 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_PLLCmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_HSI48Cmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_PREDIV1Config
+                0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_ClockSecuritySystemCmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_MCOConfig
+                0x00000000       0x44 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_SYSCLKConfig
+                0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_GetSYSCLKSource
+                0x00000000       0x1c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_HCLKConfig
+                0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_PCLKConfig
+                0x00000000       0x38 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_ADCCLKConfig
+                0x00000000       0x54 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_CECCLKConfig
+                0x00000000       0x2c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_I2CCLKConfig
+                0x00000000       0x2c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_USARTCLKConfig
+                0x00000000       0x50 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_USBCLKConfig
+                0x00000000       0x2c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_GetClocksFreq
+                0x00000000      0x268 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_RTCCLKConfig
+                0x00000000       0x20 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_RTCCLKCmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_BackupResetCmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_APB2PeriphClockCmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_APB1PeriphClockCmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_AHBPeriphResetCmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_APB2PeriphResetCmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_APB1PeriphResetCmd
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_ITConfig
+                0x00000000       0x50 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_GetFlagStatus
+                0x00000000       0x94 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_ClearFlag
+                0x00000000       0x1c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_GetITStatus
+                0x00000000       0x44 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .text.RCC_ClearITPendingBit
+                0x00000000       0x20 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x83e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x80 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x44 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0xfd /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x1df /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x1f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x242 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000     0x5b9e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x2eb /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x3cf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x191 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x46 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0xd9 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0xef /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x7c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x295 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0xd5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x2b7 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x185 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x2a0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x70 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0xdf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x4c5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x396 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x750 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000      0x353 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .group         0x00000000        0x8 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .text          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .data          0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .bss           0x00000000        0x0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .text.SYSCFG_DeInit
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .text.SYSCFG_MemoryRemapConfig
+                0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .text.SYSCFG_DMAChannelRemapConfig
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .text.SYSCFG_I2CFastModePlusConfig
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .text.SYSCFG_EXTILineConfig
+                0x00000000       0x94 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .text.SYSCFG_BreakConfig
+                0x00000000       0x20 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .text.SYSCFG_GetFlagStatus
+                0x00000000       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .text.SYSCFG_ClearFlag
+                0x00000000       0x20 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_info    0x00000000      0x2b9 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_abbrev  0x00000000      0x14e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_aranges
+                0x00000000       0x58 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_ranges  0x00000000       0x48 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x83e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x80 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x44 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0xfd /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x22 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x1df /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x1f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x242 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000     0x5b9e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x2eb /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x3cf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x191 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x46 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0xd9 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0xef /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x184 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x7c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x295 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0xd5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x2b7 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x185 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x2a0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x70 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0xdf /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x522 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x4c5 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x396 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x750 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x353 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000       0x3a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_macro   0x00000000      0x17e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_line    0x00000000      0x697 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_str     0x00000000    0x3f5df /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .comment       0x00000000       0x6f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .debug_frame   0x00000000      0x110 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .ARM.attributes
+                0x00000000       0x31 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_syscfg.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_udivsi3.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_udivsi3.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_dvmd_tls.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_dvmd_tls.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-errno.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-errno.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-errno.o)
+ .text.__errno  0x00000000        0xc /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-errno.o)
+ .debug_frame   0x00000000       0x20 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-errno.o)
+ .ARM.attributes
+                0x00000000       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-errno.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-exit.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-exit.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-exit.o)
+ .text.exit     0x00000000       0x20 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-exit.o)
+ .debug_frame   0x00000000       0x28 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-exit.o)
+ .ARM.attributes
+                0x00000000       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-exit.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-impure.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-impure.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-impure.o)
+ .data._impure_ptr
+                0x00000000        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-impure.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-init.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-init.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-init.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-memset.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-memset.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-memset.o)
+ .text.memset   0x00000000       0x8c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-memset.o)
+ .debug_frame   0x00000000       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-memset.o)
+ .ARM.attributes
+                0x00000000       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-memset.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o)
+ .text.__call_exitprocs
+                0x00000000       0xfc /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-atexit.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-atexit.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-atexit.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-fini.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-fini.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-fini.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__atexit.o)
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__atexit.o)
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__atexit.o)
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtend.o
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtend.o
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtend.o
+ .eh_frame      0x00000000        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtend.o
+ .jcr           0x00000000        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtend.o
+ .text          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtn.o
+ .data          0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtn.o
+ .bss           0x00000000        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00020000         xr
+RAM              0x20000000         0x00004000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crti.o
+LOAD /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+LOAD /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+LOAD /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libm.a
+LOAD src/main.o
+LOAD src/syscalls.o
+LOAD src/system_stm32f0xx.o
+LOAD startup/startup_stm32f072.o
+LOAD /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a
+START GROUP
+LOAD /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a
+LOAD /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a
+END GROUP
+LOAD /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtend.o
+LOAD /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtn.o
+                0x20004000                _estack = 0x20004000
+                0x00000000                _Min_Heap_Size = 0x0
+                0x00000800                _Min_Stack_Size = 0x800
+
+.isr_vector     0x08000000       0xc0
+                0x08000000                . = ALIGN (0x4)
+ *(.isr_vector)
+ .isr_vector    0x08000000       0xc0 startup/startup_stm32f072.o
+                0x08000000                g_pfnVectors
+                0x080000c0                . = ALIGN (0x4)
+
+.text           0x080000c0      0x894
+                0x080000c0                . = ALIGN (0x4)
+ *(.text)
+ .text          0x080000c0       0xb4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+ .text          0x08000174      0x114 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_udivsi3.o)
+                0x08000174                __udivsi3
+                0x08000174                __aeabi_uidiv
+                0x08000280                __aeabi_uidivmod
+ .text          0x08000288        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_dvmd_tls.o)
+                0x08000288                __aeabi_ldiv0
+                0x08000288                __aeabi_idiv0
+ *(.text*)
+ .text.main     0x0800028c       0xac src/main.o
+                0x0800028c                main
+ .text.SystemInit
+                0x08000338       0x90 src/system_stm32f0xx.o
+                0x08000338                SystemInit
+ .text.SystemCoreClockUpdate
+                0x080003c8       0xec src/system_stm32f0xx.o
+                0x080003c8                SystemCoreClockUpdate
+ .text.SetSysClock
+                0x080004b4       0x68 src/system_stm32f0xx.o
+ .text.Reset_Handler
+                0x0800051c       0x50 startup/startup_stm32f072.o
+                0x0800051c                Reset_Handler
+ .text.Default_Handler
+                0x0800056c        0x2 startup/startup_stm32f072.o
+                0x0800056c                TIM1_CC_IRQHandler
+                0x0800056c                TSC_IRQHandler
+                0x0800056c                HardFault_Handler
+                0x0800056c                ADC1_COMP_IRQHandler
+                0x0800056c                SysTick_Handler
+                0x0800056c                PendSV_Handler
+                0x0800056c                NMI_Handler
+                0x0800056c                I2C1_IRQHandler
+                0x0800056c                RCC_CRS_IRQHandler
+                0x0800056c                SPI1_IRQHandler
+                0x0800056c                TIM6_DAC_IRQHandler
+                0x0800056c                USART3_4_IRQHandler
+                0x0800056c                EXTI2_3_IRQHandler
+                0x0800056c                I2C2_IRQHandler
+                0x0800056c                TIM17_IRQHandler
+                0x0800056c                CEC_CAN_IRQHandler
+                0x0800056c                RTC_IRQHandler
+                0x0800056c                PVD_VDDIO2_IRQHandler
+                0x0800056c                DMA1_Channel4_5_6_7_IRQHandler
+                0x0800056c                TIM16_IRQHandler
+                0x0800056c                TIM3_IRQHandler
+                0x0800056c                EXTI4_15_IRQHandler
+                0x0800056c                DMA1_Channel1_IRQHandler
+                0x0800056c                Default_Handler
+                0x0800056c                TIM14_IRQHandler
+                0x0800056c                TIM7_IRQHandler
+                0x0800056c                TIM15_IRQHandler
+                0x0800056c                EXTI0_1_IRQHandler
+                0x0800056c                USB_IRQHandler
+                0x0800056c                SPI2_IRQHandler
+                0x0800056c                SVC_Handler
+                0x0800056c                WWDG_IRQHandler
+                0x0800056c                TIM2_IRQHandler
+                0x0800056c                DMA1_Channel2_3_IRQHandler
+                0x0800056c                USART2_IRQHandler
+                0x0800056c                FLASH_IRQHandler
+                0x0800056c                USART1_IRQHandler
+                0x0800056c                TIM1_BRK_UP_TRG_COM_IRQHandler
+ *fill*         0x0800056e        0x2 
+ .text.STM_EVAL_LEDInit
+                0x08000570       0x7c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+                0x08000570                STM_EVAL_LEDInit
+ .text.STM_EVAL_LEDOn
+                0x080005ec       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+                0x080005ec                STM_EVAL_LEDOn
+ .text.STM_EVAL_LEDOff
+                0x08000620       0x34 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+                0x08000620                STM_EVAL_LEDOff
+ .text.GPIO_Init
+                0x08000654      0x130 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+                0x08000654                GPIO_Init
+ .text.RCC_AHBPeriphClockCmd
+                0x08000784       0x40 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+                0x08000784                RCC_AHBPeriphClockCmd
+ .text.__libc_init_array
+                0x080007c4       0x48 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-init.o)
+                0x080007c4                __libc_init_array
+ .text.startup.register_fini
+                0x0800080c       0x18 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o)
+ .text.atexit   0x08000824       0x10 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-atexit.o)
+                0x08000824                atexit
+ .text.__libc_fini_array
+                0x08000834       0x34 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-fini.o)
+                0x08000834                __libc_fini_array
+ .text.__register_exitproc
+                0x08000868       0xd4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__atexit.o)
+                0x08000868                __register_exitproc
+ *(.glue_7)
+ .glue_7        0x0800093c        0x0 linker stubs
+ *(.glue_7t)
+ .glue_7t       0x0800093c        0x0 linker stubs
+ *(.eh_frame)
+ .eh_frame      0x0800093c        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+ *(.init)
+ .init          0x0800093c        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crti.o
+                0x0800093c                _init
+ .init          0x08000940        0x8 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtn.o
+ *(.fini)
+ .fini          0x08000948        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crti.o
+                0x08000948                _fini
+ .fini          0x0800094c        0x8 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtn.o
+                0x08000954                . = ALIGN (0x4)
+                0x08000954                _etext = .
+
+.vfp11_veneer   0x08000954        0x0
+ .vfp11_veneer  0x08000954        0x0 linker stubs
+
+.v4_bx          0x08000954        0x0
+ .v4_bx         0x08000954        0x0 linker stubs
+
+.iplt           0x08000954        0x0
+ .iplt          0x08000954        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+
+.rodata         0x08000954       0x38
+                0x08000954                . = ALIGN (0x4)
+ *(.rodata)
+ .rodata        0x08000954       0x2d /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+                0x08000954                GPIO_PIN
+                0x0800095c                GPIO_CLK
+                0x0800096c                BUTTON_PIN
+                0x08000970                BUTTON_CLK
+                0x08000974                BUTTON_EXTI_LINE
+                0x08000978                BUTTON_PORT_SOURCE
+                0x0800097c                BUTTON_PIN_SOURCE
+                0x08000980                BUTTON_IRQn
+ *(.rodata*)
+ *fill*         0x08000981        0x3 
+ .rodata.str1.4
+                0x08000984        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-impure.o)
+                                  0x2 (size before relaxing)
+ .rodata._global_impure_ptr
+                0x08000988        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-impure.o)
+                0x08000988                _global_impure_ptr
+                0x0800098c                . = ALIGN (0x4)
+
+.rel.dyn        0x0800098c        0x0
+ .rel.iplt      0x0800098c        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM            0x0800098c        0x0
+                0x0800098c                __exidx_start = .
+ *(.ARM.exidx*)
+                0x0800098c                __exidx_end = .
+
+.preinit_array  0x0800098c        0x0
+                0x0800098c                PROVIDE (__preinit_array_start, .)
+ *(.preinit_array*)
+                0x0800098c                PROVIDE (__preinit_array_end, .)
+
+.init_array     0x0800098c        0x8
+                0x0800098c                PROVIDE (__init_array_start, .)
+ *(SORT(.init_array.*))
+ .init_array.00000
+                0x0800098c        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o)
+ *(.init_array*)
+ .init_array    0x08000990        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+                0x08000994                PROVIDE (__init_array_end, .)
+
+.fini_array     0x08000994        0x4
+                0x08000994                PROVIDE (__fini_array_start, .)
+ *(SORT(.fini_array.*))
+ *(.fini_array*)
+ .fini_array    0x08000994        0x4 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+                0x08000998                PROVIDE (__fini_array_end, .)
+                0x08000998                _sidata = LOADADDR (.data)
+
+.data           0x20000000      0x450 load address 0x08000998
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sdata = .
+ *(.data)
+ .data          0x20000000       0x14 src/system_stm32f0xx.o
+                0x20000000                SystemCoreClock
+                0x20000004                AHBPrescTable
+ .data          0x20000014       0x14 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+                0x20000014                GPIO_PORT
+                0x20000024                BUTTON_PORT
+ *(.data*)
+ .data.impure_data
+                0x20000028      0x428 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-impure.o)
+                0x20000450                . = ALIGN (0x4)
+                0x20000450                _edata = .
+
+.jcr            0x20000450        0x0 load address 0x08000de8
+ .jcr           0x20000450        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+
+.tm_clone_table
+                0x20000450        0x0 load address 0x08000de8
+ .tm_clone_table
+                0x20000450        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+ .tm_clone_table
+                0x20000450        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtend.o
+
+.igot.plt       0x20000450        0x0 load address 0x08000de8
+ .igot.plt      0x20000450        0x0 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+                0x20000450                . = ALIGN (0x4)
+
+.bss            0x20000450       0x1c load address 0x08000de8
+                0x20000450                _sbss = .
+                0x20000450                __bss_start__ = _sbss
+ *(.bss)
+ .bss           0x20000450       0x1c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+ *(.bss*)
+ *(COMMON)
+                0x2000046c                . = ALIGN (0x4)
+                0x2000046c                _ebss = .
+                0x2000046c                __bss_end__ = _ebss
+
+._user_heap_stack
+                0x2000046c      0x804 load address 0x08000de8
+                0x20000470                . = ALIGN (0x8)
+ *fill*         0x2000046c        0x4 
+                0x20000470                PROVIDE (end, .)
+                [!provide]                PROVIDE (_end, .)
+                0x20000470                . = (. + _Min_Heap_Size)
+                0x20000c70                . = (. + _Min_Stack_Size)
+ *fill*         0x20000470      0x800 
+                0x20000c70                . = ALIGN (0x8)
+
+/DISCARD/
+ libc.a(*)
+ libm.a(*)
+ libgcc.a(*)
+
+.ARM.attributes
+                0x00000000       0x28
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x00000000       0x1e /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crti.o
+ .ARM.attributes
+                0x0000001e       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtbegin.o
+ .ARM.attributes
+                0x0000004a       0x31 src/main.o
+ .ARM.attributes
+                0x0000007b       0x31 src/system_stm32f0xx.o
+ .ARM.attributes
+                0x000000ac       0x21 startup/startup_stm32f072.o
+ .ARM.attributes
+                0x000000cd       0x31 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .ARM.attributes
+                0x000000fe       0x31 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .ARM.attributes
+                0x0000012f       0x31 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .ARM.attributes
+                0x00000160       0x1e /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x0000017e       0x1e /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x0000019c       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-impure.o)
+ .ARM.attributes
+                0x000001c8       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-init.o)
+ .ARM.attributes
+                0x000001f4       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o)
+ .ARM.attributes
+                0x00000220       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-atexit.o)
+ .ARM.attributes
+                0x0000024c       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-fini.o)
+ .ARM.attributes
+                0x00000278       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__atexit.o)
+ .ARM.attributes
+                0x000002a4       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtend.o
+ .ARM.attributes
+                0x000002d0       0x1e /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/crtn.o
+OUTPUT(my_project.elf elf32-littlearm)
+
+.debug_info     0x00000000     0x1b8d
+ .debug_info    0x00000000       0xbe src/main.o
+ .debug_info    0x000000be      0x2cb src/system_stm32f0xx.o
+ .debug_info    0x00000389       0x70 startup/startup_stm32f072.o
+ .debug_info    0x000003f9      0x757 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_info    0x00000b50      0x5ef /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_info    0x0000113f      0xa4e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+
+.debug_abbrev   0x00000000      0x6b7
+ .debug_abbrev  0x00000000       0x6e src/main.o
+ .debug_abbrev  0x0000006e      0x11a src/system_stm32f0xx.o
+ .debug_abbrev  0x00000188       0x12 startup/startup_stm32f072.o
+ .debug_abbrev  0x0000019a      0x186 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_abbrev  0x00000320      0x1a4 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_abbrev  0x000004c4      0x1f3 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+
+.debug_aranges  0x00000000      0x2a0
+ .debug_aranges
+                0x00000000       0x20 src/main.o
+ .debug_aranges
+                0x00000020       0x30 src/system_stm32f0xx.o
+ .debug_aranges
+                0x00000050       0x28 startup/startup_stm32f072.o
+ .debug_aranges
+                0x00000078       0x48 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_aranges
+                0x000000c0       0x80 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_aranges
+                0x00000140      0x160 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+
+.debug_ranges   0x00000000      0x248
+ .debug_ranges  0x00000000       0x10 src/main.o
+ .debug_ranges  0x00000010       0x20 src/system_stm32f0xx.o
+ .debug_ranges  0x00000030       0x20 startup/startup_stm32f072.o
+ .debug_ranges  0x00000050       0x38 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_ranges  0x00000088       0x70 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_ranges  0x000000f8      0x150 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+
+.debug_macro    0x00000000     0xb400
+ .debug_macro   0x00000000      0x183 src/main.o
+ .debug_macro   0x00000183      0x844 src/main.o
+ .debug_macro   0x000009c7       0x80 src/main.o
+ .debug_macro   0x00000a47       0x3a src/main.o
+ .debug_macro   0x00000a81       0x22 src/main.o
+ .debug_macro   0x00000aa3       0x44 src/main.o
+ .debug_macro   0x00000ae7       0xfd src/main.o
+ .debug_macro   0x00000be4       0x22 src/main.o
+ .debug_macro   0x00000c06      0x1df src/main.o
+ .debug_macro   0x00000de5       0x1f src/main.o
+ .debug_macro   0x00000e04      0x242 src/main.o
+ .debug_macro   0x00001046     0x5b9e src/main.o
+ .debug_macro   0x00006be4      0x2eb src/main.o
+ .debug_macro   0x00006ecf      0x3cf src/main.o
+ .debug_macro   0x0000729e      0x191 src/main.o
+ .debug_macro   0x0000742f       0x46 src/main.o
+ .debug_macro   0x00007475       0xd9 src/main.o
+ .debug_macro   0x0000754e       0xef src/main.o
+ .debug_macro   0x0000763d      0x184 src/main.o
+ .debug_macro   0x000077c1       0x7c src/main.o
+ .debug_macro   0x0000783d      0x295 src/main.o
+ .debug_macro   0x00007ad2       0xd5 src/main.o
+ .debug_macro   0x00007ba7      0x2b7 src/main.o
+ .debug_macro   0x00007e5e      0x185 src/main.o
+ .debug_macro   0x00007fe3      0x184 src/main.o
+ .debug_macro   0x00008167      0x2a0 src/main.o
+ .debug_macro   0x00008407       0x70 src/main.o
+ .debug_macro   0x00008477       0xdf src/main.o
+ .debug_macro   0x00008556      0x522 src/main.o
+ .debug_macro   0x00008a78      0x4c5 src/main.o
+ .debug_macro   0x00008f3d      0x396 src/main.o
+ .debug_macro   0x000092d3      0x750 src/main.o
+ .debug_macro   0x00009a23      0x353 src/main.o
+ .debug_macro   0x00009d76       0x34 src/main.o
+ .debug_macro   0x00009daa       0x3a src/main.o
+ .debug_macro   0x00009de4       0x88 src/main.o
+ .debug_macro   0x00009e6c      0x186 src/system_stm32f0xx.o
+ .debug_macro   0x00009ff2      0x189 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x0000a17b      0x83e /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x0000a9b9       0x82 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_macro   0x0000aa3b      0x188 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x0000abc3      0x17f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_macro   0x0000ad42      0x1a2 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_macro   0x0000aee4      0x51c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+
+.debug_line     0x00000000     0x24ac
+ .debug_line    0x00000000      0x673 src/main.o
+ .debug_line    0x00000673      0x641 src/system_stm32f0xx.o
+ .debug_line    0x00000cb4       0x80 startup/startup_stm32f072.o
+ .debug_line    0x00000d34      0x69a /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_line    0x000013ce      0x743 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_line    0x00001b11      0x99b /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+
+.debug_str      0x00000000    0x40429
+ .debug_str     0x00000000    0x3f509 src/main.o
+                              0x3f664 (size before relaxing)
+ .debug_str     0x0003f509      0x13e src/system_stm32f0xx.o
+                              0x3f546 (size before relaxing)
+ .debug_str     0x0003f647      0x683 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+                              0x3fd1a (size before relaxing)
+ .debug_str     0x0003fcca      0x17c /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+                              0x3f750 (size before relaxing)
+ .debug_str     0x0003fe46      0x5e3 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+                              0x3fb0d (size before relaxing)
+
+.comment        0x00000000       0x6e
+ .comment       0x00000000       0x6e src/main.o
+                                 0x6f (size before relaxing)
+ .comment       0x0000006e       0x6f src/system_stm32f0xx.o
+ .comment       0x0000006e       0x6f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .comment       0x0000006e       0x6f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .comment       0x0000006e       0x6f /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+
+.debug_frame    0x00000000      0x970
+ .debug_frame   0x00000000       0x30 src/main.o
+ .debug_frame   0x00000030       0x6c src/system_stm32f0xx.o
+ .debug_frame   0x0000009c       0xd0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f072b_discovery.o)
+ .debug_frame   0x0000016c      0x1b0 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_gpio.o)
+ .debug_frame   0x0000031c      0x524 /home/chrisg/workspace_stm/stm32f072b-disco_stdperiph_lib/Debug/libstm32f072b-disco_stdperiph_lib.a(stm32f0xx_rcc.o)
+ .debug_frame   0x00000840       0x20 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/armv6-m/libgcc.a(_udivsi3.o)
+ .debug_frame   0x00000860       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-init.o)
+ .debug_frame   0x0000088c       0x54 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x000008e0       0x28 /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-atexit.o)
+ .debug_frame   0x00000908       0x2c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-fini.o)
+ .debug_frame   0x00000934       0x3c /home/chrisg/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.7.0.201602291252/tools/compiler/bin/../lib/gcc/arm-none-eabi/5.2.1/../../../../arm-none-eabi/lib/armv6-m/libc.a(lib_a-__atexit.o)
