@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>CAN_Abstraction</name>
+	<name>CANLIB_DEV</name>
 	<comment></comment>
 	<projects>
 		<project>stm32f072b-disco_hal_lib</project>
