@@ -2,7 +2,87 @@
  * canlib.h
  *
  *  Created on: Jul 6, 2016
- *      Author: ryan
+ *      Initial author: ryan
+ *
+ *
+ *  CAN TRANSMISSION DATA ARRAY VISUALIZATION:
+ *
+ *  |Byte  1 |Byte  2 |Byte  3 |Byte  4 |||Byte  5 |Byte  6 |Byte  7 |Byte  8 |
+ *  |        |        |        |        |||        |        |        |        |
+ *  |01001100|10101010|00100110|00000101|||11101010|00000000|11111111|10101010|
+ *	|________|________|________|________|||________|________|________|________|
+ *
+ *  ^--------ZEROTH 32-bit index-------^  ^--------FIRST 32-bit index---------^
+ *
+ *  Using CANLIB_Tx_SendData() will send these bytes:
+ *
+ *  CANLIB_DLC_FIRST_BYTE: Byte 1
+ *  CANLIB_DLC_TWO_BYTES: Byte 1 and Byte 2
+ *  CANLIB_DLC_THREE_BYTES: Byte 1 and Byte 2 and Byte 3
+ *  .
+ *  .
+ *  .
+ *  CANLIB_DLC_ALL_BYTES: Byte 1 and Byte 2 and Byte 3 and Byte 4 and
+ *                         Byte 5 and Byte 6 and Byte 7 and Byte 8
+ *
+ *
+ *
+ *
+ *  CANLIB USAGE:
+ *
+ *  1) Initialize HAL, configure clock and other peripherals as per usual.
+ *      Do not bother with initializing any GPIOs or anything relating to CAN
+ *  2) Call CANLIB_Init() just once with a node ID as a parameter (this can be changed)
+ *  3) Add Rx filters to the CAN system by calling CANLIB_AddFilter()
+ *      This takes the node ID of the node you want to receive messages from
+ *      This should be called only once per different node ID parameter
+ *  4) Then, transmit and receive messages at your will!
+ *
+ *  TRANSMITTING MESSAGES:
+ *  Messages can be transmitted in effectively 2 different patterns, so take your pick:
+ *
+ *  1) If you already have a byte array, use CANLIB_SendBytes() to send that byte array
+ *      in one line of code.
+ *      This is easy and efficient.
+ *      The side effect of this is that the CAN ID of the node will be changed to the
+ *       value provided.
+ *
+ *  2) If you want to send an int, uint, etc..., set the ID, data, and send the data
+ *      yourself with CANLIB_ChangeID(), CANLIB_Tx_SetUint() [the Tx set function for
+ *      32-bit or less uint data, for example, and CANLIB_Tx_SendData().
+ *
+ *      - CANLIB_ChangeID() need not be called, if you want to send a CAN frame with
+ *         the same ID as set by the last call to this function, or an ID setting function
+ *      - Using the appropriate Tx set function for your data, followed by CANLIB_Tx_SendData()
+ *         is enough to send the data. Ensure that the DLC parameter supplied to the latter
+ *         function is sufficient to send all of the data!
+ *
+ *  RECEIVING MESSAGES:
+ *  Within YOUR OWN CODE, implement CANLIB_Rx_OnMessageReceived().
+ *  Within CANLIB_Rx_OnMessageReceived(), all Rx functions can be used. Therefore, a possible
+ *  pattern to follow to handle CAN messages is:
+ *
+ *  - Switch on the ID of the sender (which can be determined by calling CANLIB_Rx_GetSenderID() )
+ *     Ideally, this will tell you what the type of the message is
+ *  - Get the DLC of the message, if dealing with an incoming message of a byte array of unknown size, for example
+ *     This can be done by calling uint8_t CANLIB_Rx_GetDLC()
+ *  - Get the message using the appropriate Rx get function, based on the message type
+ *     If preferred, copy the value of these variables into global variables so that they may be
+ *     accessed outside of this function
+ *
+ *
+ *  ADDITIONAL NOTES:
+ *  - If you would like to clear the Tx byte array, CANLIB_ClearDataArray() will set all 8 bytes to 0.
+ *  - To use method 2) of transmitting messages, if you are only sending one integer, for example, ensure
+ *     that your call to CANLIB_Tx_SetInt() indicates the zeroth index as the index parameter (CANLIB_INDEX_0).
+ *     This is because CANLIB_Tx_SendData(uint8_t dlc) sends data with length of the dlc starting from the LSB of the
+ *     data array.
+ *
+ *     If you would like to send 2 32-bit integers at once, however, assign one int to the zeroth, and the
+ *     other to the first index. Then calling CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES) will send all 8 bytes, or the
+ *     entirety of 2 integers.
+ *  - CAN IRQ priority is set to 0. Do not set tick priority to 0 or CAN interrupts will probably not be handled
+ *
  */
 
 #ifndef CANLIB_H_
@@ -36,6 +116,18 @@
 #define CAN_IDE_TYPE			CAN_ID_STD
 #define CAN_RTR_TYPE			CAN_RTR_DATA
 
+
+#define CANLIB_DLC_FIRST_BYTE		1
+#define CANLIB_DLC_TWO_BYTES		2
+#define CANLIB_DLC_THREE_BYTES		3
+#define CANLIB_DLC_FOUR_BYTES		4
+#define CANLIB_DLC_FIVE_BYTES		5
+#define CANLIB_DLC_SIX_BYTES		6
+#define CANLIB_DLC_SEVEN_BYTES		7
+#define CANLIB_DLC_ALL_BYTES		8
+
+#define CANLIB_INDEX_0				0
+#define CANLIB_INDEX_1				1
 /* Union structures used for encoding and decoding various types and byte arrays
  * The code is compiled for little endian processors so this is fine
  */
@@ -82,6 +174,7 @@ void CANLIB_ChangeID(uint32_t node_ID);
 int CANLIB_AddFilter(uint16_t id);
 
 //Tx Functions
+void CANLIB_ClearDataArray();
 void CANLIB_Tx_SendData(uint8_t dlc);
 
 void CANLIB_Tx_SetDataWord(encoding_union* this_union, uint8_t offset);

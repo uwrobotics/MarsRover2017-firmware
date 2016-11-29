@@ -67,6 +67,7 @@ int CANLIB_NetworkInit(){
 		return -1;
 	}
 
+	//This will allow all CAN messages to pass through the filter
 	/*CAN_FilterConfTypeDef sFilterConfig;
 	sFilterConfig.FilterNumber = 0;
 	sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
@@ -85,18 +86,16 @@ int CANLIB_NetworkInit(){
 
 
 	if(HAL_CAN_Receive_IT(&CAN_HandleStruct, CAN_INIT_FIFO) != HAL_OK){
-		return -3;
+		return -2;
 	}
 
 	return 0;
 }
 
-int CANLIB_NodeInit(uint32_t id){
+void CANLIB_NodeInit(uint32_t id){
 	CAN_HandleStruct.pTxMsg->StdId = id;
 	CAN_HandleStruct.pTxMsg->IDE = CAN_IDE_TYPE;
 	CAN_HandleStruct.pTxMsg->RTR = CAN_RTR_TYPE;
-
-	return 0;
 }
 
 void CANLIB_ChangeID(uint32_t node_ID){
@@ -135,9 +134,7 @@ int CANLIB_Init(uint32_t node_id){
         return -1;
     }
 
-    if(CANLIB_NodeInit(node_id) != 0){
-    	return -2;
-    }
+    CANLIB_NodeInit(node_id);
 
     return 0;
 }
@@ -147,8 +144,6 @@ void CANLIB_ClearDataArray(){
 	for(int i = 0; i<8; i++){
 		CAN_HandleStruct.pTxMsg->Data[i] = 0;
 	}
-
-	CAN_HandleStruct.pTxMsg->DLC = 0;
 }
 
 //--Message Encoding Functions

@@ -5,6 +5,11 @@
   * @version V1.0
   * @date    01-December-2013
   * @brief   Default main function.
+  *
+  *
+  * This file exists to demonstrate basic use of the CAN library for Waterloo
+  * Mars Rover. It's a very contrived and simple 'blink' example, basically.
+  * This is meant to run in loopback mode (on one dev board).
   ******************************************************************************
 */
 
@@ -13,12 +18,14 @@
 #include "canlib.h"
 #include "stm32f072b_discovery.h"
 
-//Tx testing stuff
+//Globals that we send
+//  Any variables or arrays used for transmission can
+//  be local as well
 uint8_t array[8] = {1,2,3,4,5,6,7,8};
 uint32_t number1 = 32423432;
 
 
-//Rx Testing stuff
+//Globals used for receiving values within the CAN callback function
 uint8_t received_bytes[8];
 uint32_t received_number;
 uint32_t wrongly_received_number;
@@ -36,11 +43,29 @@ void HAL_MspInit(void) {
 
 int main(void)
 {
+	//Always call. Enables prefetch and calls above function
 	HAL_Init();
 
 	setup_test();
 
-	(void)CANLIB_Init(1);
+	/* First relevant thing: Initialize CAN communication handler
+	 * The input parameter to CANLIB_Init() is the node ID you want this node to have.
+	 * In this case, we start with a node ID of 1
+	 */
+	switch(CANLIB_Init(1)){
+		case 0:
+			//Initialization of CAN handler successful
+			break;
+		case -1:
+			//Initialization of CAN handler not successful
+			break;
+		default:
+			break;
+	}
+
+	//Using CANLIB_AddFilter() will allow you to specify who this node can receive messages from
+	// according to the sender node ID. This ensures less CAN interrupts
+	//Without calling this function, no messages will be received
 	CANLIB_AddFilter(10);
 	CANLIB_AddFilter(3);
 	CANLIB_AddFilter(4);
@@ -49,10 +74,16 @@ int main(void)
 
 	while(1){
 
-		if(CANLIB_SendBytes(array, 8, 3)){
+		//Send the byte array from above, return if unsuccessful
+		//Notice that all 8 bytes of the byte array are being sent, and
+		//the node ID of this node is changed to 3 before this message is sent
+		if(CANLIB_SendBytes(array, CANLIB_DLC_ALL_BYTES, 3)){
 			return -1;
 		}
+
 		HAL_Delay(100);
+		//If the bits received are what we sent, light the green LED on PC9
+		// else, light the red LED on PC8
 		for(int i = 0; i < 8; i++){
 			if (received_bytes[i] == i+1){
 				HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9,GPIO_PIN_SET);
@@ -109,7 +140,13 @@ int main(void)
 	return 0;
 }
 
+//This has NOTHING to do with the CAN library, but something similar is done in all
+// All STM32Cube code has similar initialization: First the clocks, peripheral clocks
+// then GPIOs and other things are initialized
+// Here, we set up clocks and PC8 and PC9 as outputs for they are on LEDs that we want
+// to flicker.
 void setup_test(){
+
 	RCC_ClkInitTypeDef RCC_ClkStruct;
 	RCC_OscInitTypeDef RCC_OscStruct;
 
@@ -136,11 +173,10 @@ void setup_test(){
 
 	/* Enable appropriate peripheral clocks */
 	__SYSCFG_CLK_ENABLE();
-	__GPIOA_CLK_ENABLE();
 	__GPIOC_CLK_ENABLE();
 
 	GPIO_InitTypeDef GPIO_InitStruct = {
-			.Pin = GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_9 | GPIO_PIN_8,
+			.Pin = GPIO_PIN_9 | GPIO_PIN_8,
 			.Mode = GPIO_MODE_OUTPUT_PP,
 			.Pull = GPIO_NOPULL,
 			.Speed = GPIO_SPEED_FREQ_HIGH
