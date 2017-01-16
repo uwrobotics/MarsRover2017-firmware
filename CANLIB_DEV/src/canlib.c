@@ -18,6 +18,9 @@ CanRxMsgTypeDef RxMessage;
 return_struct received_message;
 uint8_t filterCount = 0;
 
+//Function not part of API so declared in here for internal use
+void        CANLIB_Rx_Decode();
+
 void CEC_CAN_IRQHandler()
 {
 	HAL_CAN_IRQHandler(&CAN_HandleStruct);
@@ -43,7 +46,7 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan){
 
 }
 
-int CANLIB_NetworkInit(){
+int CANLIB_NetworkInit(uint8_t isLoopbackOn){
 
 	CAN_HandleStruct.Instance = CAN_PORT;
 
@@ -52,7 +55,11 @@ int CANLIB_NetworkInit(){
 	CAN_HandleStruct.Init.AWUM = CAN_INIT_AWUM;
 	CAN_HandleStruct.Init.BS1 = CAN_INIT_BS1;
 	CAN_HandleStruct.Init.BS2 = CAN_INIT_BS2;
-	CAN_HandleStruct.Init.Mode = CAN_INIT_MODE;
+	if (isLoopbackOn){
+		CAN_HandleStruct.Init.Mode = CAN_MODE_LOOPBACK;
+	} else {
+		CAN_HandleStruct.Init.Mode = CAN_INIT_MODE;
+	}
 	CAN_HandleStruct.Init.NART = CAN_INIT_NART;
 	CAN_HandleStruct.Init.RFLM = CAN_INIT_RFLM;
 	CAN_HandleStruct.Init.SJW = CAN_INIT_SJW;
@@ -67,7 +74,7 @@ int CANLIB_NetworkInit(){
 		return -1;
 	}
 
-	//This will allow all CAN messages to pass through the filter
+	//This following code will allow all CAN messages to pass through the filter
 	/*CAN_FilterConfTypeDef sFilterConfig;
 	sFilterConfig.FilterNumber = 0;
 	sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
@@ -128,9 +135,9 @@ int CANLIB_AddFilter(uint16_t id){
 	return 0;
 }
 
-int CANLIB_Init(uint32_t node_id){
+int CANLIB_Init(uint32_t node_id, uint8_t isLoopbackOn){
 
-    if(CANLIB_NetworkInit() != 0){
+    if(CANLIB_NetworkInit(isLoopbackOn) != 0){
         return -1;
     }
 
@@ -202,21 +209,21 @@ void CANLIB_Tx_SetChar(char c, uint8_t index){
 	CAN_HandleStruct.pTxMsg->Data[index] = (uint8_t)c;
 }
 
-void CANLIB_Tx_SetDouble(double message, uint8_t index){
+void CANLIB_Tx_SetDouble(double message){
 	encoding_union double_union;
 	double_union.dub = message;
 
 	CANLIB_Tx_SetBytes(double_union.byte_array, 8);
 }
 
-void CANLIB_Tx_SetLongUint(uint64_t message, uint8_t index){
+void CANLIB_Tx_SetLongUint(uint64_t message){
 	encoding_union uint_union;
 	uint_union.long_uinteger = message;
 
 	CANLIB_Tx_SetBytes(uint_union.byte_array, 8);
 }
 
-void CANLIB_Tx_SetLongInt(int64_t message, uint8_t index){
+void CANLIB_Tx_SetLongInt(int64_t message){
 	encoding_union int_union;
 	int_union.long_integer = message;
 
@@ -232,6 +239,8 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* hcan){
 	}
 }
 
+//Purpose of this is to take the received data array and put it into our own data structure.
+// Can be later expanded such that we can maintain a queue of these messages in the event they come too quickly for the user code
 void CANLIB_Rx_Decode(){
 	received_message.DLC = (uint8_t) CAN_HandleStruct.pRxMsg->DLC;
 	received_message.transmitter_ID = CAN_HandleStruct.pRxMsg->StdId;

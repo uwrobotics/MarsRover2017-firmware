@@ -51,8 +51,9 @@ int main(void)
 	/* First relevant thing: Initialize CAN communication handler
 	 * The input parameter to CANLIB_Init() is the node ID you want this node to have.
 	 * In this case, we start with a node ID of 1
+	 * This demo was developed with 1 board, so loopback mode is ON
 	 */
-	switch(CANLIB_Init(1)){
+	switch(CANLIB_Init(1, CANLIB_LOOPBACK_ON)){
 		case 0:
 			//Initialization of CAN handler successful
 			break;
@@ -99,11 +100,16 @@ int main(void)
 
 		HAL_Delay(1000);
 
+		//Here, we change the node ID to 10, put a 32 bit uint in the 4 LSBs of the
+		// CAN data array (indicated by CANLIB_INDEX_0), and send the first 4 bytes.
 		CANLIB_ChangeID(10);
-		CANLIB_Tx_SetUint(number1, 0);
-		CANLIB_Tx_SendData(4);
+		CANLIB_Tx_SetUint(number1, CANLIB_INDEX_0);
+		CANLIB_Tx_SendData(CANLIB_DLC_FOUR_BYTES);
 		HAL_Delay(100);
 
+		//If the number received from the callback is the same as the one sent,
+		// turn on the green LED.
+		// Else, turn on the red LED.
 		if (received_number == number1){
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9,GPIO_PIN_SET);
 		} else {
@@ -117,9 +123,18 @@ int main(void)
 
 		HAL_Delay(1000);
 
+		//Change the ID to 5 and send the SAME 4 BYTES
+		//This is because the CAN data array is PERSISTENT, so number1 is sent again,
+		// just with a different node ID
 		CANLIB_ChangeID(5);
 		CANLIB_Tx_SendData(4);
 
+		//The green LED will turn on if the number received in the default case is equal to
+		// the number sent. This WOULD run if the message above triggered an Rx interrupt, as
+		// there is no case to receive messages from a node with ID of 5. However, the
+		// interrupt never fires. This is the expected behaviour, because we never set up a filter
+		// to receive messages from nodes with ID of 5!
+		// Therefore, the red LED will turn on
 		if (wrongly_received_number == number1){
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9,GPIO_PIN_SET);
 		} else {
@@ -134,8 +149,6 @@ int main(void)
 		HAL_Delay(1000);
 
 	}
-
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9,GPIO_PIN_SET);
 
 	return 0;
 }
@@ -185,6 +198,9 @@ void setup_test(){
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
 
+//This is the CAN Rx function to implement
+//Do anything you want in here, but it makes sense to do something similar to below:
+// Switch on the node ID of who sends the message, and interpret
 void CANLIB_Rx_OnMessageReceived(){
 	switch(CANLIB_Rx_GetSenderID()){
 		case 3:

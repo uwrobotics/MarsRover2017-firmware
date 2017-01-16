@@ -33,6 +33,10 @@
  *  1) Initialize HAL, configure clock and other peripherals as per usual.
  *      Do not bother with initializing any GPIOs or anything relating to CAN
  *  2) Call CANLIB_Init() just once with a node ID as a parameter (this can be changed)
+ *      The other paramater, isLoopbackOn, should be set to CANLIB_LOOPBACK_ON only
+ *      if testing the CAN network functionality with 1 board, in which case the CAN frames
+ *      transmitted by this board will be received by the same board instead of being broadcast
+ *      on the network. Otherwise, set this parameter to CAN_LOOPBACK_OFF
  *  3) Add Rx filters to the CAN system by calling CANLIB_AddFilter()
  *      This takes the node ID of the node you want to receive messages from
  *      This should be called only once per different node ID parameter
@@ -101,7 +105,7 @@
 #define CAN_GPIO_ALTERNATE		GPIO_AF4_CAN
 #define CAN_PORT				CAN
 #define CAN_INIT_PRESCALER		6
-#define CAN_INIT_MODE			CAN_MODE_LOOPBACK
+#define CAN_INIT_MODE			CAN_MODE_NORMAL
 #define CAN_INIT_SJW			CAN_SJW_1TQ
 #define CAN_INIT_BS1			CAN_BS1_12TQ
 #define CAN_INIT_BS2			CAN_BS2_3TQ
@@ -128,6 +132,13 @@
 
 #define CANLIB_INDEX_0				0
 #define CANLIB_INDEX_1				1
+
+#define CANLIB_FIRST_WORD_OFFSET    0
+#define CANLIB_SECOND_WORD_OFFSET   4
+
+#define CANLIB_LOOPBACK_OFF         0
+#define CANLIB_LOOPBACK_ON          1
+
 /* Union structures used for encoding and decoding various types and byte arrays
  * The code is compiled for little endian processors so this is fine
  */
@@ -169,49 +180,74 @@ typedef struct{
 } return_struct;
 
 //Initialization/Handling function
-int CANLIB_Init(uint32_t node_ID);
+// Read header docs for information
+int CANLIB_Init(uint32_t node_ID, uint8_t isLoopbackOn);
 void CANLIB_ChangeID(uint32_t node_ID);
 int CANLIB_AddFilter(uint16_t id);
 
 //Tx Functions
+
+//Clear the 8 byte data array to be sent in CAN frames. May be called automatically by some functions
 void CANLIB_ClearDataArray();
+//Sends whatever is in the data array with the specified DLC. The node ID will be the current set node ID
 void CANLIB_Tx_SendData(uint8_t dlc);
 
+//Sets a word in the data array. Offset specifies which byte to start at in the data array.
+//Offset of 0 will fill in the 0th, 1st, 2nd and 3rd index in the array to the value of the union
+//This offset value can be CANLIB_FIRST_WORD_OFFSET or CANLIB_SECOND_WORD_OFFSET, or any of 0,1,2,3,4
 void CANLIB_Tx_SetDataWord(encoding_union* this_union, uint8_t offset);
 
+//Sets one byte in the data array
 void CANLIB_Tx_SetByte(uint8_t byte, uint8_t index);
+//Sets multiple bytes in the data array, starting from the first byte
+//8 bytes maximum (size of data array)
 void CANLIB_Tx_SetBytes(uint8_t* byte_array, uint8_t array_size);
 
+//Sets one character the data array, at the specified index
 void CANLIB_Tx_SetChar(char c, uint8_t index);
+//Sets array of characters in data array, similar to a byte array
+//Note this array of characters need not be a null-terminated one
+//8 characters maximum
 void CANLIB_Tx_SetChars(char *string, uint8_t char_count);
 
+//Sets 32 bit values into the data array
+//Index can be a value of CANLIB_INDEX_1 or CANLIB_INDEX_0
+//See header doc for more details
 void CANLIB_Tx_SetUint(uint32_t message, uint8_t index);
 void CANLIB_Tx_SetInt(int32_t message, uint8_t index);
 void CANLIB_Tx_SetFloat(float message, uint8_t index);
-void CANLIB_Tx_SetDouble(double message, uint8_t index);
-void CANLIB_Tx_SetLongUint(uint64_t message, uint8_t index);
-void CANLIB_Tx_SetLongInt(int64_t message, uint8_t index);
+
+//Sets 64 bit values in the data array
+void CANLIB_Tx_SetDouble(double message);
+void CANLIB_Tx_SetLongUint(uint64_t message);
+void CANLIB_Tx_SetLongInt(int64_t message);
 
 //Rx Functions
 
 //OnMessageReceived() is called when message is received
 //	Must be user implemented
 __weak void CANLIB_Rx_OnMessageReceived();
-void CANLIB_Rx_Decode();
-uint8_t CANLIB_Rx_GetSenderID();
-uint8_t CANLIB_Rx_GetDLC();
-uint8_t CANLIB_Rx_GetSingleByte(uint8_t byte_index);
-uint8_t CANLIB_Rx_GetSingleChar(uint8_t index);
-void CANLIB_Rx_GetBytes(uint8_t* byte_array);
-void CANLIB_Rx_GetChars(char* char_array);
-uint32_t CANLIB_Rx_GetAsUint(uint8_t uint_num);
-int32_t CANLIB_Rx_GetAsInt(uint8_t int_num);
-float CANLIB_Rx_GetAsFloat(uint8_t float_num);
-int64_t CANLIB_Rx_GetAsLongInt();
-uint64_t CANLIB_Rx_GetAsLongUint();
-double CANLIB_Rx_GetAsDouble();
+
+//Functions for getting CAN frame details
+uint8_t     CANLIB_Rx_GetSenderID();
+uint8_t     CANLIB_Rx_GetDLC();
+
+//All following functions can be used in OnMessageReceived() to get the received byte array as some other type
+// See header docs for more instructions
+uint8_t     CANLIB_Rx_GetSingleByte(uint8_t byte_index);
+uint8_t     CANLIB_Rx_GetSingleChar(uint8_t index);
+void        CANLIB_Rx_GetBytes(uint8_t* byte_array);
+void        CANLIB_Rx_GetChars(char* char_array);
+uint32_t    CANLIB_Rx_GetAsUint(uint8_t uint_num);
+int32_t     CANLIB_Rx_GetAsInt(uint8_t int_num);
+float       CANLIB_Rx_GetAsFloat(uint8_t float_num);
+int64_t     CANLIB_Rx_GetAsLongInt();
+uint64_t    CANLIB_Rx_GetAsLongUint();
+double      CANLIB_Rx_GetAsDouble();
 
 //Convenience functions
+
+//CANLIB_SendBytes: sends a byte array of size "array_size" with CAN node id "id" in one function call
 uint8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id);
 
 #endif
