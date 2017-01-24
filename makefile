@@ -6,17 +6,19 @@ OBJCOPY=arm-none-eabi-objcopy
 OBJDUMP=arm-none-eabi-objdump
 SIZE=arm-none-eabi-size
 
+BUILD_PATH = $(BASE_PATH)/$(APP_FOLDER)/build
+PROJ_PATH = $(BUILD_PATH)/$(PROJECT)
+
 #os dependent code
 ifeq ($(OS),Windows_NT)
 REMOVE_PROGRAM = del
 GCC_INC = -IC:/Program\ Files\ (x86)/GNU\ Tools\ ARM\ Embedded/4.9\ 2015q3/arm-none-eabi/include
+CLEAN_PATH = "$(BUILD_PATH)\*.elf" "$(BUILD_PATH)\*.bin" "$(BUILD_PATH)\*.hex" "$(BUILD_PATH)\*.lst"
 else
 REMOVE_PROGRAM = rm -f
+CLEAN_PATH = $(BUILD_PATH)/*.elf $(BUILD_PATH)/*.bin $(BUILD_PATH)/*.hex $(BUILD_PATH)/*.lst
 GCC_INC = 
 endif
-
-BUILD_PATH = $(BASE_PATH)/$(APP_FOLDER)/build
-PROJ_PATH = $(BUILD_PATH)/$(PROJECT)
 
 HAL = $(BASE_PATH)/stm32f072b-disco_hal_lib
 # Location of the Libraries folder from the STM32F0xx Standard Peripheral Library
@@ -56,7 +58,7 @@ OBJS = $(SRCS:.c=.o)
 DEFINES = -DSTM32F0 -DSTM32F072B_DISCO -DSTM32F072RBTx -DSTM32 -DUSE_HAL_DRIVER -DSTM32F072xB
 ###################################################
 
-.PHONY: proj
+.PHONY: proj clean
 
 all: proj
 
@@ -64,7 +66,7 @@ proj: 	$(PROJ_PATH).elf
 
 $(PROJ_PATH).elf: $(SRCS)
 	@echo Building Project...
-	@$(CC) $(CFLAGS) $(INC) $(DEFINES) $^ -o $@ -L$(STD_PERIPH_LIB) -lstm32f072b-disco_hal_lib -L$(LDSCRIPT_INC) -TLinkerScript.ld -lstdc++ -lsupc++ -lm -lc -lg -lnosys -lgcc
+	@$(CC) $(CFLAGS) $(INC) $(DEFINES) $^ -o $@ -L$(STD_PERIPH_LIB) -lstm32f072b-disco_hal_lib -L$(LDSCRIPT_INC) -TLinkerScript.ld -lm -lc -lg -lnosys -lgcc
 	$(OBJCOPY) -O ihex $(PROJ_PATH).elf $(PROJ_PATH).hex
 	$(OBJCOPY) -O binary $(PROJ_PATH).elf $(PROJ_PATH).bin
 	$(OBJDUMP) -St $(PROJ_PATH).elf >$(PROJ_PATH).lst
@@ -75,5 +77,5 @@ $(PROJ_PATH).elf: $(SRCS)
 #	openocd -f $(OPENOCD_BOARD_DIR)/stm32f0discovery.cfg -f $(OPENOCD_PROC_FILE) -c "stm_flash `pwd`/$(PROJECT).bin" -c shutdown
 
 clean:
-	@$(REMOVE_PROGRAM) "$(BUILD_PATH)\*.elf" "$(BUILD_PATH)\*.bin" "$(BUILD_PATH)\*.hex" "$(BUILD_PATH)\*.lst"
+	$(REMOVE_PROGRAM) $(CLEAN_PATH)
 #"src\*.o" "$(HAL)\startup\*.o"
