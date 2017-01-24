@@ -6,17 +6,18 @@ OBJCOPY=arm-none-eabi-objcopy
 OBJDUMP=arm-none-eabi-objdump
 SIZE=arm-none-eabi-size
 
-BUILD_PATH = $(BASE_PATH)/$(APP_FOLDER)/build
+APP_PATH = $(BASE_PATH)/$(APP_FOLDER)
+BUILD_PATH = $(APP_PATH)/build
 PROJ_PATH = $(BUILD_PATH)/$(PROJECT)
 
 #os dependent code
 ifeq ($(OS),Windows_NT)
 REMOVE_PROGRAM = del
 GCC_INC = -IC:/Program\ Files\ (x86)/GNU\ Tools\ ARM\ Embedded/4.9\ 2015q3/arm-none-eabi/include
-CLEAN_PATH = "$(BUILD_PATH)\*.elf" "$(BUILD_PATH)\*.bin" "$(BUILD_PATH)\*.hex" "$(BUILD_PATH)\*.lst"
+CLEAN_PATH = "$(BUILD_PATH)\*.elf" "$(BUILD_PATH)\*.bin" "$(BUILD_PATH)\*.hex" "$(BUILD_PATH)\*.lst" "$(APP_PATH)\*.map"
 else
 REMOVE_PROGRAM = rm -f
-CLEAN_PATH = $(BUILD_PATH)/*.elf $(BUILD_PATH)/*.bin $(BUILD_PATH)/*.hex $(BUILD_PATH)/*.lst
+CLEAN_PATH = $(BUILD_PATH)/*.elf $(BUILD_PATH)/*.bin $(BUILD_PATH)/*.hex $(BUILD_PATH)/*.lst $(APP_PATH)/*.map
 GCC_INC = 
 endif
 
@@ -66,6 +67,7 @@ proj: 	$(PROJ_PATH).elf
 
 $(PROJ_PATH).elf: $(SRCS)
 	@echo Building Project...
+	@-mkdir build
 	@$(CC) $(CFLAGS) $(INC) $(DEFINES) $^ -o $@ -L$(STD_PERIPH_LIB) -lstm32f072b-disco_hal_lib -L$(LDSCRIPT_INC) -TLinkerScript.ld -lm -lc -lg -lnosys -lgcc
 	$(OBJCOPY) -O ihex $(PROJ_PATH).elf $(PROJ_PATH).hex
 	$(OBJCOPY) -O binary $(PROJ_PATH).elf $(PROJ_PATH).bin
