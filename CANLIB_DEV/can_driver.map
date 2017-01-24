@@ -1,17 +1,17 @@
 Archive member included because of file (symbol)
 
 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
-                              C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o (HAL_Init)
+                              C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o (HAL_Init)
 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
-                              C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o (HAL_CAN_Init)
+                              C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o (HAL_CAN_Init)
 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
-                              C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o (HAL_NVIC_SetPriority)
+                              C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o (HAL_NVIC_SetPriority)
 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
-                              C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o (HAL_GPIO_Init)
+                              C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o (HAL_GPIO_Init)
 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
-                              C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o (HAL_RCC_OscConfig)
+                              C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o (HAL_RCC_OscConfig)
 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-errno.o)
-                              C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o (__errno)
+                              C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o (__errno)
 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-exit.o)
                               c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/crt0.o (exit)
 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
@@ -31,22 +31,22 @@ c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none
 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
                               c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o) (__register_exitproc)
 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m\libgcc.a(_udivsi3.o)
-                              C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o (__aeabi_uidiv)
+                              C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o (__aeabi_uidiv)
 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m\libgcc.a(_dvmd_tls.o)
                               c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m\libgcc.a(_udivsi3.o) (__aeabi_idiv0)
 
 Allocating common symbols
 Common symbol       size              file
 
-received_number     0x4               C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-received_bytes      0x8               C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
+received_number     0x4               C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+received_bytes      0x8               C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
 wrongly_received_number
-                    0x4               C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-GPIO_InitStruct     0x14              C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-TxMessage           0x1c              C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-received_message    0x10              C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-CAN_HandleStruct    0x40              C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-RxMessage           0x24              C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                    0x4               C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+GPIO_InitStruct     0x14              C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+TxMessage           0x1c              C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+received_message    0x10              C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+CAN_HandleStruct    0x40              C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+RxMessage           0x24              C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
 
 Discarded input sections
 
@@ -61,100 +61,119 @@ Discarded input sections
  .ARM.exidx     0x00000000        0x8 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/crt0.o
  .ARM.attributes
                 0x00000000       0x1b c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/crt0.o
- .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
- .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
- .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+ .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .text.CANLIB_ChangeID
+                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .text.CANLIB_AddFilter
+                0x00000000       0x50 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .text.CANLIB_Tx_SendData
+                0x00000000       0x14 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .text.CANLIB_Tx_SetDataWord
+                0x00000000       0x1c C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Tx_SetByte
-                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Tx_SetChars
-                0x00000000        0x8 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000        0x8 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .text.CANLIB_Tx_SetUint
+                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Tx_SetInt
-                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Tx_SetFloat
-                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Tx_SetChar
-                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Tx_SetDouble
-                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Tx_SetLongUint
-                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Tx_SetLongInt
-                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Rx_GetDLC
-                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Rx_GetSingleByte
-                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Rx_GetSingleChar
-                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Rx_GetChars
-                0x00000000       0x1c C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x1c C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Rx_GetAsInt
-                0x00000000       0x14 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x14 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Rx_GetAsFloat
-                0x00000000       0x14 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000       0x14 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Rx_GetAsLongInt
-                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Rx_GetAsLongUint
-                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .text.CANLIB_Rx_GetAsDouble
-                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
- .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
- .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
- .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
- .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
+                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .bss.filterCount
+                0x00000000        0x1 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .bss.sFilterConfig.8721
+                0x00000000       0x28 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .text.test2    0x00000000       0x28 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .text.test3    0x00000000       0x1c C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .data.number1  0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .data.node_ids
+                0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+ .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+ .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+ .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
  .text.initialise_monitor_handles
-                0x00000000        0x2 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._getpid  0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._kill    0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._exit    0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._read    0x00000000       0x1c C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._write   0x00000000       0x1c C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._sbrk    0x00000000       0x34 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._close   0x00000000        0x6 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._fstat   0x00000000        0xa C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._isatty  0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._lseek   0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._open    0x00000000        0xa C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._wait    0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._unlink  0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._times   0x00000000        0x6 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._stat    0x00000000        0xa C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._link    0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._fork    0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text._execve  0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .data.environ  0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .bss.__env     0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
+                0x00000000        0x2 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._getpid  0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._kill    0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._exit    0x00000000        0xc C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._read    0x00000000       0x1c C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._write   0x00000000       0x1c C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._sbrk    0x00000000       0x34 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._close   0x00000000        0x6 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._fstat   0x00000000        0xa C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._isatty  0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._lseek   0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._open    0x00000000        0xa C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._wait    0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._unlink  0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._times   0x00000000        0x6 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._stat    0x00000000        0xa C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._link    0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._fork    0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text._execve  0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .data.environ  0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .bss.__env     0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
  .bss.heap_end.5800
-                0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .debug_info    0x00000000      0x72d C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .debug_abbrev  0x00000000      0x1f5 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .debug_loc     0x00000000      0x3fc C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
+                0x00000000        0x4 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .debug_info    0x00000000      0x72d C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .debug_abbrev  0x00000000      0x1f5 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .debug_loc     0x00000000      0x3fc C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
  .debug_aranges
-                0x00000000       0xb0 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .debug_ranges  0x00000000       0xa0 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .debug_line    0x00000000      0x242 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .debug_str     0x00000000      0x3e2 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .comment       0x00000000       0x71 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .debug_frame   0x00000000      0x19c C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
+                0x00000000       0xb0 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .debug_ranges  0x00000000       0xa0 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .debug_line    0x00000000      0x242 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .debug_str     0x00000000      0x3e2 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .comment       0x00000000       0x71 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .debug_frame   0x00000000      0x19c C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
  .ARM.attributes
-                0x00000000       0x31 C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
- .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
- .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
- .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
+                0x00000000       0x31 C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+ .text          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+ .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+ .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
  .text.SystemCoreClockUpdate
-                0x00000000       0x74 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
+                0x00000000       0x74 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
  .rodata.AHBPrescTable
-                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
+                0x00000000       0x10 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
  .rodata.APBPrescTable
-                0x00000000        0x8 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
- .text          0x00000000       0x14 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
- .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
- .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
+                0x00000000        0x8 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+ .text          0x00000000       0x14 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
+ .data          0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
+ .bss           0x00000000        0x0 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
  .group         0x00000000        0x8 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
  .group         0x00000000        0x8 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
  .group         0x00000000        0x8 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
@@ -348,6 +367,8 @@ Discarded input sections
  .text          0x00000000        0x0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
  .data          0x00000000        0x0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
  .bss           0x00000000        0x0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+ .text.HAL_CAN_ConfigFilter
+                0x00000000      0x210 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
  .text.HAL_CAN_DeInit
                 0x00000000       0x3c ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
  .text.HAL_CAN_MspInit
@@ -1076,15 +1097,13 @@ Linker script and memory map
 LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crti.o
 LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
 LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/crt0.o
-LOAD C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-LOAD C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-LOAD C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
-LOAD C:\Users\Jerry\AppData\Local\Temp\cc1m5ilb.o
-LOAD C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
-LOAD C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
+LOAD C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+LOAD C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+LOAD C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+LOAD C:\Users\Jerry\AppData\Local\Temp\ccCXSIBA.o
+LOAD C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+LOAD C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
 LOAD ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a
-LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libstdc++.a
-LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libsupc++.a
 LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libm.a
 LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a
 LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libg.a
@@ -1104,11 +1123,11 @@ LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm
 .isr_vector     0x08000000       0xc0
                 0x08000000                . = ALIGN (0x4)
  *(.isr_vector)
- .isr_vector    0x08000000       0xc0 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
+ .isr_vector    0x08000000       0xc0 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
                 0x08000000                g_pfnVectors
                 0x080000c0                . = ALIGN (0x4)
 
-.text           0x080000c0     0x26fc
+.text           0x080000c0     0x23ac
                 0x080000c0                . = ALIGN (0x4)
  *(.text)
  .text          0x080000c0       0x60 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
@@ -1121,352 +1140,335 @@ LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm
                 0x08000240                __aeabi_ldiv0
  *(.text*)
  .text.CEC_CAN_IRQHandler
-                0x08000244       0x10 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x08000244       0x10 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
                 0x08000244                CEC_CAN_IRQHandler
  .text.HAL_CAN_MspInit
-                0x08000254       0x60 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x08000254       0x60 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
                 0x08000254                HAL_CAN_MspInit
  .text.CANLIB_NetworkInit
-                0x080002b4       0x6c C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x080002b4       0x6c C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
                 0x080002b4                CANLIB_NetworkInit
  .text.CANLIB_NodeInit
-                0x08000320       0x14 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x08000320       0x14 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
                 0x08000320                CANLIB_NodeInit
- .text.CANLIB_ChangeID
-                0x08000334        0xc C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x08000334                CANLIB_ChangeID
- .text.CANLIB_AddFilter
-                0x08000340       0x50 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x08000340                CANLIB_AddFilter
  .text.CANLIB_Init
-                0x08000390       0x1e C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x08000390                CANLIB_Init
- *fill*         0x080003ae        0x2 
+                0x08000334       0x1e C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x08000334                CANLIB_Init
+ *fill*         0x08000352        0x2 
  .text.CANLIB_ClearDataArray
-                0x080003b0       0x1c C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x080003b0                CANLIB_ClearDataArray
- .text.CANLIB_Tx_SendData
-                0x080003cc       0x14 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x080003cc                CANLIB_Tx_SendData
- .text.CANLIB_Tx_SetDataWord
-                0x080003e0       0x1c C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x080003e0                CANLIB_Tx_SetDataWord
+                0x08000354       0x1c C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x08000354                CANLIB_ClearDataArray
  .text.CANLIB_Tx_SetBytes
-                0x080003fc       0x20 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x080003fc                CANLIB_Tx_SetBytes
- .text.CANLIB_Tx_SetUint
-                0x0800041c       0x10 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x0800041c                CANLIB_Tx_SetUint
+                0x08000370       0x20 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x08000370                CANLIB_Tx_SetBytes
  .text.CANLIB_Rx_Decode
-                0x0800042c       0x30 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x0800042c                CANLIB_Rx_Decode
+                0x08000390       0x30 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x08000390                CANLIB_Rx_Decode
  .text.HAL_CAN_RxCpltCallback
-                0x0800045c       0x1c C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x0800045c                HAL_CAN_RxCpltCallback
+                0x080003c0       0x1c C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x080003c0                HAL_CAN_RxCpltCallback
  .text.CANLIB_Rx_GetSenderID
-                0x08000478        0xc C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x08000478                CANLIB_Rx_GetSenderID
+                0x080003dc        0xc C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x080003dc                CANLIB_Rx_GetSenderID
  .text.CANLIB_Rx_GetBytes
-                0x08000484       0x1c C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x08000484                CANLIB_Rx_GetBytes
+                0x080003e8       0x1c C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x080003e8                CANLIB_Rx_GetBytes
  .text.CANLIB_Rx_GetAsUint
-                0x080004a0       0x14 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x080004a0                CANLIB_Rx_GetAsUint
+                0x08000404       0x14 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x08000404                CANLIB_Rx_GetAsUint
  .text.CANLIB_SendBytes
-                0x080004b4       0x34 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x080004b4                CANLIB_SendBytes
+                0x08000418       0x34 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x08000418                CANLIB_SendBytes
  .text.HAL_MspInit
-                0x080004e8       0x20 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-                0x080004e8                HAL_MspInit
+                0x0800044c       0x20 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+                0x0800044c                HAL_MspInit
+ .text.CAN_Init
+                0x0800046c        0xa C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+                0x0800046c                CAN_Init
+ *fill*         0x08000476        0x2 
+ .text.test1    0x08000478       0x38 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+                0x08000478                test1
+ .text.clear_LED
+                0x080004b0       0x2c C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+                0x080004b0                clear_LED
  .text.setup_test
-                0x08000508       0x80 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-                0x08000508                setup_test
+                0x080004dc       0x80 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+                0x080004dc                setup_test
  .text.startup.main
-                0x08000588      0x148 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-                0x08000588                main
+                0x0800055c       0x34 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+                0x0800055c                main
  .text.CANLIB_Rx_OnMessageReceived
-                0x080006d0       0x3c C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-                0x080006d0                CANLIB_Rx_OnMessageReceived
+                0x08000590       0x3c C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+                0x08000590                CANLIB_Rx_OnMessageReceived
  .text.SysTick_Handler
-                0x0800070c        0xc C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
-                0x0800070c                SysTick_Handler
+                0x080005cc        0xc C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+                0x080005cc                SysTick_Handler
  .text.SystemInit
-                0x08000718       0x60 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
-                0x08000718                SystemInit
+                0x080005d8       0x60 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+                0x080005d8                SystemInit
  .text.Reset_Handler
-                0x08000778       0x50 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
-                0x08000778                Reset_Handler
+                0x08000638       0x50 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
+                0x08000638                Reset_Handler
  .text.Default_Handler
-                0x080007c8        0x2 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
-                0x080007c8                TIM1_CC_IRQHandler
-                0x080007c8                TSC_IRQHandler
-                0x080007c8                HardFault_Handler
-                0x080007c8                ADC1_COMP_IRQHandler
-                0x080007c8                PendSV_Handler
-                0x080007c8                NMI_Handler
-                0x080007c8                I2C1_IRQHandler
-                0x080007c8                RCC_CRS_IRQHandler
-                0x080007c8                SPI1_IRQHandler
-                0x080007c8                TIM6_DAC_IRQHandler
-                0x080007c8                USART3_4_IRQHandler
-                0x080007c8                EXTI2_3_IRQHandler
-                0x080007c8                I2C2_IRQHandler
-                0x080007c8                TIM17_IRQHandler
-                0x080007c8                RTC_IRQHandler
-                0x080007c8                PVD_VDDIO2_IRQHandler
-                0x080007c8                DMA1_Channel4_5_6_7_IRQHandler
-                0x080007c8                TIM16_IRQHandler
-                0x080007c8                TIM3_IRQHandler
-                0x080007c8                EXTI4_15_IRQHandler
-                0x080007c8                DMA1_Channel1_IRQHandler
-                0x080007c8                Default_Handler
-                0x080007c8                TIM14_IRQHandler
-                0x080007c8                TIM7_IRQHandler
-                0x080007c8                TIM15_IRQHandler
-                0x080007c8                EXTI0_1_IRQHandler
-                0x080007c8                USB_IRQHandler
-                0x080007c8                SPI2_IRQHandler
-                0x080007c8                SVC_Handler
-                0x080007c8                WWDG_IRQHandler
-                0x080007c8                TIM2_IRQHandler
-                0x080007c8                DMA1_Channel2_3_IRQHandler
-                0x080007c8                USART2_IRQHandler
-                0x080007c8                FLASH_IRQHandler
-                0x080007c8                USART1_IRQHandler
-                0x080007c8                TIM1_BRK_UP_TRG_COM_IRQHandler
- *fill*         0x080007ca        0x2 
+                0x08000688        0x2 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
+                0x08000688                TIM1_CC_IRQHandler
+                0x08000688                TSC_IRQHandler
+                0x08000688                HardFault_Handler
+                0x08000688                ADC1_COMP_IRQHandler
+                0x08000688                PendSV_Handler
+                0x08000688                NMI_Handler
+                0x08000688                I2C1_IRQHandler
+                0x08000688                RCC_CRS_IRQHandler
+                0x08000688                SPI1_IRQHandler
+                0x08000688                TIM6_DAC_IRQHandler
+                0x08000688                USART3_4_IRQHandler
+                0x08000688                EXTI2_3_IRQHandler
+                0x08000688                I2C2_IRQHandler
+                0x08000688                TIM17_IRQHandler
+                0x08000688                RTC_IRQHandler
+                0x08000688                PVD_VDDIO2_IRQHandler
+                0x08000688                DMA1_Channel4_5_6_7_IRQHandler
+                0x08000688                TIM16_IRQHandler
+                0x08000688                TIM3_IRQHandler
+                0x08000688                EXTI4_15_IRQHandler
+                0x08000688                DMA1_Channel1_IRQHandler
+                0x08000688                Default_Handler
+                0x08000688                TIM14_IRQHandler
+                0x08000688                TIM7_IRQHandler
+                0x08000688                TIM15_IRQHandler
+                0x08000688                EXTI0_1_IRQHandler
+                0x08000688                USB_IRQHandler
+                0x08000688                SPI2_IRQHandler
+                0x08000688                SVC_Handler
+                0x08000688                WWDG_IRQHandler
+                0x08000688                TIM2_IRQHandler
+                0x08000688                DMA1_Channel2_3_IRQHandler
+                0x08000688                USART2_IRQHandler
+                0x08000688                FLASH_IRQHandler
+                0x08000688                USART1_IRQHandler
+                0x08000688                TIM1_BRK_UP_TRG_COM_IRQHandler
+ *fill*         0x0800068a        0x2 
  .text.HAL_Init
-                0x080007cc       0x28 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
-                0x080007cc                HAL_Init
+                0x0800068c       0x28 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+                0x0800068c                HAL_Init
  .text.HAL_InitTick
-                0x080007f4       0x38 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
-                0x080007f4                HAL_InitTick
+                0x080006b4       0x38 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+                0x080006b4                HAL_InitTick
  .text.HAL_IncTick
-                0x0800082c       0x18 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
-                0x0800082c                HAL_IncTick
+                0x080006ec       0x18 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+                0x080006ec                HAL_IncTick
  .text.HAL_GetTick
-                0x08000844       0x14 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
-                0x08000844                HAL_GetTick
+                0x08000704       0x14 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+                0x08000704                HAL_GetTick
  .text.HAL_Delay
-                0x08000858       0x30 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
-                0x08000858                HAL_Delay
+                0x08000718       0x30 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+                0x08000718                HAL_Delay
  .text.HAL_CAN_Init
-                0x08000888      0x248 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
-                0x08000888                HAL_CAN_Init
- .text.HAL_CAN_ConfigFilter
-                0x08000ad0      0x210 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
-                0x08000ad0                HAL_CAN_ConfigFilter
+                0x08000748      0x248 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+                0x08000748                HAL_CAN_Init
  .text.HAL_CAN_Transmit_IT
-                0x08000ce0      0x290 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
-                0x08000ce0                HAL_CAN_Transmit_IT
+                0x08000990      0x290 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+                0x08000990                HAL_CAN_Transmit_IT
  .text.HAL_CAN_Receive_IT
-                0x08000f70       0xfc ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
-                0x08000f70                HAL_CAN_Receive_IT
+                0x08000c20       0xfc ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+                0x08000c20                HAL_CAN_Receive_IT
  .text.HAL_CAN_IRQHandler
-                0x0800106c      0x224 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
-                0x0800106c                HAL_CAN_IRQHandler
+                0x08000d1c      0x224 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+                0x08000d1c                HAL_CAN_IRQHandler
  .text.HAL_CAN_TxCpltCallback
-                0x08001290       0x10 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
-                0x08001290                HAL_CAN_TxCpltCallback
+                0x08000f40       0x10 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+                0x08000f40                HAL_CAN_TxCpltCallback
  .text.HAL_CAN_ErrorCallback
-                0x080012a0       0x10 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
-                0x080012a0                HAL_CAN_ErrorCallback
+                0x08000f50       0x10 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+                0x08000f50                HAL_CAN_ErrorCallback
  .text.CAN_Transmit_IT
-                0x080012b0       0xb8 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+                0x08000f60       0xb8 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
  .text.CAN_Receive_IT
-                0x08001368      0x288 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+                0x08001018      0x288 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
  .text.NVIC_EnableIRQ
-                0x080015f0       0x2c ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+                0x080012a0       0x2c ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
  .text.NVIC_SetPriority
-                0x0800161c       0xdc ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+                0x080012cc       0xdc ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
  .text.SysTick_Config
-                0x080016f8       0x48 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+                0x080013a8       0x48 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
  .text.HAL_NVIC_SetPriority
-                0x08001740       0x2c ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
-                0x08001740                HAL_NVIC_SetPriority
+                0x080013f0       0x2c ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+                0x080013f0                HAL_NVIC_SetPriority
  .text.HAL_NVIC_EnableIRQ
-                0x0800176c       0x20 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
-                0x0800176c                HAL_NVIC_EnableIRQ
+                0x0800141c       0x20 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+                0x0800141c                HAL_NVIC_EnableIRQ
  .text.HAL_SYSTICK_Config
-                0x0800178c       0x1c ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
-                0x0800178c                HAL_SYSTICK_Config
+                0x0800143c       0x1c ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+                0x0800143c                HAL_SYSTICK_Config
  .text.HAL_SYSTICK_IRQHandler
-                0x080017a8       0x10 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
-                0x080017a8                HAL_SYSTICK_IRQHandler
+                0x08001458       0x10 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+                0x08001458                HAL_SYSTICK_IRQHandler
  .text.HAL_SYSTICK_Callback
-                0x080017b8        0xc ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
-                0x080017b8                HAL_SYSTICK_Callback
+                0x08001468        0xc ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+                0x08001468                HAL_SYSTICK_Callback
  .text.HAL_GPIO_Init
-                0x080017c4      0x2f8 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
-                0x080017c4                HAL_GPIO_Init
+                0x08001474      0x2f8 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
+                0x08001474                HAL_GPIO_Init
  .text.HAL_GPIO_WritePin
-                0x08001abc       0x3c ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
-                0x08001abc                HAL_GPIO_WritePin
+                0x0800176c       0x3c ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
+                0x0800176c                HAL_GPIO_WritePin
  .text.HAL_RCC_OscConfig
-                0x08001af8      0x704 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
-                0x08001af8                HAL_RCC_OscConfig
+                0x080017a8      0x704 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+                0x080017a8                HAL_RCC_OscConfig
  .text.HAL_RCC_ClockConfig
-                0x080021fc      0x1ec ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
-                0x080021fc                HAL_RCC_ClockConfig
+                0x08001eac      0x1ec ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+                0x08001eac                HAL_RCC_ClockConfig
  .text.HAL_RCC_GetSysClockFreq
-                0x080023e8      0x104 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
-                0x080023e8                HAL_RCC_GetSysClockFreq
+                0x08002098      0x104 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+                0x08002098                HAL_RCC_GetSysClockFreq
  .text.HAL_RCC_GetHCLKFreq
-                0x080024ec       0x38 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
-                0x080024ec                HAL_RCC_GetHCLKFreq
+                0x0800219c       0x38 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+                0x0800219c                HAL_RCC_GetHCLKFreq
  .text.__libc_init_array
-                0x08002524       0x48 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
-                0x08002524                __libc_init_array
- .text.memcpy   0x0800256c       0x7c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memcpy.o)
-                0x0800256c                memcpy
- .text.memset   0x080025e8       0x8c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
-                0x080025e8                memset
+                0x080021d4       0x48 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
+                0x080021d4                __libc_init_array
+ .text.memcpy   0x0800221c       0x7c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memcpy.o)
+                0x0800221c                memcpy
+ .text.memset   0x08002298       0x8c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
+                0x08002298                memset
  .text.startup.register_fini
-                0x08002674       0x18 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
- .text.atexit   0x0800268c       0x10 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
-                0x0800268c                atexit
+                0x08002324       0x18 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ .text.atexit   0x0800233c       0x10 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
+                0x0800233c                atexit
  .text.__libc_fini_array
-                0x0800269c       0x34 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
-                0x0800269c                __libc_fini_array
+                0x0800234c       0x34 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
+                0x0800234c                __libc_fini_array
  .text.__register_exitproc
-                0x080026d0       0xd4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
-                0x080026d0                __register_exitproc
+                0x08002380       0xd4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
+                0x08002380                __register_exitproc
  *(.glue_7)
  .glue_7        0x00000000        0x0 linker stubs
  *(.glue_7t)
  .glue_7t       0x00000000        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x080027a4        0x0 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
+ .eh_frame      0x08002454        0x0 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
  *(.init)
- .init          0x080027a4        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crti.o
-                0x080027a4                _init
- .init          0x080027a8        0x8 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtn.o
+ .init          0x08002454        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crti.o
+                0x08002454                _init
+ .init          0x08002458        0x8 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtn.o
  *(.fini)
- .fini          0x080027b0        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crti.o
-                0x080027b0                _fini
- .fini          0x080027b4        0x8 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtn.o
-                0x080027bc                . = ALIGN (0x4)
-                0x080027bc                _etext = .
+ .fini          0x08002460        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crti.o
+                0x08002460                _fini
+ .fini          0x08002464        0x8 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtn.o
+                0x0800246c                . = ALIGN (0x4)
+                0x0800246c                _etext = .
 
-.vfp11_veneer   0x080027bc        0x0
+.vfp11_veneer   0x0800246c        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x080027bc        0x0
+.v4_bx          0x0800246c        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x080027bc        0x0
+.iplt           0x0800246c        0x0
  .iplt          0x00000000        0x0 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
 
-.rodata         0x080027bc       0x38
-                0x080027bc                . = ALIGN (0x4)
+.rodata         0x0800246c       0x38
+                0x0800246c                . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x080027bc       0x30 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
-                0x080027bc                aAPBAHBPrescTable
+ .rodata        0x0800246c       0x30 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+                0x0800246c                aAPBAHBPrescTable
  *(.rodata*)
  .rodata.str1.4
-                0x080027ec        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+                0x0800249c        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
                                   0x2 (size before relaxing)
  .rodata._global_impure_ptr
-                0x080027f0        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
-                0x080027f0                _global_impure_ptr
-                0x080027f4                . = ALIGN (0x4)
+                0x080024a0        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
+                0x080024a0                _global_impure_ptr
+                0x080024a4                . = ALIGN (0x4)
 
-.rel.dyn        0x080027f4        0x0
+.rel.dyn        0x080024a4        0x0
  .rel.iplt      0x00000000        0x0 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x080027f4        0x0
-                0x080027f4                __exidx_start = .
+.ARM            0x080024a4        0x0
+                0x080024a4                __exidx_start = .
  *(.ARM.exidx*)
-                0x080027f4                __exidx_end = .
+                0x080024a4                __exidx_end = .
 
-.preinit_array  0x080027f4        0x0
-                0x080027f4                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x080024a4        0x0
+                0x080024a4                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
-                0x080027f4                PROVIDE (__preinit_array_end, .)
+                0x080024a4                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x080027f4        0x8
-                0x080027f4                PROVIDE (__init_array_start, .)
+.init_array     0x080024a4        0x8
+                0x080024a4                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  .init_array.00000
-                0x080027f4        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+                0x080024a4        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
  *(.init_array*)
- .init_array    0x080027f8        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
-                0x080027fc                PROVIDE (__init_array_end, .)
+ .init_array    0x080024a8        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
+                0x080024ac                PROVIDE (__init_array_end, .)
 
-.fini_array     0x080027fc        0x4
-                0x080027fc                PROVIDE (__fini_array_start, .)
+.fini_array     0x080024ac        0x4
+                0x080024ac                PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x080027fc        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
-                0x08002800                PROVIDE (__fini_array_end, .)
-                0x08002800                _sidata = LOADADDR (.data)
+ .fini_array    0x080024ac        0x4 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
+                0x080024b0                PROVIDE (__fini_array_end, .)
+                0x080024b0                _sidata = LOADADDR (.data)
 
-.data           0x20000000      0x438 load address 0x08002800
+.data           0x20000000      0x438 load address 0x080024b0
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _sdata = .
  *(.data)
  *(.data*)
- .data.array    0x20000000        0x8 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
+ .data.array    0x20000000        0x8 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
                 0x20000000                array
- .data.number1  0x20000008        0x4 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-                0x20000008                number1
  .data.SystemCoreClock
-                0x2000000c        0x4 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
-                0x2000000c                SystemCoreClock
+                0x20000008        0x4 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+                0x20000008                SystemCoreClock
+ *fill*         0x2000000c        0x4 
  .data.impure_data
                 0x20000010      0x428 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-impure.o)
                 0x20000438                . = ALIGN (0x4)
                 0x20000438                _edata = .
 
-.jcr            0x20000438        0x0 load address 0x08002c38
+.jcr            0x20000438        0x0 load address 0x080028e8
  .jcr           0x20000438        0x0 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
 
-.igot.plt       0x20000438        0x0 load address 0x08002c38
+.igot.plt       0x20000438        0x0 load address 0x080028e8
  .igot.plt      0x00000000        0x0 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
                 0x20000438                . = ALIGN (0x4)
 
-.bss            0x20000438      0x104 load address 0x08002c38
+.bss            0x20000438       0xd4 load address 0x080028e8
                 0x20000438                _sbss = .
                 0x20000438                __bss_start__ = _sbss
  *(.bss)
  .bss           0x20000438       0x1c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
  .bss           0x20000454        0x4 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
  *(.bss*)
- .bss.filterCount
-                0x20000458        0x1 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x20000458                filterCount
- *fill*         0x20000459        0x3 
- .bss.sFilterConfig.8721
-                0x2000045c       0x28 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
  *(COMMON)
- *fill*         0x20000484        0x4 
- COMMON         0x20000488       0xa4 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
-                0x20000488                GPIO_InitStruct
-                0x2000049c                TxMessage
-                0x200004b8                received_message
-                0x200004c8                CAN_HandleStruct
-                0x20000508                RxMessage
- COMMON         0x2000052c       0x10 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-                0x2000052c                received_number
-                0x20000530                received_bytes
-                0x20000538                wrongly_received_number
-                0x2000053c                . = ALIGN (0x4)
-                0x2000053c                _ebss = .
-                0x2000053c                __bss_end__ = _ebss
+ COMMON         0x20000458       0xa4 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+                0x20000458                GPIO_InitStruct
+                0x2000046c                TxMessage
+                0x20000488                received_message
+                0x20000498                CAN_HandleStruct
+                0x200004d8                RxMessage
+ COMMON         0x200004fc       0x10 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+                0x200004fc                received_number
+                0x20000500                received_bytes
+                0x20000508                wrongly_received_number
+                0x2000050c                . = ALIGN (0x4)
+                0x2000050c                _ebss = .
+                0x2000050c                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x2000053c      0x804 load address 0x08002c38
-                0x20000540                . = ALIGN (0x8)
- *fill*         0x2000053c        0x4 
-                0x20000540                PROVIDE (end, .)
-                0x20000540                PROVIDE (_end, .)
-                0x20000540                . = (. + _Min_Heap_Size)
-                0x20000d40                . = (. + _Min_Stack_Size)
- *fill*         0x20000540      0x800 
-                0x20000d40                . = ALIGN (0x8)
+                0x2000050c      0x804 load address 0x080028e8
+                0x20000510                . = ALIGN (0x8)
+ *fill*         0x2000050c        0x4 
+                0x20000510                PROVIDE (end, .)
+                0x20000510                PROVIDE (_end, .)
+                0x20000510                . = (. + _Min_Heap_Size)
+                0x20000d10                . = (. + _Min_Stack_Size)
+ *fill*         0x20000510      0x800 
+                0x20000d10                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -1481,15 +1483,15 @@ LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm
  .ARM.attributes
                 0x0000001e       0x2c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtbegin.o
  .ARM.attributes
-                0x0000004a       0x31 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x0000004a       0x31 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .ARM.attributes
-                0x0000007b       0x31 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
+                0x0000007b       0x31 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
  .ARM.attributes
-                0x000000ac       0x31 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
+                0x000000ac       0x31 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
  .ARM.attributes
-                0x000000dd       0x31 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
+                0x000000dd       0x31 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
  .ARM.attributes
-                0x0000010e       0x21 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
+                0x0000010e       0x21 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
  .ARM.attributes
                 0x0000012f       0x31 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
  .ARM.attributes
@@ -1524,107 +1526,107 @@ LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm
                 0x000003c0       0x1e c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/crtn.o
 OUTPUT(../CANLIB_DEV/build/can_driver.elf elf32-littlearm)
 
-.debug_info     0x00000000     0x4677
- .debug_info    0x00000000     0x1417 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
- .debug_info    0x00001417      0xb45 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .debug_info    0x00001f5c       0xb1 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
- .debug_info    0x0000200d      0x23b C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
- .debug_info    0x00002248       0xa1 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
- .debug_info    0x000022e9      0x536 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
- .debug_info    0x0000281f      0xa30 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
- .debug_info    0x0000324f      0x6df ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
- .debug_info    0x0000392e      0x5e1 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
- .debug_info    0x00003f0f      0x768 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+.debug_info     0x00000000     0x4617
+ .debug_info    0x00000000     0x1417 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .debug_info    0x00001417      0xae5 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .debug_info    0x00001efc       0xb1 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+ .debug_info    0x00001fad      0x23b C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+ .debug_info    0x000021e8       0xa1 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
+ .debug_info    0x00002289      0x536 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+ .debug_info    0x000027bf      0xa30 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+ .debug_info    0x000031ef      0x6df ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+ .debug_info    0x000038ce      0x5e1 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
+ .debug_info    0x00003eaf      0x768 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
 
-.debug_abbrev   0x00000000      0xffc
- .debug_abbrev  0x00000000      0x33c C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
- .debug_abbrev  0x0000033c      0x241 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .debug_abbrev  0x0000057d       0x71 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
- .debug_abbrev  0x000005ee       0xf0 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
- .debug_abbrev  0x000006de       0x12 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
- .debug_abbrev  0x000006f0      0x177 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
- .debug_abbrev  0x00000867      0x1c9 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
- .debug_abbrev  0x00000a30      0x234 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
- .debug_abbrev  0x00000c64      0x1b6 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
- .debug_abbrev  0x00000e1a      0x1e2 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+.debug_abbrev   0x00000000     0x1025
+ .debug_abbrev  0x00000000      0x33c C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .debug_abbrev  0x0000033c      0x26a C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .debug_abbrev  0x000005a6       0x71 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+ .debug_abbrev  0x00000617       0xf0 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+ .debug_abbrev  0x00000707       0x12 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
+ .debug_abbrev  0x00000719      0x177 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+ .debug_abbrev  0x00000890      0x1c9 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+ .debug_abbrev  0x00000a59      0x234 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+ .debug_abbrev  0x00000c8d      0x1b6 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
+ .debug_abbrev  0x00000e43      0x1e2 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
 
-.debug_loc      0x00000000      0x6a1
- .debug_loc     0x00000000      0x594 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
- .debug_loc     0x00000594       0x2b C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .debug_loc     0x000005bf       0xe2 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
+.debug_loc      0x00000000      0x697
+ .debug_loc     0x00000000      0x594 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .debug_loc     0x00000594       0x21 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .debug_loc     0x000005b5       0xe2 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
 
-.debug_aranges  0x00000000      0x4c0
+.debug_aranges  0x00000000      0x4e8
  .debug_aranges
-                0x00000000      0x130 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+                0x00000000      0x130 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
  .debug_aranges
-                0x00000130       0x38 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
+                0x00000130       0x60 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
  .debug_aranges
-                0x00000168       0x20 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
+                0x00000190       0x20 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
  .debug_aranges
-                0x00000188       0x28 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
+                0x000001b0       0x28 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
  .debug_aranges
-                0x000001b0       0x28 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
+                0x000001d8       0x28 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
  .debug_aranges
-                0x000001d8       0xa0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+                0x00000200       0xa0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
  .debug_aranges
-                0x00000278       0xb0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+                0x000002a0       0xb0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
  .debug_aranges
-                0x00000328       0xc0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+                0x00000350       0xc0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
  .debug_aranges
-                0x000003e8       0x58 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
+                0x00000410       0x58 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
  .debug_aranges
-                0x00000440       0x80 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+                0x00000468       0x80 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
 
-.debug_ranges   0x00000000      0x4b0
- .debug_ranges  0x00000000      0x170 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
- .debug_ranges  0x00000170       0x60 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .debug_ranges  0x000001d0       0x10 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
- .debug_ranges  0x000001e0       0x18 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
- .debug_ranges  0x000001f8       0x20 C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
- .debug_ranges  0x00000218       0x90 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
- .debug_ranges  0x000002a8       0xa0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
- .debug_ranges  0x00000348       0xb0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
- .debug_ranges  0x000003f8       0x48 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
- .debug_ranges  0x00000440       0x70 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+.debug_ranges   0x00000000      0x4d8
+ .debug_ranges  0x00000000      0x170 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .debug_ranges  0x00000170       0x88 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .debug_ranges  0x000001f8       0x10 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+ .debug_ranges  0x00000208       0x18 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+ .debug_ranges  0x00000220       0x20 C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
+ .debug_ranges  0x00000240       0x90 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+ .debug_ranges  0x000002d0       0xa0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+ .debug_ranges  0x00000370       0xb0 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+ .debug_ranges  0x00000420       0x48 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
+ .debug_ranges  0x00000468       0x70 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
 
-.debug_line     0x00000000     0x47e1
- .debug_line    0x00000000      0x577 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
- .debug_line    0x00000577      0x29a C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .debug_line    0x00000811       0xac C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
- .debug_line    0x000008bd      0x19e C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
- .debug_line    0x00000a5b       0x9c C:\Users\Jerry\AppData\Local\Temp\cc3BgUbX.o
- .debug_line    0x00000af7      0xb29 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
- .debug_line    0x00001620      0xdfe ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
- .debug_line    0x0000241e      0xbb3 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
- .debug_line    0x00002fd1      0xb7b ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
- .debug_line    0x00003b4c      0xc95 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+.debug_line     0x00000000     0x4826
+ .debug_line    0x00000000      0x577 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .debug_line    0x00000577      0x2df C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .debug_line    0x00000856       0xac C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+ .debug_line    0x00000902      0x19e C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+ .debug_line    0x00000aa0       0x9c C:\Users\Jerry\AppData\Local\Temp\ccCD5Jev.o
+ .debug_line    0x00000b3c      0xb29 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+ .debug_line    0x00001665      0xdfe ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+ .debug_line    0x00002463      0xbb3 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+ .debug_line    0x00003016      0xb7b ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
+ .debug_line    0x00003b91      0xc95 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
 
-.debug_str      0x00000000    0x83a5b
- .debug_str     0x00000000      0xc35 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+.debug_str      0x00000000    0x83a80
+ .debug_str     0x00000000      0xc35 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
                                 0xdeb (size before relaxing)
- .debug_str     0x00000c35      0x21d C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
-                                0x7d7 (size before relaxing)
- .debug_str     0x00000e52       0x54 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
+ .debug_str     0x00000c35      0x242 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+                                0x7f4 (size before relaxing)
+ .debug_str     0x00000e77       0x54 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
                                 0x1df (size before relaxing)
- .debug_str     0x00000ea6       0x83 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
+ .debug_str     0x00000ecb       0x83 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
                                 0x295 (size before relaxing)
- .debug_str     0x00000f29    0x824bd ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+ .debug_str     0x00000f4e    0x824bd ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
                               0x82a7c (size before relaxing)
- .debug_str     0x000833e6      0x111 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+ .debug_str     0x0008340b      0x111 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
                               0x82a4e (size before relaxing)
- .debug_str     0x000834f7      0x15a ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+ .debug_str     0x0008351c      0x15a ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
                               0x8298c (size before relaxing)
- .debug_str     0x00083651      0x21b ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
+ .debug_str     0x00083676      0x21b ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
                               0x82864 (size before relaxing)
- .debug_str     0x0008386c      0x1ef ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+ .debug_str     0x00083891      0x1ef ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
                               0x8297f (size before relaxing)
 
 .comment        0x00000000       0xde
- .comment       0x00000000       0x70 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
+ .comment       0x00000000       0x70 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
                                  0x71 (size before relaxing)
- .comment       0x00000000       0x71 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .comment       0x00000000       0x71 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
- .comment       0x00000000       0x71 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
+ .comment       0x00000000       0x71 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .comment       0x00000000       0x71 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+ .comment       0x00000000       0x71 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
  .comment       0x00000070       0x6e ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
                                  0x6f (size before relaxing)
  .comment       0x00000000       0x6f ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
@@ -1632,24 +1634,24 @@ OUTPUT(../CANLIB_DEV/build/can_driver.elf elf32-littlearm)
  .comment       0x00000000       0x6f ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
  .comment       0x00000000       0x6f ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
 
-.debug_frame    0x00000000      0xf0c
- .debug_frame   0x00000000      0x2f8 C:\Users\Jerry\AppData\Local\Temp\ccUYZMIQ.o
- .debug_frame   0x000002f8       0x78 C:\Users\Jerry\AppData\Local\Temp\ccR5GAAU.o
- .debug_frame   0x00000370       0x28 C:\Users\Jerry\AppData\Local\Temp\cclhIFyY.o
- .debug_frame   0x00000398       0x40 C:\Users\Jerry\AppData\Local\Temp\ccV7Ld0x.o
- .debug_frame   0x000003d8      0x1f4 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
- .debug_frame   0x000005cc      0x270 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
- .debug_frame   0x0000083c      0x2a4 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
- .debug_frame   0x00000ae0      0x110 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
- .debug_frame   0x00000bf0      0x194 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
- .debug_frame   0x00000d84       0x2c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
- .debug_frame   0x00000db0       0x2c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memcpy.o)
- .debug_frame   0x00000ddc       0x2c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
- .debug_frame   0x00000e08       0x54 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
- .debug_frame   0x00000e5c       0x28 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
- .debug_frame   0x00000e84       0x2c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
- .debug_frame   0x00000eb0       0x3c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
- .debug_frame   0x00000eec       0x20 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m\libgcc.a(_udivsi3.o)
+.debug_frame    0x00000000      0xf84
+ .debug_frame   0x00000000      0x2f8 C:\Users\Jerry\AppData\Local\Temp\ccKYtPwD.o
+ .debug_frame   0x000002f8       0xf0 C:\Users\Jerry\AppData\Local\Temp\cceRS5T9.o
+ .debug_frame   0x000003e8       0x28 C:\Users\Jerry\AppData\Local\Temp\ccasvzqP.o
+ .debug_frame   0x00000410       0x40 C:\Users\Jerry\AppData\Local\Temp\ccEd1uqw.o
+ .debug_frame   0x00000450      0x1f4 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)
+ .debug_frame   0x00000644      0x270 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_can.o)
+ .debug_frame   0x000008b4      0x2a4 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_cortex.o)
+ .debug_frame   0x00000b58      0x110 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_gpio.o)
+ .debug_frame   0x00000c68      0x194 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal_rcc.o)
+ .debug_frame   0x00000dfc       0x2c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-init.o)
+ .debug_frame   0x00000e28       0x2c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memcpy.o)
+ .debug_frame   0x00000e54       0x2c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-memset.o)
+ .debug_frame   0x00000e80       0x54 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x00000ed4       0x28 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-atexit.o)
+ .debug_frame   0x00000efc       0x2c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-fini.o)
+ .debug_frame   0x00000f28       0x3c c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m\libc.a(lib_a-__atexit.o)
+ .debug_frame   0x00000f64       0x20 c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m\libgcc.a(_udivsi3.o)
 
 .debug_macro    0x00000000    0x12a62
  .debug_macro   0x00000000      0x402 ../stm32f072b-disco_hal_lib/Debug\libstm32f072b-disco_hal_lib.a(stm32f0xx_hal.o)

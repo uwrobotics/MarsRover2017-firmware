@@ -1,1 +1,8 @@
 build/
+*.map
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+*.lst
