@@ -16,7 +16,7 @@
 
 #include "stm32f0xx.h"
 #include "canlib.h"
-#include "stm32f072b_discovery.h"
+//#include "stm32f072b_discovery.h"
 
 //Globals that we send
 //  Any variables or arrays used for transmission can
