@@ -6,6 +6,7 @@
  */
 
 #include "canlib.h"
+#include "pins.h"
 #include <limits.h>
 #include <string.h>
 
@@ -46,7 +47,7 @@ void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
 // Function not part of API so declared in here for internal use
 void CANLIB_Rx_Decode(void);
 
-static void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
+void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
 {
     __HAL_RCC_CAN1_CLK_ENABLE();
 
