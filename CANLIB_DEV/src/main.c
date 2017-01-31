@@ -15,6 +15,7 @@
 
 #include "stm32f0xx.h"
 #include "canlib.h"
+#include "pins.h"
 
 #define TRANSMITTER         0
 

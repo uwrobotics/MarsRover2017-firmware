@@ -93,148 +93,117 @@
 #define CANLIB_H_
 
 #include "stm32f0xx.h"
-//#include <string.h>
 
-//CONSTANTS FOR CAN BUS CONFIGURATION. NEED NOT MODIFY
-#define CAN_GPIO_RX_PIN     GPIO_PIN_8
-#define CAN_GPIO_TX_PIN     GPIO_PIN_9
-#define CAN_GPIO_PORT       GPIOB
-#define CAN_GPIO_MODE       GPIO_MODE_AF_PP
-#define CAN_GPIO_PULL       GPIO_NOPULL
-#define CAN_GPIO_SPEED      GPIO_SPEED_LOW
-#define CAN_GPIO_ALTERNATE  GPIO_AF4_CAN
-#define CAN_PORT            CAN
-// See timing_calculations.txt for methodology
-#define CAN_INIT_PRESCALER  24 // Set for 125 kbps //6
-#define CAN_INIT_MODE       CAN_MODE_NORMAL
-#define CAN_INIT_SJW        CAN_SJW_1TQ
-#define CAN_INIT_BS1        CAN_BS1_12TQ
-#define CAN_INIT_BS2        CAN_BS2_3TQ
-#define CAN_INIT_TTCM       DISABLE
-#define CAN_INIT_ABOM       DISABLE
-#define CAN_INIT_AWUM       DISABLE
-#define CAN_INIT_NART       DISABLE
-#define CAN_INIT_RFLM       DISABLE
-#define CAN_INIT_TXFP       DISABLE
-#define CAN_INIT_FIFO       CAN_FIFO0
-#define CAN_LOCK            HAL_UNLOCKED
-#define CAN_IDE_TYPE        CAN_ID_STD
-#define CAN_RTR_TYPE        CAN_RTR_DATA
+// CAN Configuration Parameters
+// See timing_calculations.txt for calculations
+#define CAN_INIT_PRESCALER          24 // Set for 125 kbps //6
+#define CAN_INIT_MODE               CAN_MODE_NORMAL
+#define CAN_INIT_SJW                CAN_SJW_1TQ
+#define CAN_INIT_BS1                CAN_BS1_12TQ
+#define CAN_INIT_BS2                CAN_BS2_3TQ
 
+// CAN Data Length Parameters
+#define CANLIB_DLC_FIRST_BYTE       1
+#define CANLIB_DLC_TWO_BYTES        2
+#define CANLIB_DLC_THREE_BYTES      3
+#define CANLIB_DLC_FOUR_BYTES       4
+#define CANLIB_DLC_FIVE_BYTES       5
+#define CANLIB_DLC_SIX_BYTES        6
+#define CANLIB_DLC_SEVEN_BYTES      7
+#define CANLIB_DLC_ALL_BYTES        8
 
-#define CANLIB_DLC_FIRST_BYTE   1
-#define CANLIB_DLC_TWO_BYTES    2
-#define CANLIB_DLC_THREE_BYTES  3
-#define CANLIB_DLC_FOUR_BYTES   4
-#define CANLIB_DLC_FIVE_BYTES   5
-#define CANLIB_DLC_SIX_BYTES    6
-#define CANLIB_DLC_SEVEN_BYTES  7
-#define CANLIB_DLC_ALL_BYTES    8
-
-#define CANLIB_INDEX_0        0
-#define CANLIB_INDEX_1        1
+#define CANLIB_INDEX_0              0
+#define CANLIB_INDEX_1              1
 
 #define CANLIB_FIRST_WORD_OFFSET    0
 #define CANLIB_SECOND_WORD_OFFSET   4
 
+// CAN Loopback Parameters
 #define CANLIB_LOOPBACK_OFF         0
 #define CANLIB_LOOPBACK_ON          1
 
+//
+//      Data Structures
+//
 /* Union structures used for encoding and decoding various types and byte arrays
  * The code is compiled for little endian processors so this is fine
  */
-typedef union{
-  uint8_t byte_array[8];
-  int64_t long_integer;
-  uint64_t long_uinteger;
-  double dub;
-  int32_t integer;
-  uint32_t uinteger;
-  float floatingpt;
+typedef union
+{
+    uint8_t byte_array[8];
+    int64_t long_integer;
+    uint64_t long_uinteger;
+    double dub;
+    int32_t integer;
+    uint32_t uinteger;
+    float floatingpt;
 } encoding_union;
 
-typedef struct{
-  uint8_t DLC;
-  uint32_t transmitter_ID;
-  union{
-    uint64_t long_uint;
-    int64_t long_int;
-    double dub;
-    uint8_t whole_byte_array[8];
-    struct{
-      union{
-        uint8_t byte_array_1[4];
-        int32_t return_int_1;
-        uint32_t return_uint_1;
-        float return_float_1;
-        char return_chars_1[4];
-      };
-      union{
-        uint8_t byte_array_2[4];
-        int32_t return_int_2;
-        uint32_t return_uint_2;
-        float return_float_2;
-        char return_chars_2[4];
-      };
+typedef struct
+{
+    uint8_t DLC;
+    uint32_t transmitter_ID;
+    union
+    {
+        uint64_t long_uint;
+        int64_t long_int;
+        double dub;
+        uint8_t whole_byte_array[8];
+        struct
+        {
+            union
+            {
+                uint8_t byte_array_1[4];
+                int32_t return_int_1;
+                uint32_t return_uint_1;
+                float return_float_1;
+                char return_chars_1[4];
+            };
+            union
+            {
+                uint8_t byte_array_2[4];
+                int32_t return_int_2;
+                uint32_t return_uint_2;
+                float return_float_2;
+                char return_chars_2[4];
+            };
+        };
     };
-  };
 } return_struct;
 
-//Initialization/Handling function
-// Read header docs for information
+
+//
+//      Initialization and Helper Functions
+//
 int CANLIB_Init(uint32_t node_ID, uint8_t isLoopbackOn);
 void CANLIB_ChangeID(uint32_t node_ID);
 int CANLIB_AddFilter(uint16_t id);
 
-//Tx Functions
-
-//Clear the 8 byte data array to be sent in CAN frames. May be called automatically by some functions
+//
+//      Tx Message Encoding Functions
+//
 void CANLIB_ClearDataArray();
-//Sends whatever is in the data array with the specified DLC. The node ID will be the current set node ID
 void CANLIB_Tx_SendData(uint8_t dlc);
-
-//Sets a word in the data array. Offset specifies which byte to start at in the data array.
-//Offset of 0 will fill in the 0th, 1st, 2nd and 3rd index in the array to the value of the union
-//This offset value can be CANLIB_FIRST_WORD_OFFSET or CANLIB_SECOND_WORD_OFFSET, or any of 0,1,2,3,4
 void CANLIB_Tx_SetDataWord(encoding_union* this_union, uint8_t offset);
-
-//Sets one byte in the data array
 void CANLIB_Tx_SetByte(uint8_t byte, uint8_t index);
-//Sets multiple bytes in the data array, starting from the first byte
-//8 bytes maximum (size of data array)
 void CANLIB_Tx_SetBytes(uint8_t* byte_array, uint8_t array_size);
-
-//Sets one character the data array, at the specified index
 void CANLIB_Tx_SetChar(char c, uint8_t index);
-//Sets array of characters in data array, similar to a byte array
-//Note this array of characters need not be a null-terminated one
-//8 characters maximum
 void CANLIB_Tx_SetChars(char *string, uint8_t char_count);
-
-//Sets 32 bit values into the data array
-//Index can be a value of CANLIB_INDEX_1 or CANLIB_INDEX_0
-//See header doc for more details
 void CANLIB_Tx_SetUint(uint32_t message, uint8_t index);
 void CANLIB_Tx_SetInt(int32_t message, uint8_t index);
 void CANLIB_Tx_SetFloat(float message, uint8_t index);
-
-//Sets 64 bit values in the data array
 void CANLIB_Tx_SetDouble(double message);
 void CANLIB_Tx_SetLongUint(uint64_t message);
 void CANLIB_Tx_SetLongInt(int64_t message);
 
-//Rx Functions
 
-//OnMessageReceived() is called when message is received
-//  Must be user implemented
+//
+//      Rx Message Decoding Functions
+//
+//  Called when message is received. Must be user implemented
 __weak void CANLIB_Rx_OnMessageReceived();
-
-//Functions for getting CAN frame details
 uint8_t     CANLIB_Rx_GetSenderID();
 uint8_t     CANLIB_Rx_GetDLC();
-
-//All following functions can be used in OnMessageReceived() to get the received byte array as some other type
-// See header docs for more instructions
 uint8_t     CANLIB_Rx_GetSingleByte(uint8_t byte_index);
 uint8_t     CANLIB_Rx_GetSingleChar(uint8_t index);
 void        CANLIB_Rx_GetBytes(uint8_t* byte_array);
@@ -246,8 +215,9 @@ int64_t     CANLIB_Rx_GetAsLongInt();
 uint64_t    CANLIB_Rx_GetAsLongUint();
 double      CANLIB_Rx_GetAsDouble();
 
-//Convenience functions
-
+//
+//      Convenience functions
+//
 //CANLIB_SendBytes: sends a byte array of size "array_size" with CAN node id "id" in one function call
 int8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id);
 
