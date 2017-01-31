@@ -1,5 +1,0 @@
-"src/i2c_master.o"
-"src/main.o"
-"src/syscalls.o"
-"src/system_stm32f0xx.o"
-"startup/startup_stm32f072.o"

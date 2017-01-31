@@ -1,5 +1,0 @@
-"src/main.o"
-"src/stm32f0xx_it.o"
-"src/syscalls.o"
-"src/system_stm32f0xx.o"
-"startup/startup_stm32f072xb.o"
