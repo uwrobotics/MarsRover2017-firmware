@@ -26,11 +26,22 @@ void CEC_CAN_IRQHandler()
 	HAL_CAN_IRQHandler(&CAN_HandleStruct);
 }
 
+uint32_t error = HAL_CAN_ERROR_NONE;
+void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
+{
+	error = hcan->ErrorCode;
+
+	__HAL_CAN_CANCEL_TRANSMIT(hcan, CAN_TXMAILBOX_0);
+	__HAL_CAN_CANCEL_TRANSMIT(hcan, CAN_TXMAILBOX_1);
+	__HAL_CAN_CANCEL_TRANSMIT(hcan, CAN_TXMAILBOX_2);
+	hcan->Instance->MSR |= CAN_MCR_RESET;
+}
+
 void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan){
 
 	__HAL_RCC_CAN1_CLK_ENABLE();
 
-	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
 
     GPIO_InitStruct.Pin = CAN_GPIO_RX_PIN | CAN_GPIO_TX_PIN;
     GPIO_InitStruct.Mode = CAN_GPIO_MODE;
@@ -39,7 +50,6 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan){
     GPIO_InitStruct.Alternate = CAN_GPIO_ALTERNATE;
 
     HAL_GPIO_Init(CAN_GPIO_PORT, &GPIO_InitStruct);
-
 
 	HAL_NVIC_SetPriority(CEC_CAN_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(CEC_CAN_IRQn);
@@ -305,7 +315,7 @@ double CANLIB_Rx_GetAsDouble(){
 }
 
 //Convenience functions
-uint8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id){
+int8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id){
 
 	CANLIB_ClearDataArray();
 	CAN_HandleStruct.pTxMsg->DLC = array_size;

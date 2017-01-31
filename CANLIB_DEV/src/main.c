@@ -16,9 +16,9 @@
 #include "stm32f0xx.h"
 #include "canlib.h"
 
-#define TRANSMITTER         1
+#define TRANSMITTER         0
 
-#define LOOPBACK            1
+#define LOOPBACK            0
 
 //Globals that we send
 //  Any variables or arrays used for transmission can
@@ -66,14 +66,17 @@ void CAN_Init(uint32_t id)
             break;
     }
 
-#if !TRANSMITTER
+#if (!TRANSMITTER && !LOOPBACK) || LOOPBACK
     //Using CANLIB_AddFilter() will allow you to specify who this node can receive messages from
     // according to the sender node ID. This ensures less CAN interrupts
     //Without calling this function, no messages will be received
-    for (i = 0; i < (sizeof(node_ids)/sizeof(uint32_t)); i++)
-    {
-        CANLIB_AddFilter(i);
-    }
+    // for (i = 0; i < (sizeof(node_ids)/sizeof(uint32_t)); i++)
+    // {
+    //     CANLIB_AddFilter(i);
+    // }
+    CANLIB_AddFilter(3);
+    CANLIB_AddFilter(4);
+    CANLIB_AddFilter(10);
 #endif
 }
 
@@ -88,10 +91,12 @@ int test1(void)
         return -1;
     }
 
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
-
-    HAL_Delay(5000);
-#else
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+    HAL_Delay(2000);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+    HAL_Delay(2000);
+#endif
+#if (!LOOPBACK && !TRANSMITTER) || LOOPBACK
     //If the bits received are what we sent, light the green LED on PC9
     // else, light the red LED on PC8
     for(int i = 0; i < 8; i++)
@@ -106,8 +111,12 @@ int test1(void)
         }
     }
 
-    HAL_Delay(5000);
+    HAL_Delay(2000);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+    HAL_Delay(2000);
 #endif
+    return 0;
 }
 
 void test2(void)
@@ -119,9 +128,13 @@ void test2(void)
     CANLIB_Tx_SetUint(number1, CANLIB_INDEX_0);
     CANLIB_Tx_SendData(CANLIB_DLC_FOUR_BYTES);
 
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+
     HAL_Delay(5000);
 
-#else
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+#endif
+#if (!LOOPBACK && !TRANSMITTER) || LOOPBACK
     //If the number received from the callback is the same as the one sent,
     // turn on the green LED.
     // Else, turn on the red LED.
@@ -135,6 +148,10 @@ void test2(void)
     }
 
     HAL_Delay(5000);
+
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+    HAL_Delay(2000);
 #endif
 }
 
@@ -147,9 +164,13 @@ void test3(void)
     CANLIB_ChangeID(5);
     CANLIB_Tx_SendData(4);
 
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+
     HAL_Delay(5000);
 
-#else
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+#endif
+#if (!LOOPBACK && !TRANSMITTER) || LOOPBACK
     //The green LED will turn on if the number received in the default case is equal to
     // the number sent. This WOULD run if the message above triggered an Rx interrupt, as
     // there is no case to receive messages from a node with ID of 5. However, the
@@ -166,14 +187,11 @@ void test3(void)
     }
 
     HAL_Delay(5000);
-#endif
-}
 
-void clear_LED(void)
-{
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
     HAL_Delay(2000);
+#endif
 }
 
 int main(void)
@@ -193,13 +211,17 @@ int main(void)
 
     HAL_Delay(1000);
 
-    clear_LED();
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
 
     while(1)
     {
-        test1();
-
-        clear_LED();
+        // If a test returns -1, the HAL has returned HAL_ERROR
+        if (test1() == -1)
+        {
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+            HAL_Delay(2000);
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+        }
     }
 
     return 0;
@@ -239,7 +261,7 @@ void setup_test(void)
     __SYSCFG_CLK_ENABLE();
     __GPIOC_CLK_ENABLE();
     GPIO_InitTypeDef GPIO_InitStruct = {
-            .Pin = GPIO_PIN_9 | GPIO_PIN_8,
+            .Pin = GPIO_PIN_9 | GPIO_PIN_8 | GPIO_PIN_7 | GPIO_PIN_6,
             .Mode = GPIO_MODE_OUTPUT_PP,
             .Pull = GPIO_NOPULL,
             .Speed = GPIO_SPEED_FREQ_HIGH

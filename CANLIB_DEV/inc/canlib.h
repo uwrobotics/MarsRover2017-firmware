@@ -10,7 +10,7 @@
  *  |Byte  1 |Byte  2 |Byte  3 |Byte  4 |||Byte  5 |Byte  6 |Byte  7 |Byte  8 |
  *  |        |        |        |        |||        |        |        |        |
  *  |01001100|10101010|00100110|00000101|||11101010|00000000|11111111|10101010|
- *	|________|________|________|________|||________|________|________|________|
+ *  |________|________|________|________|||________|________|________|________|
  *
  *  ^--------ZEROTH 32-bit index-------^  ^--------FIRST 32-bit index---------^
  *
@@ -96,42 +96,43 @@
 //#include <string.h>
 
 //CONSTANTS FOR CAN BUS CONFIGURATION. NEED NOT MODIFY
-#define CAN_GPIO_RX_PIN			GPIO_PIN_11
-#define CAN_GPIO_TX_PIN			GPIO_PIN_12
-#define CAN_GPIO_PORT			GPIOA
-#define CAN_GPIO_MODE			GPIO_MODE_AF_PP
-#define CAN_GPIO_PULL			GPIO_NOPULL
-#define CAN_GPIO_SPEED			GPIO_SPEED_LOW
-#define CAN_GPIO_ALTERNATE		GPIO_AF4_CAN
-#define CAN_PORT				CAN
-#define CAN_INIT_PRESCALER		6
-#define CAN_INIT_MODE			CAN_MODE_NORMAL
-#define CAN_INIT_SJW			CAN_SJW_1TQ
-#define CAN_INIT_BS1			CAN_BS1_12TQ
-#define CAN_INIT_BS2			CAN_BS2_3TQ
-#define CAN_INIT_TTCM			DISABLE
-#define CAN_INIT_ABOM			DISABLE
-#define CAN_INIT_AWUM			DISABLE
-#define CAN_INIT_NART			DISABLE
-#define CAN_INIT_RFLM			DISABLE
-#define CAN_INIT_TXFP			DISABLE
-#define CAN_INIT_FIFO			CAN_FIFO0
-#define CAN_LOCK				HAL_UNLOCKED
-#define CAN_IDE_TYPE			CAN_ID_STD
-#define CAN_RTR_TYPE			CAN_RTR_DATA
+#define CAN_GPIO_RX_PIN     GPIO_PIN_8
+#define CAN_GPIO_TX_PIN     GPIO_PIN_9
+#define CAN_GPIO_PORT       GPIOB
+#define CAN_GPIO_MODE       GPIO_MODE_AF_PP
+#define CAN_GPIO_PULL       GPIO_NOPULL
+#define CAN_GPIO_SPEED      GPIO_SPEED_LOW
+#define CAN_GPIO_ALTERNATE  GPIO_AF4_CAN
+#define CAN_PORT            CAN
+// See timing_calculations.txt for methodology
+#define CAN_INIT_PRESCALER  24 // Set for 125 kbps //6
+#define CAN_INIT_MODE       CAN_MODE_NORMAL
+#define CAN_INIT_SJW        CAN_SJW_1TQ
+#define CAN_INIT_BS1        CAN_BS1_12TQ
+#define CAN_INIT_BS2        CAN_BS2_3TQ
+#define CAN_INIT_TTCM       DISABLE
+#define CAN_INIT_ABOM       DISABLE
+#define CAN_INIT_AWUM       DISABLE
+#define CAN_INIT_NART       DISABLE
+#define CAN_INIT_RFLM       DISABLE
+#define CAN_INIT_TXFP       DISABLE
+#define CAN_INIT_FIFO       CAN_FIFO0
+#define CAN_LOCK            HAL_UNLOCKED
+#define CAN_IDE_TYPE        CAN_ID_STD
+#define CAN_RTR_TYPE        CAN_RTR_DATA
 
 
-#define CANLIB_DLC_FIRST_BYTE		1
-#define CANLIB_DLC_TWO_BYTES		2
-#define CANLIB_DLC_THREE_BYTES		3
-#define CANLIB_DLC_FOUR_BYTES		4
-#define CANLIB_DLC_FIVE_BYTES		5
-#define CANLIB_DLC_SIX_BYTES		6
-#define CANLIB_DLC_SEVEN_BYTES		7
-#define CANLIB_DLC_ALL_BYTES		8
+#define CANLIB_DLC_FIRST_BYTE   1
+#define CANLIB_DLC_TWO_BYTES    2
+#define CANLIB_DLC_THREE_BYTES  3
+#define CANLIB_DLC_FOUR_BYTES   4
+#define CANLIB_DLC_FIVE_BYTES   5
+#define CANLIB_DLC_SIX_BYTES    6
+#define CANLIB_DLC_SEVEN_BYTES  7
+#define CANLIB_DLC_ALL_BYTES    8
 
-#define CANLIB_INDEX_0				0
-#define CANLIB_INDEX_1				1
+#define CANLIB_INDEX_0        0
+#define CANLIB_INDEX_1        1
 
 #define CANLIB_FIRST_WORD_OFFSET    0
 #define CANLIB_SECOND_WORD_OFFSET   4
@@ -143,40 +144,40 @@
  * The code is compiled for little endian processors so this is fine
  */
 typedef union{
-	uint8_t byte_array[8];
-	int64_t long_integer;
-	uint64_t long_uinteger;
-	double dub;
-	int32_t integer;
-	uint32_t uinteger;
-	float floatingpt;
+  uint8_t byte_array[8];
+  int64_t long_integer;
+  uint64_t long_uinteger;
+  double dub;
+  int32_t integer;
+  uint32_t uinteger;
+  float floatingpt;
 } encoding_union;
 
 typedef struct{
-	uint8_t DLC;
-	uint32_t transmitter_ID;
-	union{
-		uint64_t long_uint;
-		int64_t long_int;
-		double dub;
-		uint8_t whole_byte_array[8];
-		struct{
-			union{
-				uint8_t byte_array_1[4];
-				int32_t return_int_1;
-				uint32_t return_uint_1;
-				float return_float_1;
-				char return_chars_1[4];
-			};
-			union{
-				uint8_t byte_array_2[4];
-				int32_t return_int_2;
-				uint32_t return_uint_2;
-				float return_float_2;
-				char return_chars_2[4];
-			};
-		};
-	};
+  uint8_t DLC;
+  uint32_t transmitter_ID;
+  union{
+    uint64_t long_uint;
+    int64_t long_int;
+    double dub;
+    uint8_t whole_byte_array[8];
+    struct{
+      union{
+        uint8_t byte_array_1[4];
+        int32_t return_int_1;
+        uint32_t return_uint_1;
+        float return_float_1;
+        char return_chars_1[4];
+      };
+      union{
+        uint8_t byte_array_2[4];
+        int32_t return_int_2;
+        uint32_t return_uint_2;
+        float return_float_2;
+        char return_chars_2[4];
+      };
+    };
+  };
 } return_struct;
 
 //Initialization/Handling function
@@ -225,7 +226,7 @@ void CANLIB_Tx_SetLongInt(int64_t message);
 //Rx Functions
 
 //OnMessageReceived() is called when message is received
-//	Must be user implemented
+//  Must be user implemented
 __weak void CANLIB_Rx_OnMessageReceived();
 
 //Functions for getting CAN frame details
@@ -248,6 +249,6 @@ double      CANLIB_Rx_GetAsDouble();
 //Convenience functions
 
 //CANLIB_SendBytes: sends a byte array of size "array_size" with CAN node id "id" in one function call
-uint8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id);
+int8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id);
 
 #endif
