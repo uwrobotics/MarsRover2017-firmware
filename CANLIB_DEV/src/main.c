@@ -47,7 +47,7 @@ void HAL_MspInit(void)
 
 void CAN_Init(uint32_t id)
 {
-    uint32_t i;
+    // uint32_t i;
 
     /* First relevant thing: Initialize CAN communication handler
      * The input parameter to CANLIB_Init() is the node ID you want this node to have.

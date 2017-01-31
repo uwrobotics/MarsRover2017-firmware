@@ -204,7 +204,7 @@ int CANLIB_Init(uint32_t node_id, uint8_t isLoopbackOn)
 void CANLIB_ClearDataArray(void)
 {
     //Reinitializes an integer array of size 8 to all 0s
-    for (int i = 0; i<8; i++)
+    for (int i = 0; i < 8; i++)
     {
         CAN_HandleStruct.pTxMsg->Data[i] = 0;
     }
@@ -233,10 +233,13 @@ void CANLIB_Tx_SendData(uint8_t dlc)
 */
 void CANLIB_Tx_SetDataWord(encoding_union* this_union, uint8_t offset)
 {
-    CAN_HandleStruct.pTxMsg->Data[0 + offset] = this_union->byte_array[0];
-    CAN_HandleStruct.pTxMsg->Data[1 + offset] = this_union->byte_array[1];
-    CAN_HandleStruct.pTxMsg->Data[2 + offset] = this_union->byte_array[2];
-    CAN_HandleStruct.pTxMsg->Data[3 + offset] = this_union->byte_array[3];
+    if (offset >= CANLIB_FIRST_WORD_OFFSET && offset <= CANLIB_SECOND_WORD_OFFSET)
+    {
+        CAN_HandleStruct.pTxMsg->Data[0 + offset] = this_union->byte_array[0];
+        CAN_HandleStruct.pTxMsg->Data[1 + offset] = this_union->byte_array[1];
+        CAN_HandleStruct.pTxMsg->Data[2 + offset] = this_union->byte_array[2];
+        CAN_HandleStruct.pTxMsg->Data[3 + offset] = this_union->byte_array[3];
+    }
 }
 
 /*
@@ -247,7 +250,10 @@ void CANLIB_Tx_SetDataWord(encoding_union* this_union, uint8_t offset)
 */
 void CANLIB_Tx_SetByte(uint8_t byte, uint8_t index)
 {
-    CAN_HandleStruct.pTxMsg->Data[index] = byte;
+    if (index < 8)
+    {
+        CAN_HandleStruct.pTxMsg->Data[index] = byte;
+    }
 }
 
 /*
@@ -273,7 +279,10 @@ void CANLIB_Tx_SetBytes(uint8_t* byte_array, uint8_t array_size)
 */
 void CANLIB_Tx_SetChar(char c, uint8_t index)
 {
-    CAN_HandleStruct.pTxMsg->Data[index] = (uint8_t)c;
+    if (index < 8)
+    {
+        CAN_HandleStruct.pTxMsg->Data[index] = (uint8_t)c;
+    }
 }
 
 /*
@@ -302,7 +311,10 @@ void CANLIB_Tx_SetUint(uint32_t message, uint8_t index)
     encoding_union uint_union;
     uint_union.uinteger = message;
 
-    CANLIB_Tx_SetDataWord(&uint_union, index * 4);
+    if (index == CANLIB_INDEX_0 || index == CANLIB_INDEX_1)
+    {
+        CANLIB_Tx_SetDataWord(&uint_union, index * 4);
+    }
 }
 
 /*
@@ -318,7 +330,10 @@ void CANLIB_Tx_SetInt(int32_t message, uint8_t index)
     encoding_union int_union;
     int_union.uinteger = message;
 
-    CANLIB_Tx_SetDataWord(&int_union, index * 4);
+    if (index == CANLIB_INDEX_0 || index == CANLIB_INDEX_1)
+    {
+        CANLIB_Tx_SetDataWord(&int_union, index * 4);
+    }
 }
 
 /*
@@ -334,7 +349,10 @@ void CANLIB_Tx_SetFloat(float message, uint8_t index)
     encoding_union float_union;
     float_union.floatingpt = message;
 
-    CANLIB_Tx_SetDataWord(&float_union, index * 4);
+    if (index == CANLIB_INDEX_0 || index == CANLIB_INDEX_1)
+    {
+        CANLIB_Tx_SetDataWord(&float_union, index * 4);
+    }
 }
 
 /*
@@ -433,26 +451,36 @@ uint8_t CANLIB_Rx_GetDLC(void)
     CANLIB_Rx_GetSingleByte
 
     Description:
-    Returns the value at the specified index in the data array
+    Returns the value at the specified index in the data array (0 if invalid index)
     Can be used in OnMessageReceived()
     See header docs for more instructions
 */
 uint8_t CANLIB_Rx_GetSingleByte(uint8_t byte_index)
 {
-    return received_message.whole_byte_array[byte_index];
+    if (byte_index < 8)
+    {
+        return received_message.whole_byte_array[byte_index];
+    }
+
+    return 0;
 }
 
 /*
     CANLIB_Rx_GetSingleChar
 
     Description:
-    Returns the value as a char at the specified index in the data array
+    Returns the value as a char at the specified index in the data array (0 if invalid index)
     Can be used in OnMessageReceived()
     See header docs for more instructions
 */
 uint8_t CANLIB_Rx_GetSingleChar(uint8_t index)
 {
-    return (char)received_message.whole_byte_array[index];
+    if (index < 8)
+    {
+        return (char)received_message.whole_byte_array[index];
+    }
+
+    return 0;
 }
 
 /*
