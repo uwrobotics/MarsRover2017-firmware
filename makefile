@@ -16,7 +16,7 @@ REMOVE_PROGRAM = del
 GCC_INC = -IC:/Program\ Files\ (x86)/GNU\ Tools\ ARM\ Embedded/4.9\ 2015q3/arm-none-eabi/include
 CLEAN_PATH = "$(BUILD_PATH)\*.elf" "$(BUILD_PATH)\*.bin" "$(BUILD_PATH)\*.hex" "$(BUILD_PATH)\*.lst" "$(APP_PATH)\*.map"
 else
-REMOVE_PROGRAM = rm -f
+REMOVE_PROGRAM = rm -rf
 CLEAN_PATH = $(BUILD_PATH)/*.elf $(BUILD_PATH)/*.bin $(BUILD_PATH)/*.hex $(BUILD_PATH)/*.lst $(APP_PATH)/*.map
 GCC_INC = 
 endif
