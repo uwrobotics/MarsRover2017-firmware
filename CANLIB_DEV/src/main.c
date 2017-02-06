@@ -48,7 +48,7 @@ int main(void)
 
 	setup_test();
 
-	/* First relevant thing: Initialize CAN communication handler
+	/* First relevant thing to CANLIB: Initialize CAN communication handler
 	 * The input parameter to CANLIB_Init() is the node ID you want this node to have.
 	 * In this case, we start with a node ID of 1
 	 * This demo was developed with 1 board, so loopback mode is ON
@@ -73,6 +73,12 @@ int main(void)
 
 	HAL_Delay(1000);
 
+
+	//FOR THIS TEST: If it works correctly, from the start, you should see:
+	//    5 seconds of green LED followed by 1 second of no LED, then
+	//    5 seconds of green LED followed by 1 second of no LED, then
+	//    5 seconds of red LED followed by 1 second of no LED.
+	//    This pattern loops
 	while(1){
 
 		//Send the byte array from above, return if unsuccessful
@@ -90,6 +96,8 @@ int main(void)
 				HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9,GPIO_PIN_SET);
 			} else {
 				HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8,GPIO_PIN_SET);
+				//This break ensures if an error occurs, we will see it on the LED for about 5s
+				break;
 			}
 		}
 

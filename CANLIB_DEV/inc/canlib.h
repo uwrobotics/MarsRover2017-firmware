@@ -93,9 +93,8 @@
 #define CANLIB_H_
 
 #include "stm32f0xx.h"
-//#include <string.h>
 
-//CONSTANTS FOR CAN BUS CONFIGURATION. NEED NOT MODIFY
+//-------------------------------------CONSTANTS FOR CAN BUS CONFIGURATION. NEED NOT MODIFY-------------------------------------//
 #define CAN_GPIO_RX_PIN			GPIO_PIN_11
 #define CAN_GPIO_TX_PIN			GPIO_PIN_12
 #define CAN_GPIO_PORT			GPIOA
@@ -139,6 +138,7 @@
 #define CANLIB_LOOPBACK_OFF         0
 #define CANLIB_LOOPBACK_ON          1
 
+
 /* Union structures used for encoding and decoding various types and byte arrays
  * The code is compiled for little endian processors so this is fine
  */
@@ -179,28 +179,29 @@ typedef struct{
 	};
 } return_struct;
 
-//Initialization/Handling function
+typedef enum {
+	INDEX_0 = 0,
+	INDEX_1 = 1
+
+} CANLIB_INDEX;
+
+//-------------------------------------Initialization/Handling function-------------------------------------//
 // Read header docs for information
 int CANLIB_Init(uint32_t node_ID, uint8_t isLoopbackOn);
 void CANLIB_ChangeID(uint32_t node_ID);
 int CANLIB_AddFilter(uint16_t id);
 
-//Tx Functions
+//-------------------------------------Tx Functions-------------------------------------//
 
 //Clear the 8 byte data array to be sent in CAN frames. May be called automatically by some functions
 void CANLIB_ClearDataArray();
 //Sends whatever is in the data array with the specified DLC. The node ID will be the current set node ID
 void CANLIB_Tx_SendData(uint8_t dlc);
 
-//Sets a word in the data array. Offset specifies which byte to start at in the data array.
-//Offset of 0 will fill in the 0th, 1st, 2nd and 3rd index in the array to the value of the union
-//This offset value can be CANLIB_FIRST_WORD_OFFSET or CANLIB_SECOND_WORD_OFFSET, or any of 0,1,2,3,4
-void CANLIB_Tx_SetDataWord(encoding_union* this_union, uint8_t offset);
-
 //Sets one byte in the data array
 void CANLIB_Tx_SetByte(uint8_t byte, uint8_t index);
 //Sets multiple bytes in the data array, starting from the first byte
-//8 bytes maximum (size of data array)
+//8 bytes maximum (size of data array). array_size must be 0-8 (although 0 will effectively make the function do nothing)
 void CANLIB_Tx_SetBytes(uint8_t* byte_array, uint8_t array_size);
 
 //Sets one character the data array, at the specified index
@@ -222,7 +223,7 @@ void CANLIB_Tx_SetDouble(double message);
 void CANLIB_Tx_SetLongUint(uint64_t message);
 void CANLIB_Tx_SetLongInt(int64_t message);
 
-//Rx Functions
+//-------------------------------------Rx Functions-------------------------------------//
 
 //OnMessageReceived() is called when message is received
 //	Must be user implemented
@@ -234,18 +235,26 @@ uint8_t     CANLIB_Rx_GetDLC();
 
 //All following functions can be used in OnMessageReceived() to get the received byte array as some other type
 // See header docs for more instructions
+//byte_index is a value from 0-7, corresponding to one whole byte in the CAN frame
 uint8_t     CANLIB_Rx_GetSingleByte(uint8_t byte_index);
-uint8_t     CANLIB_Rx_GetSingleChar(uint8_t index);
+uint8_t     CANLIB_Rx_GetSingleChar(uint8_t byte_index);
+
+//byte_array and char_array must have as many bytes as required according to the DLC of the frame (size of 8 is thus always a safe size)
+//DO NOT USE AN ARRAY WITH SIZE SMALLER THAN THE DLC OF THE FRAME
 void        CANLIB_Rx_GetBytes(uint8_t* byte_array);
 void        CANLIB_Rx_GetChars(char* char_array);
+
+//uint_num, int_num and float_num can be 1 or 0. This corresponds to the last or first 32 bits in the frame, respectively
+//A PARAMETER VALUE OTHER THAN 0 OR 1 FOR THESE ARGS WILL BE TREATED AS IF IT WERE A VALUE OF 0.
 uint32_t    CANLIB_Rx_GetAsUint(uint8_t uint_num);
 int32_t     CANLIB_Rx_GetAsInt(uint8_t int_num);
 float       CANLIB_Rx_GetAsFloat(uint8_t float_num);
+
 int64_t     CANLIB_Rx_GetAsLongInt();
 uint64_t    CANLIB_Rx_GetAsLongUint();
 double      CANLIB_Rx_GetAsDouble();
 
-//Convenience functions
+//-------------------------------------Convenience functions-------------------------------------//
 
 //CANLIB_SendBytes: sends a byte array of size "array_size" with CAN node id "id" in one function call
 uint8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id);

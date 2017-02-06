@@ -19,7 +19,7 @@ return_struct received_message;
 uint8_t filterCount = 0;
 
 //Function not part of API so declared in here for internal use
-void        CANLIB_Rx_Decode();
+void CANLIB_Rx_Decode();
 
 void CEC_CAN_IRQHandler()
 {
@@ -157,12 +157,18 @@ void CANLIB_ClearDataArray(){
 
 
 void CANLIB_Tx_SendData(uint8_t dlc){
-	CAN_HandleStruct.pTxMsg->DLC = (uint32_t) dlc;
+	if (dlc < 9 ){
+		CAN_HandleStruct.pTxMsg->DLC = (uint32_t) dlc;
 
-	HAL_CAN_Transmit_IT(&CAN_HandleStruct);
+		HAL_CAN_Transmit_IT(&CAN_HandleStruct);
+	}
 }
 
+
+//Library users should not call this function ever
 void CANLIB_Tx_SetDataWord(encoding_union* this_union, uint8_t offset){
+
+	//Don't really need to error check because this isn't exposed
 	CAN_HandleStruct.pTxMsg->Data[0 + offset] = this_union->byte_array[0];
 	CAN_HandleStruct.pTxMsg->Data[1 + offset] = this_union->byte_array[1];
 	CAN_HandleStruct.pTxMsg->Data[2 + offset] = this_union->byte_array[2];
@@ -174,6 +180,12 @@ void CANLIB_Tx_SetByte(uint8_t byte, uint8_t index){
 }
 
 void CANLIB_Tx_SetBytes(uint8_t* byte_array, uint8_t array_size){
+
+	//Array size can't be bigger than 8 as there are only 8 bytes per frame
+	if (array_size > 8){
+		return;
+	}
+
 	for (uint8_t byte_index = 0; byte_index < array_size; byte_index ++){
 		CAN_HandleStruct.pTxMsg->Data[byte_index] = byte_array[byte_index];
 	}
@@ -183,7 +195,7 @@ void CANLIB_Tx_SetChars(char *string, uint8_t char_count){
 	CANLIB_Tx_SetBytes((uint8_t*) string, char_count);
 }
 
-void CANLIB_Tx_SetUint(uint32_t message, uint8_t index){
+void CANLIB_Tx_SetUint(uint32_t message, CANLIB_INDEX index){
 	encoding_union uint_union;
 	uint_union.uinteger = message;
 
@@ -191,14 +203,14 @@ void CANLIB_Tx_SetUint(uint32_t message, uint8_t index){
 
 }
 
-void CANLIB_Tx_SetInt(int32_t message, uint8_t index){
+void CANLIB_Tx_SetInt(int32_t message, CANLIB_INDEX index){
 	encoding_union int_union;
 	int_union.uinteger = message;
 
 	CANLIB_Tx_SetDataWord(&int_union, index * 4);
 }
 
-void CANLIB_Tx_SetFloat(float message, uint8_t index){
+void CANLIB_Tx_SetFloat(float message, CANLIB_INDEX index){
 	encoding_union float_union;
 	float_union.floatingpt = message;
 
@@ -306,6 +318,11 @@ double CANLIB_Rx_GetAsDouble(){
 
 //Convenience functions
 uint8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id){
+
+	//Array size can't be bigger than 8, so just return error
+	if (array_size > 8){
+		return -2;
+	}
 
 	CANLIB_ClearDataArray();
 	CAN_HandleStruct.pTxMsg->DLC = array_size;
