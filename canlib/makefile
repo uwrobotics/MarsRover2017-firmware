@@ -2,9 +2,9 @@
 BASE_PATH = ..
 
 #filename of outputed .elf and .bin files
-PROJECT = blinky_out
+PROJECT = can_driver
 
 #the folder the current app is in
-APP_FOLDER = blinky
+APP_FOLDER = canlib
 
 include $(BASE_PATH)/makefile

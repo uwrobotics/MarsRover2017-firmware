@@ -54,10 +54,10 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
     __HAL_RCC_GPIOB_CLK_ENABLE();
 
     GPIO_InitStruct.Pin         = CAN_GPIO_RX_PIN | CAN_GPIO_TX_PIN;
-    GPIO_InitStruct.Mode        = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull        = GPIO_NOPULL;
-    GPIO_InitStruct.Speed       = GPIO_SPEED_LOW;
-    GPIO_InitStruct.Alternate   = GPIO_AF4_CAN;
+    GPIO_InitStruct.Mode        = CAN_GPIO_MODE;
+    GPIO_InitStruct.Pull        = CAN_GPIO_PULL;
+    GPIO_InitStruct.Speed       = CAN_GPIO_SPEED;
+    GPIO_InitStruct.Alternate   = CAN_GPIO_ALTERNATE;
 
     HAL_GPIO_Init(CAN_GPIO_PORT, &GPIO_InitStruct);
 
@@ -67,19 +67,19 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
 
 static int CANLIB_NetworkInit(uint8_t isLoopbackOn)
 {
-    CAN_HandleStruct.Instance = CAN;
+    CAN_HandleStruct.Instance = CAN_PORT;
 
     CAN_HandleStruct.Init.Prescaler = CAN_INIT_PRESCALER;
     CAN_HandleStruct.Init.SJW       = CAN_INIT_SJW;
     CAN_HandleStruct.Init.BS1       = CAN_INIT_BS1;
     CAN_HandleStruct.Init.BS2       = CAN_INIT_BS2;
     CAN_HandleStruct.Init.Mode      = (isLoopbackOn) ? CAN_MODE_LOOPBACK : CAN_INIT_MODE;
-    CAN_HandleStruct.Init.ABOM      = DISABLE;
-    CAN_HandleStruct.Init.AWUM      = DISABLE;
-    CAN_HandleStruct.Init.NART      = DISABLE;
-    CAN_HandleStruct.Init.RFLM      = DISABLE;
-    CAN_HandleStruct.Init.TTCM      = DISABLE;
-    CAN_HandleStruct.Init.TXFP      = DISABLE;
+    CAN_HandleStruct.Init.ABOM      = CAN_INIT_ABOM;
+    CAN_HandleStruct.Init.AWUM      = CAN_INIT_AWUM;
+    CAN_HandleStruct.Init.NART      = CAN_INIT_NART;
+    CAN_HandleStruct.Init.RFLM      = CAN_INIT_RFLM;
+    CAN_HandleStruct.Init.TTCM      = CAN_INIT_TTCM;
+    CAN_HandleStruct.Init.TXFP      = CAN_INIT_TXFP;
 
     CAN_HandleStruct.pRxMsg = &RxMessage;
     CAN_HandleStruct.pTxMsg = &TxMessage;
@@ -109,7 +109,7 @@ static int CANLIB_NetworkInit(uint8_t isLoopbackOn)
     } */
 
 
-    if (HAL_CAN_Receive_IT(&CAN_HandleStruct, CAN_FIFO0) != HAL_OK)
+    if (HAL_CAN_Receive_IT(&CAN_HandleStruct, CAN_INIT_FIFO) != HAL_OK)
     {
         return -2;
     }
@@ -121,8 +121,8 @@ static void CANLIB_NodeInit(uint32_t id)
 {
     CAN_HandleStruct.pTxMsg->StdId = id;
 
-    CAN_HandleStruct.pTxMsg->IDE = CAN_ID_STD;
-    CAN_HandleStruct.pTxMsg->RTR = CAN_RTR_DATA;
+    CAN_HandleStruct.pTxMsg->IDE = CAN_IDE_TYPE;
+    CAN_HandleStruct.pTxMsg->RTR = CAN_RTR_TYPE;
 }
 
 /*
@@ -218,18 +218,18 @@ void CANLIB_ClearDataArray(void)
 */
 void CANLIB_Tx_SendData(uint8_t dlc)
 {
-    CAN_HandleStruct.pTxMsg->DLC = (uint32_t) dlc;
-
-    HAL_CAN_Transmit_IT(&CAN_HandleStruct);
+    if (dlc < 9)
+    {
+        CAN_HandleStruct.pTxMsg->DLC = (uint32_t) dlc;
+        HAL_CAN_Transmit_IT(&CAN_HandleStruct);
+    }
 }
 
 /*
     CANLIB_Tx_SetDataWord
 
     Description:
-    Sets a word in the data array. Offset specifies which byte to start at in the data array.
-    Offset of 0 will fill in the 0th, 1st, 2nd and 3rd index in the array to the value of the union
-    This offset value can be CANLIB_FIRST_WORD_OFFSET or CANLIB_SECOND_WORD_OFFSET, or any of 0, 1, 2, 3, 4
+    Library users should not call this function ever
 */
 void CANLIB_Tx_SetDataWord(encoding_union* this_union, uint8_t offset)
 {
@@ -262,9 +262,15 @@ void CANLIB_Tx_SetByte(uint8_t byte, uint8_t index)
     Description:
     Sets multiple bytes in the data array, starting from the first byte
     8 bytes maximum (size of data array)
+    array_size must be 0-8 (although 0 will effectively make the function do nothing)
 */
 void CANLIB_Tx_SetBytes(uint8_t* byte_array, uint8_t array_size)
 {
+    if (array_size > 8)
+    {
+        return;
+    }
+
     for (uint8_t byte_index = 0; byte_index < array_size; byte_index ++)
     {
         CAN_HandleStruct.pTxMsg->Data[byte_index] = byte_array[byte_index];
@@ -306,7 +312,7 @@ void CANLIB_Tx_SetChars(char *string, uint8_t char_count)
     Index can be a value of CANLIB_INDEX_1 or CANLIB_INDEX_0
     See header doc for more details
 */
-void CANLIB_Tx_SetUint(uint32_t message, uint8_t index)
+void CANLIB_Tx_SetUint(uint32_t message, CANLIB_INDEX index)
 {
     encoding_union uint_union;
     uint_union.uinteger = message;
@@ -325,7 +331,7 @@ void CANLIB_Tx_SetUint(uint32_t message, uint8_t index)
     Index can be a value of CANLIB_INDEX_1 or CANLIB_INDEX_0
     See header doc for more details
 */
-void CANLIB_Tx_SetInt(int32_t message, uint8_t index)
+void CANLIB_Tx_SetInt(int32_t message, CANLIB_INDEX index)
 {
     encoding_union int_union;
     int_union.uinteger = message;
@@ -344,7 +350,7 @@ void CANLIB_Tx_SetInt(int32_t message, uint8_t index)
     Index can be a value of CANLIB_INDEX_1 or CANLIB_INDEX_0
     See header doc for more details
 */
-void CANLIB_Tx_SetFloat(float message, uint8_t index)
+void CANLIB_Tx_SetFloat(float message, CANLIB_INDEX index)
 {
     encoding_union float_union;
     float_union.floatingpt = message;
@@ -453,6 +459,7 @@ uint8_t CANLIB_Rx_GetDLC(void)
     Description:
     Returns the value at the specified index in the data array (0 if invalid index)
     Can be used in OnMessageReceived()
+    byte_index is a value from 0-7, corresponding to one whole byte in the CAN frame
     See header docs for more instructions
 */
 uint8_t CANLIB_Rx_GetSingleByte(uint8_t byte_index)
@@ -471,13 +478,14 @@ uint8_t CANLIB_Rx_GetSingleByte(uint8_t byte_index)
     Description:
     Returns the value as a char at the specified index in the data array (0 if invalid index)
     Can be used in OnMessageReceived()
+    byte_index is a value from 0-7, corresponding to one whole byte in the CAN frame
     See header docs for more instructions
 */
-uint8_t CANLIB_Rx_GetSingleChar(uint8_t index)
+uint8_t CANLIB_Rx_GetSingleChar(uint8_t byte_index)
 {
-    if (index < 8)
+    if (byte_index < 8)
     {
-        return (char)received_message.whole_byte_array[index];
+        return (char)received_message.whole_byte_array[byte_index];
     }
 
     return 0;
@@ -489,6 +497,8 @@ uint8_t CANLIB_Rx_GetSingleChar(uint8_t index)
     Description:
     Stores the data array in a byte array
     Can be used in OnMessageReceived()
+    byte_array and char_array must have as many bytes as required according to the DLC of the frame (size of 8 is thus always a safe size)
+    DO NOT USE AN ARRAY WITH SIZE SMALLER THAN THE DLC OF THE FRAME
     See header docs for more instructions
 */
 void CANLIB_Rx_GetBytes(uint8_t* byte_array)
@@ -505,6 +515,8 @@ void CANLIB_Rx_GetBytes(uint8_t* byte_array)
     Description:
     Stores the data array as chars in an array
     Can be used in OnMessageReceived()
+    byte_array and char_array must have as many bytes as required according to the DLC of the frame (size of 8 is thus always a safe size)
+    DO NOT USE AN ARRAY WITH SIZE SMALLER THAN THE DLC OF THE FRAME
     See header docs for more instructions
 */
 void CANLIB_Rx_GetChars(char* char_array)
@@ -521,6 +533,7 @@ void CANLIB_Rx_GetChars(char* char_array)
     Description:
     Returns the value as an unsigned int at the specified index in the data array
     Can be used in OnMessageReceived()
+    uint_num can be 1 or 0. This corresponds to the last or first 32 bits in the frame, respectively
     See header docs for more instructions
 */
 uint32_t CANLIB_Rx_GetAsUint(uint8_t uint_num)
@@ -547,6 +560,7 @@ int32_t CANLIB_Rx_GetAsInt(uint8_t int_num)
     Description:
     Returns the value as an float at the specified index in the data array
     Can be used in OnMessageReceived()
+    float_num can be 1 or 0. This corresponds to the last or first 32 bits in the frame, respectively
     See header docs for more instructions
 */
 float CANLIB_Rx_GetAsFloat(uint8_t float_num)
@@ -596,6 +610,11 @@ double CANLIB_Rx_GetAsDouble(void)
 //Convenience functions
 int8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id)
 {
+    if (array_size > 8)
+    {
+        return -2;
+    }
+
     CANLIB_ClearDataArray();
     CAN_HandleStruct.pTxMsg->DLC = array_size;
     CANLIB_Tx_SetBytes(byte_array, array_size);

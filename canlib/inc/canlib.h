@@ -94,13 +94,30 @@
 
 #include "stm32f0xx.h"
 
-// CAN Configuration Parameters
+
+// CAN Configuration Parameters - Don't need to modify
+#define CAN_GPIO_MODE               GPIO_MODE_AF_PP
+#define CAN_GPIO_PULL               GPIO_NOPULL
+#define CAN_GPIO_SPEED              GPIO_SPEED_LOW
+#define CAN_GPIO_ALTERNATE          GPIO_AF4_CAN
+#define CAN_PORT                    CAN
 // See timing_calculations.txt for calculations
 #define CAN_INIT_PRESCALER          24 // Set for 125 kbps //6
 #define CAN_INIT_MODE               CAN_MODE_NORMAL
 #define CAN_INIT_SJW                CAN_SJW_1TQ
 #define CAN_INIT_BS1                CAN_BS1_12TQ
 #define CAN_INIT_BS2                CAN_BS2_3TQ
+#define CAN_INIT_TTCM               DISABLE
+#define CAN_INIT_ABOM               DISABLE
+#define CAN_INIT_AWUM               DISABLE
+#define CAN_INIT_NART               DISABLE
+#define CAN_INIT_RFLM               DISABLE
+#define CAN_INIT_TXFP               DISABLE
+#define CAN_INIT_FIFO               CAN_FIFO0
+#define CAN_LOCK                    HAL_UNLOCKED
+#define CAN_IDE_TYPE                CAN_ID_STD
+#define CAN_RTR_TYPE                CAN_RTR_DATA
+
 
 // CAN Data Length Parameters
 #define CANLIB_DLC_FIRST_BYTE       1
@@ -171,6 +188,12 @@ typedef struct
     };
 } return_struct;
 
+typedef enum {
+
+    INDEX_0 = 0,
+    INDEX_1 = 1
+
+} CANLIB_INDEX;
 
 //
 //      Initialization and Helper Functions
@@ -205,7 +228,7 @@ __weak void CANLIB_Rx_OnMessageReceived();
 uint8_t     CANLIB_Rx_GetSenderID();
 uint8_t     CANLIB_Rx_GetDLC();
 uint8_t     CANLIB_Rx_GetSingleByte(uint8_t byte_index);
-uint8_t     CANLIB_Rx_GetSingleChar(uint8_t index);
+uint8_t     CANLIB_Rx_GetSingleChar(uint8_t byte_index);
 void        CANLIB_Rx_GetBytes(uint8_t* byte_array);
 void        CANLIB_Rx_GetChars(char* char_array);
 uint32_t    CANLIB_Rx_GetAsUint(uint8_t uint_num);
