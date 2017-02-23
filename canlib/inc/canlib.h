@@ -102,7 +102,7 @@
 #define CAN_GPIO_ALTERNATE          GPIO_AF4_CAN
 #define CAN_PORT                    CAN
 // See timing_calculations.txt for calculations
-#define CAN_INIT_PRESCALER          24 // Set for 125 kbps //6
+#define CAN_INIT_PRESCALER          6 // Set for 500 kbps //6
 #define CAN_INIT_MODE               CAN_MODE_NORMAL
 #define CAN_INIT_SJW                CAN_SJW_1TQ
 #define CAN_INIT_BS1                CAN_BS1_12TQ
