@@ -17,7 +17,7 @@
 #include "canlib.h"
 #include "pins.h"
 
-#define TRANSMITTER         0
+#define TRANSMITTER         1
 
 #define LOOPBACK            0
 

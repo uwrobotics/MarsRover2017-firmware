@@ -9,6 +9,7 @@ SIZE=arm-none-eabi-size
 APP_PATH = $(BASE_PATH)/$(APP_FOLDER)
 BUILD_PATH = $(APP_PATH)/build
 PROJ_PATH = $(BUILD_PATH)/$(PROJECT)
+CAN_LIB_PATH = $(BASE_PATH)/canlib
 
 #os dependent code
 ifeq ($(OS),Windows_NT)
@@ -25,8 +26,8 @@ HAL = $(BASE_PATH)/stm32f072b-disco_hal_lib
 # Location of the Libraries folder from the STM32F0xx Standard Peripheral Library
 STD_PERIPH_LIB=$(HAL)/Debug
 
-APP_SRC = $(wildcard $(BASE_PATH)/$(APP_FOLDER)/src/*.c)
-APP_INC = -I$(BASE_PATH)/$(APP_FOLDER)/inc 
+APP_SRC = $(wildcard $(BASE_PATH)/$(APP_FOLDER)/src/*.c) $(wildcard $(CAN_LIB_PATH)/src/*.c)
+APP_INC = -I$(BASE_PATH)/$(APP_FOLDER)/inc -I$(CAN_LIB_PATH)/inc 
 HAL_INC = -I$(HAL)/HAL_Driver/Inc -I$(HAL)/CMSIS/core -I$(HAL)/CMSIS/device
 
 # Location of the linker scripts
