@@ -20,10 +20,12 @@
 
 #define LOOPBACK            0
 
+#define NUM_IDS             3
+
 //Globals that we send
 //  Any variables or arrays used for transmission can
 //  be local as well
-uint32_t node_ids[3] = {3, 4, 10};
+uint32_t node_ids[NUM_IDS] = {3, 4, 10};
 uint8_t array[8] = {1,2,3,4,5,6,7,8};
 uint32_t number1 = 32423432;
 
@@ -44,7 +46,7 @@ void HAL_MspInit(void)
     HAL_NVIC_SetPriority(SysTick_IRQn, 1, 1);
 }
 
-void CAN_Init(uint32_t id)
+void CAN_Init(uint32_t id, uint32_t node_ids)
 {
     uint32_t i;
 
@@ -74,9 +76,10 @@ void CAN_Init(uint32_t id)
     // {
     //     CANLIB_AddFilter(i);
     // }
-    CANLIB_AddFilter(3);
-    CANLIB_AddFilter(4);
-    CANLIB_AddFilter(10);
+//    CANLIB_AddFilter(3);
+//    CANLIB_AddFilter(4);
+//    CANLIB_AddFilter(10);
+    CANLIB_SetupFilters( sizeof(node_ids)/sizeof(uint32_t), node_ids[]);
 #endif
 }
 

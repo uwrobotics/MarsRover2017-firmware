@@ -145,6 +145,27 @@ int CANLIB_AddFilter(uint16_t id){
 	return 0;
 }
 
+int CANLIB_SetupFilters(uint32_t size, uint32_t* node_ids){
+    int ret = 0;
+    //Declare an array of multi_frame structs of length size
+    multi_frame* dev_msgs = (mutli_frame*)malloc( sizeof(multi_frame) * size );
+    
+    if(size > 28){
+        size = 28;
+    }
+
+    for(int i = 0; i < size, i++){
+        //Initialize the multi_frame structs
+
+
+        if( (ret = CANLIB_AddFilter( node_ids[i] )) == 2){
+            return ret;
+        }
+    }
+
+    return ret;
+}
+
 int CANLIB_Init(uint32_t node_id, uint8_t isLoopbackOn){
 
     if(CANLIB_NetworkInit(isLoopbackOn) != 0){
@@ -258,6 +279,7 @@ void CANLIB_Rx_Decode(){
 	for(uint8_t rxMsgIndex = 0; rxMsgIndex < received_message.DLC; rxMsgIndex ++){
 		received_message.whole_byte_array[rxMsgIndex] = CAN_HandleStruct.pRxMsg->Data[rxMsgIndex];
 	}
+
 }
 
 uint8_t CANLIB_Rx_GetSenderID(){

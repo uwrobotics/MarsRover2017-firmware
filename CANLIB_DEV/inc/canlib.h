@@ -180,6 +180,11 @@ typedef struct{
   };
 } return_struct;
 
+typedef struct{
+    uint32_t transmitter_ID;
+    uint8_t combined_msg[64];
+} multi_frame;
+
 //Initialization/Handling function
 // Read header docs for information
 int CANLIB_Init(uint32_t node_ID, uint8_t isLoopbackOn);
@@ -247,6 +252,7 @@ uint64_t    CANLIB_Rx_GetAsLongUint();
 double      CANLIB_Rx_GetAsDouble();
 
 //Convenience functions
+int         CANLIB_SetupFilters(uint32_t size, uint32_t* node_ids);
 
 //CANLIB_SendBytes: sends a byte array of size "array_size" with CAN node id "id" in one function call
 int8_t CANLIB_SendBytes(uint8_t* byte_array, uint8_t array_size, uint32_t id);
