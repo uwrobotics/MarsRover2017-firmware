@@ -182,7 +182,9 @@ typedef struct{
 
 typedef struct{
     uint32_t transmitter_ID;
+    int frame_num;
     uint8_t combined_msg[64];
+    int complete_msg;
 } multi_frame;
 
 //Initialization/Handling function

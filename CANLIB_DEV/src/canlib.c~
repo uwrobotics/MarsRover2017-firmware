@@ -16,6 +16,15 @@ CanTxMsgTypeDef TxMessage;
 CanRxMsgTypeDef RxMessage;
 
 return_struct received_message;
+
+//Array used to store multiframe struct pointers
+multi_frame* frame_ptr[28] = {0};
+uint32_t frame_msg_num = 0;
+//Array whose index is the id value of frame, and value states the frame_msg_num that the
+//structs are stored within the frame_ptr array.
+int multiframe_ids[28];
+memset(multiframe_ids, -1, 28);
+
 uint8_t filterCount = 0;
 
 //Function not part of API so declared in here for internal use
@@ -147,13 +156,17 @@ int CANLIB_AddFilter(uint16_t id){
 
 int CANLIB_SetupFilters(uint32_t size, uint32_t* node_ids){
     int ret = 0;
-    multi_frame* dev_msgs = (mutli_frame*)malloc( sizeof(multi_frame) * size );
+//    //Declare an array of multi_frame structs of length size
+//    multi_frame* dev_msgs = (mutli_frame*)malloc( sizeof(multi_frame) * size );
     
+    //If the array consists of more than 28 ids, only add the first 28
     if(size > 28){
         size = 28;
     }
 
+    //Loop through and setup all the filters from the array of node_ids
     for(int i = 0; i < size, i++){
+
         if( (ret = CANLIB_AddFilter( node_ids[i] )) == 2){
             return ret;
         }
@@ -262,6 +275,7 @@ void CANLIB_Tx_SetLongInt(int64_t message){
 void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* hcan){
 	if(HAL_CAN_Receive_IT(&CAN_HandleStruct, CAN_FIFO0) == HAL_OK){
 		CANLIB_Rx_Decode();
+        CANLIB_Rx_MultiFrame();
 		CANLIB_Rx_OnMessageReceived();
 	}
 }
@@ -277,6 +291,76 @@ void CANLIB_Rx_Decode(){
 	}
 
 }
+
+//Populate data fields of Multiframe struct, struct memory is not freed, free in function that uses data
+//TODO -- add condition for when another multiframe struct needs to be declared.
+void CANLIB_Rx_MultiFrame(){
+    mutli_frame* multiframe;
+    int frame_number, frame_total;
+    if( multiframe_ids[received_message.transmitter_ID] == -1 ){
+        CANLIB_MultiFrame_Init();
+    } 
+    
+    multiframe = &frame_ptr[ multiframe_ids[received_message.transmitter_ID] ];
+    
+    //Populate using the meta data from the frame data
+    frame_number = CANLIB_GetFrameNum();
+    frame_total = CANLIB_GetFrameTotal();
+
+    //If this data is not in ascending order, toss out data
+    if( frame_number <= multiframe->frame_num ){
+        CANLIB_Delete_MultiFrame(received_message.transmitter_ID);
+    }
+    //Enter this else statement if the data is in valid order
+    else{
+        //copy over data from the received CAN frame to the mutli_frame combined_msg
+        //TODO -- need to have a check to copy ACTUAL data bytes, right now tentatively is 7
+        //need to check for when it is the first frame (need to be 6 for the first frame)
+        memcpy( &(multiframe->combined_msg[frame_number]), received_message.whole_byte_array, 7 );
+        
+        multiframe->frame_num++;
+
+        if( multiframe->frame_num == frame_total ){
+            multiframe->complete_msg = 1;
+        }
+    }
+}
+
+//TODO -- get frame number meta data
+void CANLIB_GetFrameNum(){
+    //mask for upper nibble of D0
+}
+
+//TODO -- get meta data of total number of frames
+void CANLIB_GetFrameTotal(){
+    //mask for lower nibble of D0 + get D1
+}
+
+void CANLIB_MultiFrame_Init(){
+    multi_frame* multiframe1 = (multi_frame*) malloc( sizeof(multi_frame) );
+    
+    //Initialize the multiframe struct
+    multiframe->transmitter_ID = received_message.transmitter_ID; 
+    multiframe->frame_num = 0;
+    //Initialize the combined_msg array to all zeros
+    memset(combined_msg, 0, 64);
+    multiframe->complete_msg = 0;    
+    
+    //Store the multiframe struct address in the pointer array (similar to a stack)
+    frame_ptr[frame_msg_num] = multiframe1;
+
+    //Store which which index in the pointer array each transmitter ID is connected to
+    multiframe_ids[received_message.transmitter_ID] = frame_msg_num;
+
+    frame_msg_num++;
+}
+
+//Check the metadata frame from the CAN message based on ISO 15765-2 standard
+void CANLIB_GetMetaData(){
+    //Metadata is stored in the first and second byte of data
+    
+    
+} 
 
 uint8_t CANLIB_Rx_GetSenderID(){
 	return received_message.transmitter_ID;
