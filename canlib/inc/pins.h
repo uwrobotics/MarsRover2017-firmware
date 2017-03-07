@@ -25,4 +25,15 @@
 #define CAN_GPIO_TX_PIN     GPIO_PIN_9
 #define CAN_GPIO_PORT       GPIOB
 
+// PWM
+#define PWM1_GPIO_PIN       GPIO_PIN_8
+#define PWM1_GPIO_PORT      GPIOA
+#define PWM2_GPIO_PIN       GPIO_PIN_9
+#define PWM2_GPIO_PORT      GPIOA
+#define PWM3_GPIO_PIN       GPIO_PIN_10
+#define PWM3_GPIO_PORT      GPIOA
+#define PWM4_GPIO_PIN       GPIO_PIN_9
+#define PWM4_GPIO_PORT      GPIOC
+
+
 #endif
