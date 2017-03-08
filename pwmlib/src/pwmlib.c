@@ -18,29 +18,6 @@ TIM_HandleTypeDef PwmAStruct;
 TIM_HandleTypeDef PwmCStruct;
 TIM_OC_InitTypeDef sConfig;
 
-void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
-{
-    if (htim->Instance == TIM1)
-    {
-        htim->Instance->CCR1 = pwm_value[0];
-        htim->Instance->CCR2 = pwm_value[1];
-        htim->Instance->CCR3 = pwm_value[2];
-    }
-    else if (htim->Instance == TIM3)
-    {
-        htim->Instance->CCR4 = pwm_value[3];
-    }
-}
-
-void TIM1_CC_IRQn(void)
-{
-    HAL_TIM_IRQHandler(&PwmAStruct);
-}
-
-void TIM3_IRQHandler(void)
-{
-    HAL_TIM_IRQHandler(&PwmCStruct);
-}
 
 void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 {
@@ -69,50 +46,59 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
     GPIO_InitStruct.Alternate   = PWM4_GPIO_ALTERNATE;
 
     HAL_GPIO_Init(PWM4_GPIO_PORT, &GPIO_InitStruct);
-
-    // Make sure this is lower value (priority) than system timer and CAN
-    HAL_NVIC_SetPriority(TIM1_CC_IRQn, 2, 2);
-    HAL_NVIC_EnableIRQ(TIM1_CC_IRQn);
-
-    HAL_NVIC_SetPriority(TIM3_IRQn, 2, 2);
-    HAL_NVIC_EnableIRQ(TIM3_IRQn);
 }
 
-static int PWMLIB_ChannelInit(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig, uint32_t pwm_id)
+static int PWMLIB_ConfigChannel(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig, uint32_t pwm_id, uint32_t pulse_width)
 {
     uint32_t channel;
+    uint32_t error = 0;
 
-    switch (pwm_id)
+    // switch (pwm_id)
+    // {
+    //     case 1:
+    //         channel = TIM_CHANNEL_1;
+    //         break;
+
+    //     case 2:
+    //         channel = TIM_CHANNEL_2;
+    //         break;
+
+    //     case 3:
+    //         channel = TIM_CHANNEL_3;
+    //         break;
+
+    //     case 4:
+    //         channel = TIM_CHANNEL_4;
+    //         break;
+
+    //     default:
+    //         error = 1;
+    //         break;
+    // }
+
+    channel = TIM_CHANNEL_4;
+
+    if (error)
     {
-        case 1:
-            channel         = TIM_CHANNEL_1;
-            break;
-
-        case 2:
-            channel         = TIM_CHANNEL_2;
-            break;
-
-        case 3:
-            channel         = TIM_CHANNEL_3;
-            break;
-
-        case 4:
-            channel         = TIM_CHANNEL_4;
-            break;
-
-        default:
-            return -1;
+        return -1;
     }
 
     sConfig->OCMode         = PWM_OC_MODE;
     sConfig->OCPolarity     = PWM_OC_POLARITY;
+    sConfig->OCNPolarity    = PWM_OC_NPOLARITY;
     sConfig->OCFastMode     = PWM_OC_FAST_MODE;
     sConfig->OCIdleState    = PWM_OC_IDLE_STATE;
-    sConfig->Pulse          = PWM_OC_DUTY_CYCLE;
+    sConfig->OCNIdleState   = PWM_OC_NIDLE_STATE;
+    sConfig->Pulse          = pulse_width;
 
     if (HAL_TIM_PWM_ConfigChannel(htim, sConfig, channel) != HAL_OK)
     {
         return -2;
+    }
+
+    if (HAL_TIM_PWM_Start(htim, channel) != HAL_OK)
+    {
+        return -3;
     }
 
     return 0;
@@ -125,36 +111,37 @@ static int PWMLIB_TimerInit(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig
         case 1:
         case 2:
         case 3:
-            htim.Instance       = TIM1;
+            htim->Instance       = TIM1;
             break;
 
         case 4:
-            htim.Instance       = TIM3;
+            htim->Instance       = TIM3;
             break;
 
         default:
             return -1;
     }
 
-    htim->Init.Prescaler         = PWM_PRESCALER;
+    __HAL_TIM_DISABLE(htim);
+
+    SystemCoreClockUpdate();
+
+    htim->Init.Prescaler         = (uint16_t)(SystemCoreClock / 1000000) - 1;
     htim->Init.Period            = PWM_PERIOD;
     htim->Init.ClockDivision     = PWM_CLOCK_DIVISION;
     htim->Init.CounterMode       = PWM_COUNTER_MODE;
 
-    if (HAL_TIM_PWM_Init(&htim) != HAL_OK)
+    if (HAL_TIM_PWM_Init(htim) != HAL_OK)
     {
         return -2;
     }
 
-    if (PWMLIB_ChannelInit(htim, sConfig, pwm_id) != 0)
+    if (PWMLIB_ConfigChannel(htim, sConfig, pwm_id, 0) != 0)
     {
         return -3;
     }
 
-    if (HAL_TIM_PWM_Start_IT(htim, channel) != HAL_OK)
-    {
-        return -4;
-    }
+    __HAL_TIM_ENABLE(htim);
 
     return 0;
 }
@@ -202,4 +189,41 @@ int PWMLIB_Init(uint32_t pwm_id)
     }
 
     return error;
+}
+
+int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
+{
+    TIM_HandleTypeDef *htim;
+    uint32_t pulse_width;
+
+    switch (pwm_id)
+    {
+        case 1:
+        case 2:
+        case 3:
+            htim = &PwmAStruct;
+
+        case 4:
+            htim = &PwmCStruct;
+    }
+
+    if (duty_cycle >= 1.0)
+    {
+        pulse_width = PWM_PERIOD;
+    }
+    else if (duty_cycle <= 0.0)
+    {
+        pulse_width = 0;
+    }
+    else
+    {
+        pulse_width = duty_cycle * PWM_PERIOD;
+    }
+
+    if (PWMLIB_ConfigChannel(htim, &sConfig, pwm_id, pulse_width) != 0)
+    {
+        return -1;
+    }
+
+    return 0;
 }
