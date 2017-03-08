@@ -53,30 +53,28 @@ static int PWMLIB_ConfigChannel(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sCo
     uint32_t channel;
     uint32_t error = 0;
 
-    // switch (pwm_id)
-    // {
-    //     case 1:
-    //         channel = TIM_CHANNEL_1;
-    //         break;
+    switch (pwm_id)
+    {
+        case 1:
+            channel = TIM_CHANNEL_1;
+            break;
 
-    //     case 2:
-    //         channel = TIM_CHANNEL_2;
-    //         break;
+        case 2:
+            channel = TIM_CHANNEL_2;
+            break;
 
-    //     case 3:
-    //         channel = TIM_CHANNEL_3;
-    //         break;
+        case 3:
+            channel = TIM_CHANNEL_3;
+            break;
 
-    //     case 4:
-    //         channel = TIM_CHANNEL_4;
-    //         break;
+        case 4:
+            channel = TIM_CHANNEL_4;
+            break;
 
-    //     default:
-    //         error = 1;
-    //         break;
-    // }
-
-    channel = TIM_CHANNEL_4;
+        default:
+            error = 1;
+            break;
+    }
 
     if (error)
     {

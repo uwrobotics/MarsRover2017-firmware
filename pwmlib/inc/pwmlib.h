@@ -22,8 +22,8 @@ Copyright 2017, UW Robotics Team
 
 // PWM GPIO configurations
 #define PWM_GPIO_MODE               GPIO_MODE_AF_PP
-#define PWM_GPIO_PULL               GPIO_NOPULL
-#define PWM_GPIO_SPEED              GPIO_SPEED_HIGH
+#define PWM_GPIO_PULL               GPIO_PULLUP
+#define PWM_GPIO_SPEED              GPIO_SPEED_FREQ_HIGH
 #define PWM1_GPIO_ALTERNATE         GPIO_AF2_TIM1
 #define PWM2_GPIO_ALTERNATE         GPIO_AF2_TIM1
 #define PWM3_GPIO_ALTERNATE         GPIO_AF2_TIM1
