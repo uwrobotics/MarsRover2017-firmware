@@ -92,10 +92,10 @@ int test1(void)
         return -1;
     }
 
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-    HAL_Delay(2000);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-    HAL_Delay(2000);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+    HAL_Delay(1000);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+    HAL_Delay(1000);
 #endif
 #if (!LOOPBACK && !TRANSMITTER) || LOOPBACK
     //If the bits received are what we sent, light the green LED on PC9
@@ -105,17 +105,19 @@ int test1(void)
         if (received_bytes[i] == i+1)
         {
             HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
+            received_bytes[i] = 0;
         }
         else
         {
-            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+			break;
         }
     }
 
-    HAL_Delay(2000);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
+    HAL_Delay(1000);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-    HAL_Delay(2000);
+    HAL_Delay(1000);
 #endif
     return 0;
 }
