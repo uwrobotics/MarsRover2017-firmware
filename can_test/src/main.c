@@ -116,7 +116,7 @@ int test1(void)
 
     HAL_Delay(1000);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
     HAL_Delay(1000);
 #endif
     return 0;
