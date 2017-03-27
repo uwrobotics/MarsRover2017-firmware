@@ -81,7 +81,7 @@ int test1(uint32_t pwm_id)
 
     if (pwm_id <= MAX_PWM_CHANNELS)
     {
-        for (i = 0; i <= 100; i++)
+        for (i = 100; i >= 0; i--)
         {
             duty_cycle = (float)i / 100.0;
             if (PWMLIB_Write(pwm_id, duty_cycle) != 0)
@@ -103,7 +103,7 @@ int test1(uint32_t pwm_id)
 
 int main(void)
 {
-    uint32_t pwm_id = 4;
+    uint32_t pwm_id = 1;
 
     //Always call. Enables prefetch and calls above function
     HAL_Init();
@@ -121,7 +121,7 @@ int main(void)
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
     }
 
-    while(1)
+    while (1)
     {
         // If a test returns -1, the HAL has returned HAL_ERROR
         if (test1(pwm_id) == -1)
