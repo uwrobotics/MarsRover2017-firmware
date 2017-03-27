@@ -1,0 +1,7 @@
+System clock: 48 MHz
+PWM levels: 100 (1 to 100)
+PWM frequency: 24 KHz
+Counter frequency: 24 MHz
+Prescaler: 48 MHz/24 MHz - 1 = 1
+
+http://www.micromouseonline.com/2016/02/06/pwm-basics-on-the-stm32-general-purpose-timers/
