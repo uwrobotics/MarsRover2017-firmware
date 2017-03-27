@@ -15,37 +15,41 @@ Copyright 2017, UW Robotics Team
 #include "pwmlib.h"
 #include "pins.h"
 
-volatile uint32_t pwm_value[MAX_PWM_CHANNELS] = {0};
+#define PWM_ID      1
 
+static void Error_Handler(void)
+{
+  while (1)
+  {
+  }
+}
 
-// Initialize system clock --> must do for ALL programs!!!
 void CLK_Init(void)
 {
-    RCC_ClkInitTypeDef RCC_ClkStruct;
-    RCC_OscInitTypeDef RCC_OscStruct;
+    RCC_ClkInitTypeDef RCC_ClkInitStruct;
+    RCC_OscInitTypeDef RCC_OscInitStruct;
 
     /* Select HSI48 Oscillator as PLL source */
-    RCC_OscStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48;
-    RCC_OscStruct.HSI48State = RCC_HSI48_ON;
-    RCC_OscStruct.PLL.PLLState = RCC_PLL_ON;
-    RCC_OscStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI48;
-    RCC_OscStruct.PLL.PREDIV = RCC_PREDIV_DIV2;
-    RCC_OscStruct.PLL.PLLMUL = RCC_PLL_MUL2;
-
-    /* TODO: handle oscillator config failure */
-    (void)HAL_RCC_OscConfig(&RCC_OscStruct);
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48;
+    RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI48;
+    RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV2;
+    RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
+    if (HAL_RCC_OscConfig(&RCC_OscInitStruct)!= HAL_OK)
+    {
+        Error_Handler();
+    }
 
     /* Select PLL as system clock source and configure the HCLK and PCLK1 clocks dividers */
-    RCC_ClkStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1);
-    RCC_ClkStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-    RCC_ClkStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-    RCC_ClkStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-
-    /* TODO: handle clock config failure */
-    (void)HAL_RCC_ClockConfig(&RCC_ClkStruct, FLASH_LATENCY_1);
-
-    /* Enable appropriate peripheral clocks */
-    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1);
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1)!= HAL_OK)
+    {
+        Error_Handler();
+    }
 }
 
 int PWM_Init(uint32_t pwm_id)
@@ -81,20 +85,22 @@ int test1(uint32_t pwm_id)
 
     if (pwm_id <= MAX_PWM_CHANNELS)
     {
-        for (i = 100; i >= 0; i--)
-        {
-            duty_cycle = (float)i / 100.0;
-            if (PWMLIB_Write(pwm_id, duty_cycle) != 0)
-            {
-                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-                HAL_Delay(2000);
-                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-            }
-            HAL_Delay(25);
-        }
-        HAL_Delay(500);
-        PWMLIB_Write(pwm_id, 0);
-        HAL_Delay(500);
+        PWMLIB_Write(pwm_id, 1);
+
+        // for (i = 100; i >= 0; i--)
+        // {
+        //     duty_cycle = (float)i / 100.0;
+        //     if (PWMLIB_Write(pwm_id, duty_cycle) != 0)
+        //     {
+        //         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+        //         HAL_Delay(1000);
+        //         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+        //     }
+        //     HAL_Delay(25);
+        // }
+
+        // PWMLIB_Write(pwm_id, 0);
+        // HAL_Delay(500);
 
         return 0;
     }
@@ -103,33 +109,40 @@ int test1(uint32_t pwm_id)
 
 int main(void)
 {
-    uint32_t pwm_id = 1;
-
     //Always call. Enables prefetch and calls above function
     HAL_Init();
 
     CLK_Init();
+
+    HAL_Delay(2000);
+
     LED_Init();
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-    HAL_Delay(2000);
+    HAL_Delay(1000);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+    HAL_Delay(1000);
 
-    if (PWM_Init(pwm_id) != 0)
+    if (PWM_Init(PWM_ID) != 0)
     {
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-        HAL_Delay(2000);
+        HAL_Delay(1000);
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+        HAL_Delay(1000);
     }
+
+    HAL_Delay(1000);
 
     while (1)
     {
         // If a test returns -1, the HAL has returned HAL_ERROR
-        if (test1(pwm_id) == -1)
+        if (test1(PWM_ID) == -1)
         {
-            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-            HAL_Delay(2000);
-            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+            HAL_Delay(1000);
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+            HAL_Delay(1000);
         }
+        HAL_Delay(1000);
     }
 
     return 0;

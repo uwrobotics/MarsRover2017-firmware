@@ -14,7 +14,9 @@ Copyright 2017, UW Robotics Team
 
 #include "pwmlib.h"
 
-TIM_HandleTypeDef PwmAStruct;
+TIM_HandleTypeDef PwmAStruct1;
+TIM_HandleTypeDef PwmAStruct2;
+TIM_HandleTypeDef PwmAStruct3;
 TIM_HandleTypeDef PwmCStruct;
 TIM_OC_InitTypeDef sConfig;
 
@@ -29,20 +31,20 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 
     GPIO_InitTypeDef GPIO_InitStruct;
 
-    // PWM pins on GPIOA
-    GPIO_InitStruct.Pin         = PWM1_GPIO_PIN | PWM2_GPIO_PIN | PWM3_GPIO_PIN;
+    // General GPIO settings (same for all pins)
     GPIO_InitStruct.Mode        = PWM_GPIO_MODE;
     GPIO_InitStruct.Pull        = PWM_GPIO_PULL;
     GPIO_InitStruct.Speed       = PWM_GPIO_SPEED;
+
+
+    // PWM pins on GPIOA
+    GPIO_InitStruct.Pin         = PWM1_GPIO_PIN | PWM2_GPIO_PIN | PWM3_GPIO_PIN;
     GPIO_InitStruct.Alternate   = PWM1_GPIO_ALTERNATE;
 
     HAL_GPIO_Init(PWM1_GPIO_PORT, &GPIO_InitStruct);
 
     // PWM pins on GPIOC
     GPIO_InitStruct.Pin         = PWM4_GPIO_PIN;
-    GPIO_InitStruct.Mode        = PWM_GPIO_MODE;
-    GPIO_InitStruct.Pull        = PWM_GPIO_PULL;
-    GPIO_InitStruct.Speed       = PWM_GPIO_SPEED;
     GPIO_InitStruct.Alternate   = PWM4_GPIO_ALTERNATE;
 
     HAL_GPIO_Init(PWM4_GPIO_PORT, &GPIO_InitStruct);
@@ -122,12 +124,13 @@ static int PWMLIB_TimerInit(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig
 
     __HAL_TIM_DISABLE(htim);
 
-    SystemCoreClockUpdate();
+    //SystemCoreClockUpdate();
 
-    htim->Init.Prescaler         = (uint16_t)(SystemCoreClock / 1000000) - 1;
+    htim->Init.Prescaler         = PWM_PRESCALER;//(uint32_t)(SystemCoreClock / 16000000) - 1;
     htim->Init.Period            = PWM_PERIOD;
     htim->Init.ClockDivision     = PWM_CLOCK_DIVISION;
     htim->Init.CounterMode       = PWM_COUNTER_MODE;
+    htim->Init.RepetitionCounter = 0;
 
     if (HAL_TIM_PWM_Init(htim) != HAL_OK)
     {
@@ -152,21 +155,21 @@ int PWMLIB_Init(uint32_t pwm_id)
     {
         // TIM1
         case 1:
-            if (PWMLIB_TimerInit(&PwmAStruct, &sConfig, 1) != 0)
+            if (PWMLIB_TimerInit(&PwmAStruct1, &sConfig, 1) != 0)
             {
                 error = -1;
             }
             break;
 
         case 2:
-            if (PWMLIB_TimerInit(&PwmAStruct, &sConfig, 2) != 0)
+            if (PWMLIB_TimerInit(&PwmAStruct2, &sConfig, 2) != 0)
             {
                 error = -2;
             }
             break;
 
         case 3:
-            if (PWMLIB_TimerInit(&PwmAStruct, &sConfig, 3) != 0)
+            if (PWMLIB_TimerInit(&PwmAStruct3, &sConfig, 3) != 0)
             {
                 error = -3;
             }
@@ -197,9 +200,13 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
     switch (pwm_id)
     {
         case 1:
+            htim = &PwmAStruct1;
+
         case 2:
+            htim = &PwmAStruct2;
+
         case 3:
-            htim = &PwmAStruct;
+            htim = &PwmAStruct3;
 
         case 4:
             htim = &PwmCStruct;
@@ -215,7 +222,7 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
     }
     else
     {
-        pulse_width = duty_cycle * PWM_PERIOD;
+        pulse_width = (uint32_t)duty_cycle * PWM_PERIOD;
     }
 
     if (PWMLIB_ConfigChannel(htim, &sConfig, pwm_id, pulse_width) != 0)
