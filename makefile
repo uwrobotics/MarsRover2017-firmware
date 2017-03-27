@@ -13,12 +13,13 @@ LIB_PATH = $(BASE_PATH)/lib
 
 #os dependent code
 ifeq ($(OS),Windows_NT)
-REMOVE_PROGRAM = del
-GCC_INC = -IC:/Program\ Files\ (x86)/GNU\ Tools\ ARM\ Embedded/4.9\ 2015q3/arm-none-eabi/include
-CLEAN_PATH = "$(BUILD_PATH)\*.elf" "$(BUILD_PATH)\*.bin" "$(BUILD_PATH)\*.hex" "$(BUILD_PATH)\*.lst" "$(APP_PATH)\*.map"
+REMOVE_PROGRAM = del /q
+REMOVE_FOLDER = rmdir /s/q
+GCC_INC = -IC:/Program\ Files\ (x86)/GNU\ Tools\ ARM\ Embedded/4.9\ 2015q3/arm-none-eabi/include\
+
 else
 REMOVE_PROGRAM = rm -rf
-CLEAN_PATH = $(BUILD_PATH)/*.elf $(BUILD_PATH)/*.bin $(BUILD_PATH)/*.hex $(BUILD_PATH)/*.lst $(APP_PATH)/*.map
+REMOVE_FOLDER = 
 GCC_INC = 
 endif
 
@@ -69,11 +70,11 @@ DEFINES = -DSTM32F0 -DSTM32F072B_DISCO -DSTM32F072RBTx -DSTM32 -DUSE_HAL_DRIVER 
 
 #os dependent code
 ifeq ($(OS),Windows_NT)
-CLEAN_PATH  = "$(BUILD_PATH)\*.elf" "$(BUILD_PATH)\*.bin" "$(BUILD_PATH)\*.hex" "$(BUILD_PATH)\*.lst" "$(APP_PATH)\*.map"
-CLEAN_PATH += $(addsuffix ", $(addprefix ", $(subst /,\,$(OBJS))))
+CLEAN_PATH  = "$(APP_PATH)\*.map" $(addsuffix ", $(addprefix ", $(subst /,\,$(OBJS))))
+CLEAN_FOLDER_PATH = "$(BUILD_PATH)"
 else
-CLEAN_PATH = $(BUILD_PATH)/*.elf $(BUILD_PATH)/*.bin $(BUILD_PATH)/*.hex $(BUILD_PATH)/*.lst $(APP_PATH)/*.map
-CLENA_PATH += $(OBJS)
+CLEAN_PATH = $(BUILD_PATH) $(APP_PATH)/*.map $(OBJS)
+CLEAN_FOLDER_PATH = 
 endif
 
 
@@ -110,4 +111,5 @@ $(PROJ_PATH).elf: $(OBJS)
 
 clean:
 	$(REMOVE_PROGRAM) $(CLEAN_PATH)
+	$(REMOVE_FOLDER) $(CLEAN_FOLDER_PATH)
 #"src\*.o" "$(HAL)\startup\*.o"
