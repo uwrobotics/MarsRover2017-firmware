@@ -20,6 +20,7 @@ TIM_HandleTypeDef PwmAStruct3;
 TIM_HandleTypeDef PwmCStruct;
 TIM_OC_InitTypeDef sConfig;
 
+volatile uint16_t pulse_width = 0;
 
 void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 {
@@ -50,7 +51,7 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
     HAL_GPIO_Init(PWM4_GPIO_PORT, &GPIO_InitStruct);
 }
 
-static int PWMLIB_ConfigChannel(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig, uint32_t pwm_id, uint32_t pulse_width)
+static int PWMLIB_ConfigChannel(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig, uint32_t pwm_id)
 {
     uint32_t channel;
     uint32_t error = 0;
@@ -89,7 +90,7 @@ static int PWMLIB_ConfigChannel(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sCo
     sConfig->OCFastMode     = PWM_OC_FAST_MODE;
     sConfig->OCIdleState    = PWM_OC_IDLE_STATE;
     sConfig->OCNIdleState   = PWM_OC_NIDLE_STATE;
-    sConfig->Pulse          = pulse_width;
+    sConfig->Pulse          = pulse_width & 0xFFFF;
 
     if (HAL_TIM_PWM_ConfigChannel(htim, sConfig, channel) != HAL_OK)
     {
@@ -137,7 +138,9 @@ static int PWMLIB_TimerInit(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig
         return -2;
     }
 
-    if (PWMLIB_ConfigChannel(htim, sConfig, pwm_id, 0) != 0)
+    pulse_width = 0;
+
+    if (PWMLIB_ConfigChannel(htim, sConfig, pwm_id) != 0)
     {
         return -3;
     }
@@ -195,7 +198,6 @@ int PWMLIB_Init(uint32_t pwm_id)
 int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
 {
     TIM_HandleTypeDef *htim;
-    uint32_t pulse_width;
 
     switch (pwm_id)
     {
@@ -212,20 +214,21 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
             htim = &PwmCStruct;
     }
 
-    if (duty_cycle >= 1.0)
-    {
-        pulse_width = PWM_PERIOD;
-    }
-    else if (duty_cycle <= 0.0)
-    {
-        pulse_width = 0;
-    }
-    else
-    {
-        pulse_width = (uint32_t)duty_cycle * PWM_PERIOD;
-    }
+    // if (duty_cycle >= 1.0)
+    // {
+    //     pulse_width = PWM_PERIOD;
+    // }
+    // else if (duty_cycle <= 0.0)
+    // {
+    //     pulse_width = 0;
+    // }
+    // else
+    // {
+    //     pulse_width = (uint32_t) (duty_cycle * PWM_PERIOD);
+    // }
+    pulse_width = 20000;//PWM_PERIOD;
 
-    if (PWMLIB_ConfigChannel(htim, &sConfig, pwm_id, pulse_width) != 0)
+    if (PWMLIB_ConfigChannel(htim, &sConfig, pwm_id) != 0)
     {
         return -1;
     }
