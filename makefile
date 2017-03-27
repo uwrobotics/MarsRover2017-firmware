@@ -6,10 +6,10 @@ OBJCOPY=arm-none-eabi-objcopy
 OBJDUMP=arm-none-eabi-objdump
 SIZE=arm-none-eabi-size
 
-APP_PATH = $(BASE_PATH)/$(APP_FOLDER)
+APP_PATH = $(BASE_PATH)/app/$(APP_FOLDER)
 BUILD_PATH = $(APP_PATH)/build
 PROJ_PATH = $(BUILD_PATH)/$(PROJECT)
-CAN_LIB_PATH = $(BASE_PATH)/canlib
+LIB_PATH = $(BASE_PATH)/lib
 
 #os dependent code
 ifeq ($(OS),Windows_NT)
@@ -22,12 +22,16 @@ CLEAN_PATH = $(BUILD_PATH)/*.elf $(BUILD_PATH)/*.bin $(BUILD_PATH)/*.hex $(BUILD
 GCC_INC = 
 endif
 
-HAL = $(BASE_PATH)/stm32f072b-disco_hal_lib
+HAL = $(LIB_PATH)/stm32f072b-disco_hal_lib
 # Location of the Libraries folder from the STM32F0xx Standard Peripheral Library
 STD_PERIPH_LIB=$(HAL)/Debug
 
-APP_SRC = $(wildcard $(BASE_PATH)/$(APP_FOLDER)/src/*.c) $(wildcard $(CAN_LIB_PATH)/src/*.c)
-APP_INC = -I$(BASE_PATH)/$(APP_FOLDER)/inc -I$(CAN_LIB_PATH)/inc 
+APP_SRC = $(wildcard $(APP_PATH)/src/*.c) 
+LIB_SRC = $(wildcard $(LIB_PATH)/*/src/*.c)
+
+APP_INC = -I$(APP_PATH)/inc 
+LIB_INC = $(addprefix -I,$(wildcard $(LIB_PATH)/*/inc))
+
 HAL_INC = -I$(HAL)/HAL_Driver/Inc -I$(HAL)/CMSIS/core -I$(HAL)/CMSIS/device
 
 # Location of the linker scripts
@@ -41,6 +45,8 @@ CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -Wl,--gc-sections -Wl,-Map=$(PROJECT).map
 CFLAGS += -u _printf_float -u _scanf_float
 
+LFLAGS = $(CFLAGS) -lm
+
 ###################################################
 
 vpath %.c src
@@ -49,15 +55,28 @@ vpath %.a $(STD_PERIPH_LIB)
 ROOT=$(shell pwd)
 
 # add startup file to build
-SRCS = $(APP_SRC) $(HAL)/startup/startup_stm32f072xb.S 
-INC = $(APP_INC) $(HAL_INC)
+SRCS = $(APP_SRC) $(LIB_SRC)
+SRCASM = $(HAL)/startup/startup_stm32f072xb.S
+INC = $(APP_INC) $(LIB_INC) $(HAL_INC)
 
 # need if you want to build with -DUSE_CMSIS 
 #SRCS += stm32f0_discovery.c
 #SRCS += stm32f0_discovery.c stm32f0xx_it.c
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o) $(SRCASM:.S=.o)
 DEFINES = -DSTM32F0 -DSTM32F072B_DISCO -DSTM32F072RBTx -DSTM32 -DUSE_HAL_DRIVER -DSTM32F072xB
+
+
+#os dependent code
+ifeq ($(OS),Windows_NT)
+CLEAN_PATH  = "$(BUILD_PATH)\*.elf" "$(BUILD_PATH)\*.bin" "$(BUILD_PATH)\*.hex" "$(BUILD_PATH)\*.lst" "$(APP_PATH)\*.map"
+CLEAN_PATH += $(addsuffix ", $(addprefix ", $(subst /,\,$(OBJS))))
+else
+CLEAN_PATH = $(BUILD_PATH)/*.elf $(BUILD_PATH)/*.bin $(BUILD_PATH)/*.hex $(BUILD_PATH)/*.lst $(APP_PATH)/*.map
+CLENA_PATH += $(OBJS)
+endif
+
+
 ###################################################
 
 .PHONY: proj clean
@@ -66,15 +85,25 @@ all: proj
 
 proj: 	$(PROJ_PATH).elf
 
-$(PROJ_PATH).elf: $(SRCS)
+$(PROJ_PATH).elf: $(OBJS)
 	@echo Building Project...
 	@-mkdir build
-	@$(CC) $(CFLAGS) $(INC) $(DEFINES) $^ -o $@ -L$(STD_PERIPH_LIB) -lstm32f072b-disco_hal_lib -L$(LDSCRIPT_INC) -TLinkerScript.ld -lm -lc -lg -lnosys -lgcc
+	@$(CC) $(LFLAGS) $^ -L$(STD_PERIPH_LIB) -lstm32f072b-disco_hal_lib -L$(LDSCRIPT_INC) -TLinkerScript.ld -lm -lc -lg -lnosys -lgcc -o $@
 	$(OBJCOPY) -O ihex $(PROJ_PATH).elf $(PROJ_PATH).hex
 	$(OBJCOPY) -O binary $(PROJ_PATH).elf $(PROJ_PATH).bin
 	$(OBJDUMP) -St $(PROJ_PATH).elf >$(PROJ_PATH).lst
 	$(SIZE) $(PROJ_PATH).elf
 	
+	
+%.o: %.c
+	@echo $@
+	@$(CC) $(CFLAGS) $(INC) $(DEFINES) -c -o $@ $<
+	
+%.o: %.S
+	@echo $@
+	@$(CC) $(CFLAGS) $(INC) $(DEFINES) -c -o $@ $<
+
+  
 #implement with texane on linux and stmlink CLI on windows
 #program: $(PROJECT).bin
 #	openocd -f $(OPENOCD_BOARD_DIR)/stm32f0discovery.cfg -f $(OPENOCD_PROC_FILE) -c "stm_flash `pwd`/$(PROJECT).bin" -c shutdown
