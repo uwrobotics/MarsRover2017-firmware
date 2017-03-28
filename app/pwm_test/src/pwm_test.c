@@ -80,34 +80,40 @@ void LED_Init(void)
 
 int test1(uint32_t pwm_id)
 {
-    // uint32_t i;
-    // float duty_cycle;
+    int i;
+    float duty_cycle;
 
-    PWMLIB_Write(pwm_id, 1);
-    HAL_Delay(1000);
-    return 0;
+    if (pwm_id <= MAX_PWM_CHANNELS)
+    {
+        for (i = 0; i <= 100; i++)
+        {
+            duty_cycle = (float)i / 100.0;
+            if (PWMLIB_Write(pwm_id, duty_cycle) != 0)
+            {
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+                HAL_Delay(1000);
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+            }
+            HAL_Delay(10);
+        }
+        for (i = 100; i >= 0; i--)
+        {
+            duty_cycle = (float)i / 100.0;
+            if (PWMLIB_Write(pwm_id, duty_cycle) != 0)
+            {
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+                HAL_Delay(1000);
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+            }
+            HAL_Delay(10);
+        }
 
-    // if (pwm_id <= MAX_PWM_CHANNELS)
-    // {
+        HAL_Delay(500);
 
-    //     // for (i = 100; i >= 0; i--)
-    //     // {
-    //     //     duty_cycle = (float)i / 100.0;
-    //     //     if (PWMLIB_Write(pwm_id, duty_cycle) != 0)
-    //     //     {
-    //     //         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-    //     //         HAL_Delay(1000);
-    //     //         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-    //     //     }
-    //     //     HAL_Delay(25);
-    //     // }
+        return 0;
+    }
 
-    //     // PWMLIB_Write(pwm_id, 0);
-    //     // HAL_Delay(500);
-
-    //     return 0;
-    // }
-    // return -1;
+    return -1;
 }
 
 int main(void)

@@ -30,8 +30,8 @@ Copyright 2017, UW Robotics Team
 #define PWM4_GPIO_ALTERNATE         GPIO_AF1_TIM3
 
 // PWM timer configuration
-#define PWM_PRESCALER               47
-#define PWM_PERIOD                  19999
+#define PWM_PRESCALER               47  // 1 tick = 1 us
+#define PWM_PERIOD                  999 // 1000 us = 1 KHz
 #define PWM_CLOCK_DIVISION          TIM_CLOCKDIVISION_DIV1
 #define PWM_COUNTER_MODE            TIM_COUNTERMODE_UP
 

@@ -198,35 +198,48 @@ int PWMLIB_Init(uint32_t pwm_id)
 int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
 {
     TIM_HandleTypeDef *htim;
+    uint8_t error = 0;
 
     switch (pwm_id)
     {
         case 1:
             htim = &PwmAStruct1;
+            break;
 
         case 2:
             htim = &PwmAStruct2;
+            break;
 
         case 3:
             htim = &PwmAStruct3;
+            break;
 
         case 4:
             htim = &PwmCStruct;
+            break;
+
+        default:
+            error = 1;
+            break;
     }
 
-    // if (duty_cycle >= 1.0)
-    // {
-    //     pulse_width = PWM_PERIOD;
-    // }
-    // else if (duty_cycle <= 0.0)
-    // {
-    //     pulse_width = 0;
-    // }
-    // else
-    // {
-    //     pulse_width = (uint32_t) (duty_cycle * PWM_PERIOD);
-    // }
-    pulse_width = 20000;//PWM_PERIOD;
+    if (error)
+    {
+        return -2;
+    }
+
+    if (duty_cycle >= 1.0)
+    {
+        pulse_width = PWM_PERIOD;
+    }
+    else if (duty_cycle <= 0.0)
+    {
+        pulse_width = 0;
+    }
+    else
+    {
+        pulse_width = (uint16_t) (duty_cycle * PWM_PERIOD);
+    }
 
     if (PWMLIB_ConfigChannel(htim, &sConfig, pwm_id) != 0)
     {
