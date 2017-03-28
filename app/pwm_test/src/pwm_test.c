@@ -116,6 +116,48 @@ int test1(uint32_t pwm_id)
     return -1;
 }
 
+int test2(uint32_t pwm_id)
+{
+    int i;
+    float duty_cycle;
+
+    if (pwm_id <= MAX_PWM_CHANNELS)
+    {
+        if (PWMLIB_ChangePeriod(pwm_id, 500) != 0)
+        {
+            return -1;
+        }
+
+        for (i = 0; i <= 100; i++)
+        {
+            duty_cycle = (float)i / 100.0;
+            if (PWMLIB_Write(pwm_id, duty_cycle) != 0)
+            {
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+                HAL_Delay(1000);
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+            }
+            HAL_Delay(10);
+        }
+        for (i = 100; i >= 0; i--)
+        {
+            duty_cycle = (float)i / 100.0;
+            if (PWMLIB_Write(pwm_id, duty_cycle) != 0)
+            {
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+                HAL_Delay(1000);
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+            }
+            HAL_Delay(10);
+        }
+
+        HAL_Delay(500);
+
+        return 0;
+    }
+    return -1;
+}
+
 int main(void)
 {
     //Always call. Enables prefetch and calls above function
@@ -144,7 +186,7 @@ int main(void)
     while (1)
     {
         // If a test returns -1, the HAL has returned HAL_ERROR
-        if (test1(PWM_ID) == -1)
+        if (test2(PWM_ID) == -1)
         {
             HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
             HAL_Delay(1000);

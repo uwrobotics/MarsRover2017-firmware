@@ -46,5 +46,6 @@ Copyright 2017, UW Robotics Team
 // Functions
 int PWMLIB_Init(uint32_t pwm_id);
 int PWMLIB_Write(uint32_t pwm_id, float duty_cycle);
+int PWMLIB_ChangePeriod(uint32_t pwm_id, uint32_t period);
 
 #endif

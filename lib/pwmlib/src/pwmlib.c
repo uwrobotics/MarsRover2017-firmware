@@ -125,9 +125,7 @@ static int PWMLIB_TimerInit(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig
 
     __HAL_TIM_DISABLE(htim);
 
-    //SystemCoreClockUpdate();
-
-    htim->Init.Prescaler         = PWM_PRESCALER;//(uint32_t)(SystemCoreClock / 16000000) - 1;
+    htim->Init.Prescaler         = PWM_PRESCALER;
     htim->Init.Period            = PWM_PERIOD;
     htim->Init.ClockDivision     = PWM_CLOCK_DIVISION;
     htim->Init.CounterMode       = PWM_COUNTER_MODE;
@@ -245,6 +243,69 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
     {
         return -1;
     }
+
+    return 0;
+}
+
+int PWMLIB_ChangePeriod(uint32_t pwm_id, uint32_t period)
+{
+    TIM_HandleTypeDef *htim;
+    uint8_t error = 0;
+
+    if (period > 0xFFFF || period == 0)
+    {
+        return -1;
+    }
+
+    switch (pwm_id)
+    {
+        case 1:
+            htim = &PwmAStruct1;
+            break;
+
+        case 2:
+            htim = &PwmAStruct2;
+            break;
+
+        case 3:
+            htim = &PwmAStruct3;
+            break;
+
+        case 4:
+            htim = &PwmCStruct;
+            break;
+
+        default:
+            error = 1;
+            break;
+    }
+
+    if (error)
+    {
+        return -2;
+    }
+
+    __HAL_TIM_DISABLE(htim);
+
+    htim->Init.Prescaler         = PWM_PRESCALER;
+    htim->Init.Period            = period;
+    htim->Init.ClockDivision     = PWM_CLOCK_DIVISION;
+    htim->Init.CounterMode       = PWM_COUNTER_MODE;
+    htim->Init.RepetitionCounter = 0;
+
+    if (HAL_TIM_PWM_Init(htim) != HAL_OK)
+    {
+        return -3;
+    }
+
+    pulse_width = 0;
+
+    if (PWMLIB_ConfigChannel(htim, &sConfig, pwm_id) != 0)
+    {
+        return -4;
+    }
+
+    __HAL_TIM_ENABLE(htim);
 
     return 0;
 }
