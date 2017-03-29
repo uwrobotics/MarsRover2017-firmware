@@ -15,7 +15,7 @@ Copyright 2017, UW Robotics Team
 #include "pwmlib.h"
 #include "pins.h"
 
-#define PWM_ID      1
+#define PWM_ID      3
 
 static void Error_Handler(void)
 {

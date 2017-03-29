@@ -14,14 +14,20 @@ Copyright 2017, UW Robotics Team
 
 #include "pwmlib.h"
 
-TIM_HandleTypeDef PwmAStruct1;
-TIM_HandleTypeDef PwmAStruct2;
-TIM_HandleTypeDef PwmAStruct3;
-TIM_HandleTypeDef PwmCStruct;
+// Each timer has its own handler. Therefore, every PWM channel on the same timer will have the same PWM period.
+TIM_HandleTypeDef TIM1_Handler;
+TIM_HandleTypeDef TIM3_Handler;
 TIM_OC_InitTypeDef sConfig;
 
+// Variable that stores the pulse width written to each channel
 volatile uint16_t pulse_width = 0;
 
+
+//////////////////////////////////////////
+//      Internal Library Functions      //
+//////////////////////////////////////////
+
+// Initializes the PWM GPIO pins and clocks. Automatically called by HAL on initialization.
 void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 {
     __HAL_RCC_TIM1_CLK_ENABLE();
@@ -51,6 +57,7 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
     HAL_GPIO_Init(PWM4_GPIO_PORT, &GPIO_InitStruct);
 }
 
+// Configures each individual PWM channel. Should not be called outside the library.
 static int PWMLIB_ConfigChannel(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig, uint32_t pwm_id)
 {
     uint32_t channel;
@@ -105,6 +112,7 @@ static int PWMLIB_ConfigChannel(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sCo
     return 0;
 }
 
+// Initializes each timer. Should not be called outside of the library.
 static int PWMLIB_TimerInit(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig, uint32_t pwm_id)
 {
     switch (pwm_id)
@@ -148,51 +156,84 @@ static int PWMLIB_TimerInit(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig
     return 0;
 }
 
+
+////////////////////////////////////////
+//      Public Library Functions      //
+////////////////////////////////////////
+
+/*******************************************************************************************************
+    PWMLIB_Write
+    ------------
+
+    Description:
+    ============
+    Main function you care about. Writes a new duty cycle to the chosen channel. Duty cycle percentage
+    should be between 0 and 1.
+
+    Arguments:
+    ==========
+    uint32_t        pwm_id              ID of the PWM channel to change the period for.
+    float           duty_cycle          New duty cycle for channel (between 0 and 1)
+
+    Returns:
+    ========
+    0               On success
+    -1              Invalid pwm_id
+    -2              Configuring the PWM channel failed
+*******************************************************************************************************/
 int PWMLIB_Init(uint32_t pwm_id)
 {
     int error = 0;
+    TIM_HandleTypeDef *htim = NULL;
 
     switch (pwm_id)
     {
         // TIM1
         case 1:
-            if (PWMLIB_TimerInit(&PwmAStruct1, &sConfig, 1) != 0)
-            {
-                error = -1;
-            }
-            break;
-
         case 2:
-            if (PWMLIB_TimerInit(&PwmAStruct2, &sConfig, 2) != 0)
-            {
-                error = -2;
-            }
-            break;
-
         case 3:
-            if (PWMLIB_TimerInit(&PwmAStruct3, &sConfig, 3) != 0)
-            {
-                error = -3;
-            }
+            htim = &TIM1_Handler;
             break;
 
         // TIM3
         case 4:
-            if (PWMLIB_TimerInit(&PwmCStruct, &sConfig, 4) != 0)
-            {
-                error = -4;
-            }
+            htim = &TIM3_Handler;
             break;
 
         // Invalid PWM number
         default:
-            error = -5;
+            error = -1;
             break;
+    }
+
+    if (htim)
+    {
+        PWMLIB_TimerInit(htim, &sConfig, pwm_id);
     }
 
     return error;
 }
 
+/*******************************************************************************************************
+    PWMLIB_Write
+    ------------
+
+    Description:
+    ============
+    Main function you care about. Writes a new duty cycle to the chosen channel. Duty cycle percentage
+    should be between 0 and 1.
+
+    Arguments:
+    ==========
+    uint32_t        pwm_id              ID of the PWM channel to change the period for.
+    float           duty_cycle          New duty cycle for channel (between 0 and 1)
+
+    Returns:
+    ========
+    0               On success
+    -1              Invalid pwm_id
+    -2              Configuring the PWM channel failed
+*******************************************************************************************************/
 int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
 {
     TIM_HandleTypeDef *htim;
@@ -201,19 +242,13 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
     switch (pwm_id)
     {
         case 1:
-            htim = &PwmAStruct1;
-            break;
-
         case 2:
-            htim = &PwmAStruct2;
-            break;
-
         case 3:
-            htim = &PwmAStruct3;
+            htim = &TIM1_Handler;
             break;
 
         case 4:
-            htim = &PwmCStruct;
+            htim = &TIM3_Handler;
             break;
 
         default:
@@ -223,7 +258,7 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
 
     if (error)
     {
-        return -2;
+        return -1;
     }
 
     if (duty_cycle >= 1.0)
@@ -241,12 +276,36 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
 
     if (PWMLIB_ConfigChannel(htim, &sConfig, pwm_id) != 0)
     {
-        return -1;
+        return -2;
     }
 
     return 0;
 }
 
+/*******************************************************************************************************
+    PWMLIB_ChangePeriod
+    -------------------
+
+    Description:
+    ============
+    Changes period for the PWM channel associated with the pwm_id. Usually will never need to be called.
+    All channels using the same timer will have their periods changed. Don't try to set different
+    periods if they use the same timer. Users should never need to call this function. Only use if you
+    know what you're doing.
+
+    Arguments:
+    ==========
+    uint32_t        pwm_id              ID of the PWM channel to change the period for.
+    uint32_t        period              New period of the PWM channel (less than 65535)
+
+    Returns:
+    ========
+    0               On success
+    -1              Invalid period
+    -2              Invalid pwm_id
+    -3              HAL failed to initialize PWM
+    -4              Configuring the PWM channel failed
+*******************************************************************************************************/
 int PWMLIB_ChangePeriod(uint32_t pwm_id, uint32_t period)
 {
     TIM_HandleTypeDef *htim;
@@ -260,19 +319,13 @@ int PWMLIB_ChangePeriod(uint32_t pwm_id, uint32_t period)
     switch (pwm_id)
     {
         case 1:
-            htim = &PwmAStruct1;
-            break;
-
         case 2:
-            htim = &PwmAStruct2;
-            break;
-
         case 3:
-            htim = &PwmAStruct3;
+            htim = &TIM1_Handler;
             break;
 
         case 4:
-            htim = &PwmCStruct;
+            htim = &TIM3_Handler;
             break;
 
         default:

@@ -10,7 +10,28 @@ Copyright 2017, UW Robotics Team
 @file     pwmlib.h
 @author:  Archie Lee
 
+See full function descriptions in pwmlib.c
+
+How to use this library:
+
+1. As usual, initialize the HAL and system clock.
+2. Initialize the required PWM channels with PWMLIB_Init().
+3. Write to the PWM channel with PWMLIB_Write().
+
+Notes:
+- All channels on the same timer have the same period
+  (i.e. PA8, PA9, and PA10 all use TIM1 so they have the
+  same PWM period)
+- Don't use the PWMLIB_ChangePeriod() function unless you
+  know what you're doing
+- More channels can be added as required, just modify the
+  .c and .h files
+- On the Discovery boards, PC9 may not work correctly.
+  This pin is also used for the onboard LED so the output
+  may not work as expected.
+
 **********************************************************/
+
 #ifndef PWMLIB_H_
 #define PWMLIB_H_
 
@@ -43,7 +64,7 @@ Copyright 2017, UW Robotics Team
 #define PWM_OC_NIDLE_STATE          TIM_OCNIDLESTATE_RESET
 #define PWM_OC_FAST_MODE            TIM_OCFAST_DISABLE
 
-// Functions
+// Public Functions
 int PWMLIB_Init(uint32_t pwm_id);
 int PWMLIB_Write(uint32_t pwm_id, float duty_cycle);
 int PWMLIB_ChangePeriod(uint32_t pwm_id, uint32_t period);
