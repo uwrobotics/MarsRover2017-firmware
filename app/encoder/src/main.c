@@ -14,7 +14,8 @@ long encoderPos = 0;
 uint8_t encA = 0;
 uint8_t encB = 0;
 
-TIM_HandleTypeDef htim;
+TIM_HandleTypeDef encoder1;
+TIM_HandleTypeDef encoder2;
 
 
 void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef *htim) {
@@ -23,6 +24,7 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef *htim) {
 
 	__HAL_RCC_GPIOA_CLK_ENABLE();
 	__HAL_RCC_GPIOB_CLK_ENABLE();
+	__HAL_RCC_GPIOC_CLK_ENABLE();
 
 	GPIO_InitTypeDef GPIO_InitStruct;
 	
@@ -30,13 +32,26 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef *htim) {
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 
+	//encoder 1a
 	GPIO_InitStruct.Pin = GPIO_PIN_15;
 	GPIO_InitStruct.Alternate = GPIO_AF2_TIM2;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+	//encoder 1b
 	GPIO_InitStruct.Pin = GPIO_PIN_3;
 	GPIO_InitStruct.Alternate = GPIO_AF2_TIM2;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+	//encoder 2a
+	GPIO_InitStruct.Pin = GPIO_PIN_6;
+	GPIO_InitStruct.Alternate = GPIO_AF0_TIM3;
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+	
+	//encoder 2b
+	GPIO_InitStruct.Pin = GPIO_PIN_7;
+	GPIO_InitStruct.Alternate = GPIO_AF0_TIM3;
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
 
 }
 
@@ -105,7 +120,7 @@ int main(void)
 
 	//init LEDS
 	GPIO_InitTypeDef GPIO_InitStruct = {
-			.Pin = GPIO_PIN_9 | GPIO_PIN_8 | GPIO_PIN_7 | GPIO_PIN_6,
+			.Pin = GPIO_PIN_9 | GPIO_PIN_8,// | GPIO_PIN_7 | GPIO_PIN_6,
 			.Mode = GPIO_MODE_OUTPUT_PP,
 			.Pull = GPIO_NOPULL,
 			.Speed = GPIO_SPEED_FREQ_HIGH
@@ -113,12 +128,12 @@ int main(void)
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 
-	//enable hardware encoding
-	htim.Instance = TIM2;
-	htim.Init.Prescaler = 0;
-	htim.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim.Init.Period = 0xFFFF;
-	htim.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	//enable hardware encoder reading
+	encoder1.Instance = TIM2;
+	encoder1.Init.Prescaler = 0;
+	encoder1.Init.CounterMode = TIM_COUNTERMODE_UP;
+	encoder1.Init.Period = 0xFFFF;
+	encoder1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 
 	TIM_Encoder_InitTypeDef sConfig;
 	sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
@@ -131,12 +146,27 @@ int main(void)
 	sConfig.IC2Selection = TIM_ICSELECTION_DIRECTTI;
 	sConfig.IC2Prescaler = TIM_ICPSC_DIV1;
 	sConfig.IC2Filter = 0;
-	if( HAL_TIM_Encoder_Init(&htim, &sConfig) != HAL_OK){
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+	if( HAL_TIM_Encoder_Init(&encoder1, &sConfig) != HAL_OK){
+		// HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
 	}
 
-	if (HAL_TIM_Encoder_Start(&htim, TIM_CHANNEL_ALL) != HAL_OK){
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+	if (HAL_TIM_Encoder_Start(&encoder1, TIM_CHANNEL_ALL) != HAL_OK){
+		// HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+	}
+
+	//encoder 2
+	encoder2.Instance = TIM3;
+	encoder2.Init.Prescaler = 0;
+	encoder2.Init.CounterMode = TIM_COUNTERMODE_UP;
+	encoder2.Init.Period = 0xFFFF;
+	encoder2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+
+	if( HAL_TIM_Encoder_Init(&encoder2, &sConfig) != HAL_OK){
+		// HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+	}
+
+	if (HAL_TIM_Encoder_Start(&encoder2, TIM_CHANNEL_ALL) != HAL_OK){
+		// HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
 	}
 
 	//init interrupt pins
@@ -167,21 +197,23 @@ int main(void)
 	// NVIC_EnableIRQ(EXTI4_15_IRQn);  // 5. Enable EXTI0_1 interrupt in NVIC (do 4 first)
 
 	encoderPos = 0;
+	long encoderPos2 = 0;
 
 //Pin C6 is red, C7 is blue
 	while(1) {
 		//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9); //Toggle the state of pin PC9
 		//HAL_Delay(100); //delay 100ms
 
-		encoderPos = TIM2->CNT;
-		if(encoderPos > 50)
+		encoderPos = encoder1.Instance->CNT;
+		encoderPos2 = encoder2.Instance->CNT;
+		if(encoderPos2 > 150)
 		{
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
 		}
 		else {
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
 		}
 		// if (encoderPos > 100){
 		// 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
