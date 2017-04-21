@@ -44,9 +44,11 @@ static TIM_HandleTypeDef s_TimerInstance =
 
 static void Error_Handler(void)
 {
-  while (1)
-  {
-  }
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+
+    while (1)
+    {
+    }
 }
 
 void CLK_Init(void)
@@ -110,6 +112,7 @@ void GPIO_Init(void)
 {
     __HAL_RCC_GPIOC_CLK_ENABLE();
 
+    // LEDs
     GPIO_InitTypeDef LED_InitStruct = {
             .Pin        = GPIO_PIN_8 | GPIO_PIN_7 | GPIO_PIN_6,
             .Mode       = GPIO_MODE_OUTPUT_PP,
@@ -117,6 +120,10 @@ void GPIO_Init(void)
             .Speed      = GPIO_SPEED_FREQ_HIGH
     };
     HAL_GPIO_Init(GPIOC, &LED_InitStruct);
+
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
 
     // Direction control pin
     GPIO_InitTypeDef DirCtrl_InitStruct = {
@@ -197,7 +204,7 @@ int main(void)
             // Reverse
             else if (joy_cmd[0] < 0.0)
             {
-                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
             }
             PWMLIB_Write(PWM_ID, joy_cmd[0]);
         }
