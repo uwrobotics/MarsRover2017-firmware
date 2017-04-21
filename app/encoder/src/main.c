@@ -9,80 +9,39 @@
 */
 
 #include "stm32f0xx.h"
+#include "encoderlib.h"
 
-long encoderPos = 0;
-uint8_t encA = 0;
-uint8_t encB = 0;
+// uint8_t encA = 0;
+// uint8_t encB = 0;
 
-TIM_HandleTypeDef encoder1;
-TIM_HandleTypeDef encoder2;
-
-
-void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef *htim) {
-	__HAL_RCC_TIM2_CLK_ENABLE();
-	__HAL_RCC_TIM3_CLK_ENABLE();
-
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-	__HAL_RCC_GPIOB_CLK_ENABLE();
-	__HAL_RCC_GPIOC_CLK_ENABLE();
-
-	GPIO_InitTypeDef GPIO_InitStruct;
-	
-	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-
-	//encoder 1a
-	GPIO_InitStruct.Pin = GPIO_PIN_15;
-	GPIO_InitStruct.Alternate = GPIO_AF2_TIM2;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-	//encoder 1b
-	GPIO_InitStruct.Pin = GPIO_PIN_3;
-	GPIO_InitStruct.Alternate = GPIO_AF2_TIM2;
-	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-	//encoder 2a
-	GPIO_InitStruct.Pin = GPIO_PIN_6;
-	GPIO_InitStruct.Alternate = GPIO_AF0_TIM3;
-	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-	
-	//encoder 2b
-	GPIO_InitStruct.Pin = GPIO_PIN_7;
-	GPIO_InitStruct.Alternate = GPIO_AF0_TIM3;
-	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-
-}
-
-
+//interrupt method for reading encoders, switched to using hardware timers
 //https://www.rcgroups.com/forums/showthread.php?969957-Good-C-code-for-Quadrature-encoding
 // update must be called at least once per state change of aNow or bNow
-void update( uint8_t aNow, uint8_t bNow){
-	static uint8_t aPrev;
-	if( !aPrev && aNow ) {
-		if( bNow )
-			encoderPos++;
-		else
-			encoderPos--;
-	}
-	aPrev = aNow;
-}
+// void update( uint8_t aNow, uint8_t bNow){
+// 	static uint8_t aPrev;
+// 	if( !aPrev && aNow ) {
+// 		if( bNow )
+// 			encoderPos++;
+// 		else
+// 			encoderPos--;
+// 	}
+// 	aPrev = aNow;
+// }
 
-void EXTI2_3_IRQHandler(void){
-	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9); //Toggle the state of pin PC9
-	encB = !encB;
-	update(encA,encB);
-  EXTI->PR |= EXTI_PR_PR3;
-}
+// void EXTI2_3_IRQHandler(void){
+// 	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9); //Toggle the state of pin PC9
+// 	encB = !encB;
+// 	update(encA,encB);
+//   EXTI->PR |= EXTI_PR_PR3;
+// }
 
-void EXTI4_15_IRQHandler(void){
-	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8); //Toggle the state of pin PC9
-	encA = !encA;
-	update(encA,encB);
-	EXTI->PR |= EXTI_PR_PR15;
+// void EXTI4_15_IRQHandler(void){
+// 	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8); //Toggle the state of pin PC9
+// 	encA = !encA;
+// 	update(encA,encB);
+// 	EXTI->PR |= EXTI_PR_PR15;
 
-}
+// }
 
 int main(void)
 {
@@ -127,48 +86,6 @@ int main(void)
 	};
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-
-	//enable hardware encoder reading
-	encoder1.Instance = TIM2;
-	encoder1.Init.Prescaler = 0;
-	encoder1.Init.CounterMode = TIM_COUNTERMODE_UP;
-	encoder1.Init.Period = 0xFFFF;
-	encoder1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-
-	TIM_Encoder_InitTypeDef sConfig;
-	sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
-	sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;;
-	sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
-	sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
-	sConfig.IC1Filter = 0;
-
-	sConfig.IC2Polarity = TIM_ICPOLARITY_RISING;
-	sConfig.IC2Selection = TIM_ICSELECTION_DIRECTTI;
-	sConfig.IC2Prescaler = TIM_ICPSC_DIV1;
-	sConfig.IC2Filter = 0;
-	if( HAL_TIM_Encoder_Init(&encoder1, &sConfig) != HAL_OK){
-		// HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-	}
-
-	if (HAL_TIM_Encoder_Start(&encoder1, TIM_CHANNEL_ALL) != HAL_OK){
-		// HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-	}
-
-	//encoder 2
-	encoder2.Instance = TIM3;
-	encoder2.Init.Prescaler = 0;
-	encoder2.Init.CounterMode = TIM_COUNTERMODE_UP;
-	encoder2.Init.Period = 0xFFFF;
-	encoder2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-
-	if( HAL_TIM_Encoder_Init(&encoder2, &sConfig) != HAL_OK){
-		// HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-	}
-
-	if (HAL_TIM_Encoder_Start(&encoder2, TIM_CHANNEL_ALL) != HAL_OK){
-		// HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-	}
-
 	//init interrupt pins
 	// GPIO_InitStruct.Pin = GPIO_PIN_3;
 	// GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
@@ -182,30 +99,22 @@ int main(void)
 	// GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 	// HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-
-//	SYSCFG->EXTICR1  &= (0x000F) ;
-	//1. clear bits 3:0 in the SYSCFG_EXTICR1 reg to amp EXTI Line to NVIC
-
-	//EXTI->RTSR = EXTI_RTSR_TR0;
-	// 2.Set interrupt trigger to rising edge
-
-	//EXTI->IMR = EXTI_IMR_MR0; // 3. unmask EXTI0 line
 	// NVIC_SetPriority(EXTI2_3_IRQn, 1); //4. Set Priority to 1
 	// NVIC_EnableIRQ(EXTI2_3_IRQn);  // 5. Enable EXTI0_1 interrupt in NVIC (do 4 first)
 
 	// NVIC_SetPriority(EXTI4_15_IRQn, 1); //4. Set Priority to 1
 	// NVIC_EnableIRQ(EXTI4_15_IRQn);  // 5. Enable EXTI0_1 interrupt in NVIC (do 4 first)
 
-	encoderPos = 0;
+	EncoderLib_Init(ENCODER1);
+	EncoderLib_Init(ENCODER2);
+	long encoderPos1 = 0;
 	long encoderPos2 = 0;
+
 
 //Pin C6 is red, C7 is blue
 	while(1) {
-		//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9); //Toggle the state of pin PC9
-		//HAL_Delay(100); //delay 100ms
-
-		encoderPos = encoder1.Instance->CNT;
-		encoderPos2 = encoder2.Instance->CNT;
+		encoderPos1 = EncoderLib_ReadCount(ENCODER1);
+		encoderPos2 = EncoderLib_ReadCount(ENCODER2);
 		if(encoderPos2 > 150)
 		{
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
@@ -215,14 +124,5 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
 		}
-		// if (encoderPos > 100){
-		// 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-		// 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-		// }
-		// else{
-		// 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-		// 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-
-		// }
 	}
 }
