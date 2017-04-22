@@ -44,7 +44,7 @@ static TIM_HandleTypeDef s_TimerInstance =
 
 static void Error_Handler(void)
 {
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
 
     while (1)
     {
@@ -143,8 +143,8 @@ void HAL_MspInit(void)
 
     //Must be set to priority of 1 or else will have higher priority than CAN IRQ
     HAL_NVIC_SetPriority(SysTick_IRQn, 2, 2);
-    HAL_NVIC_SetPriority(TIM14_IRQn, 1, 1);
-    HAL_NVIC_EnableIRQ(TIM14_IRQn);
+//    HAL_NVIC_SetPriority(TIM14_IRQn, 1, 1);
+//    HAL_NVIC_EnableIRQ(TIM14_IRQn);
 }
 
 void CAN_Init(uint32_t id)
@@ -171,6 +171,10 @@ int main(void)
     GPIO_Init();
     Timer_Init(PERIOD); // 500 ms timer
 
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+    HAL_Delay(500);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+
     if (CANLIB_Init(CAN_TX_ID, 0) != 0)
     {
         Error_Handler();
@@ -188,25 +192,28 @@ int main(void)
     {
         while (!data_ready);
         data_ready = 0;
+
         memcpy(joy_cmd, incoming_cmd, NUM_CMDS * sizeof(*incoming_cmd));
 
         if (joy_cmd[0] > (0.0 - epsilon) && joy_cmd[0] < (0.0 + epsilon))
         {
             PWMLIB_Write(PWM_ID, 0);
         }
-        else
+        else if (fabs(joy_cmd[0]) <= 0.5) 
         {
             // Forward
             if (joy_cmd[0] > 0.0)
             {
                 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+//                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
             }
             // Reverse
             else if (joy_cmd[0] < 0.0)
             {
                 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+//                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
             }
-            PWMLIB_Write(PWM_ID, joy_cmd[0]);
+            PWMLIB_Write(PWM_ID, fabs(joy_cmd[0]));
         }
     }
 
