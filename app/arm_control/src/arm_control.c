@@ -187,8 +187,8 @@ int main(void)
         Error_Handler();
     }
 
-    HAL_NVIC_SetPriority(TIM14_IRQn, 1, 1);
-    HAL_NVIC_EnableIRQ(TIM14_IRQn);
+//    HAL_NVIC_SetPriority(TIM14_IRQn, 1, 1);
+//    HAL_NVIC_EnableIRQ(TIM14_IRQn);
 
     while(1)
     {
