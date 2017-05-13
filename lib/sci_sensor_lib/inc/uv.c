@@ -9,9 +9,8 @@
 
 void init_uv(I2C_Device_t *device_ptr, uv_int_time_t int_time) {
 	// Create and initialize I2C device
-	I2C_TypeDef *I2Cx_ptr;
-	I2C_init(I2Cx_ptr);
-	I2C_slave_init(device_ptr, I2Cx_ptr, UV_ADDR_W, UV_TO);
+	I2C_init(I2C1);
+	I2C_slave_init(device_ptr, I2C1, UV_ADDR_W, UV_TO);
 	I2C_slave_mem_init(device_ptr, 8);
 
 	// Initialize command byte on sensor (pg. 6 of datasheet)
@@ -27,3 +26,4 @@ void read_uv(I2C_Device_t *device_ptr, uint16_t *data_ptr) {
 	I2C_mem_read(device_ptr, UV_ADDR_R_LSB, &tmp_data, 1);
 	*data_ptr |= tmp_data;
 }
+
