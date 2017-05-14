@@ -8,9 +8,9 @@
 #include "i2clib.h"
 #include "uv.h"
 
-void init_uv(I2C_Device_t *device_ptr, uv_int_time_t int_time) {
+void init_uv(I2C_Device_t *device_ptr, uv_int_time_t int_time, uint16_t timeout) {
 	// Initialize I2C device with nominal slave address as UV_ADDR_W (pg. 6 of datasheet)
-	I2C_slave_init(device_ptr, I2C1, UV_ADDR_W, UV_TO);
+	I2C_slave_init(device_ptr, I2C1, UV_ADDR_W, timeout);
 
 	// Initialize command byte on sensor (pg. 6 of datasheet)
 	uint8_t data = (int_time << 2) | 0x02;
