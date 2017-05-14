@@ -36,7 +36,7 @@ uint16_t read_uv(I2C_Device_t *device_ptr) {
 	return uv_data;
 }
 
-void set_int_time(I2C_Device_t *device_ptr, uv_int_time_t int_time){
+void set_int_time(I2C_Device_t *device_ptr, uv_int_time_t int_time) {
 	uint8_t data = (int_time << 2) | 0x02;
 	device_ptr -> address = UV_ADDR_W;
 	I2C_send_data(device_ptr, &data, 1);
