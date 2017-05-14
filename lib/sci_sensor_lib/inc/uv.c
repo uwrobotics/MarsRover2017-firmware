@@ -30,6 +30,9 @@ void read_uv(I2C_Device_t *device_ptr, uint16_t *data_ptr) {
 	device_ptr -> address = UV_ADDR_R_LSB;
 	I2C_receive_data(device_ptr, &tmp_data, 1);
 	*data_ptr |= tmp_data;
+
+	// Revert to nominal address
+	device_ptr -> address = UV_ADDR_W;
 }
 
 void set_int_time(I2C_Device_t *device_ptr, uv_int_time_t int_time){
