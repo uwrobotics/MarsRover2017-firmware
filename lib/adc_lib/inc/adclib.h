@@ -8,7 +8,13 @@ How to use this library:
 - Read values from the pin with ADC_Read()
 
 Note:
-- Supported ADC pins: PA1, PA2, PA3, PC1
+- Supported ADC pins
+    adc_id   |   pin
+    ---------|-------
+      1      |   PA1
+      2      |   PA2
+      3      |   PA3
+      4      |   PC1
 
 *************************************************/
 
