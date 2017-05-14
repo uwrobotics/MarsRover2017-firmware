@@ -19,12 +19,11 @@ void init_uv(I2C_Device_t *device_ptr, uv_int_time_t int_time, uint16_t timeout)
 
 uint16_t read_uv(I2C_Device_t *device_ptr) {
 	// Read and construct 2-byte data (pg. 7 of datasheet)
-	uint16_t uv_data = 0;
 	uint8_t tmp_data = 0; // temporary, not temperature
 
 	device_ptr -> address = UV_ADDR_R_MSB;
 	I2C_receive_data(device_ptr, &tmp_data, 1);
-	uv_data = tmp_data << 8;
+	uint16_t uv_data = tmp_data << 8;
 
 	device_ptr -> address = UV_ADDR_R_LSB;
 	I2C_receive_data(device_ptr, &tmp_data, 1);
