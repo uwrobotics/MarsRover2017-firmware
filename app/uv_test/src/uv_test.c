@@ -19,7 +19,7 @@ int main(void)
 
 	I2C_Device_t uv_sensor;
 	uv_int_time_t int_time = ONE;
-	init_uv(&uv_sensor, ONE, TIMEOUT);
+	init_uv(&uv_sensor, int_time, TIMEOUT);
 
 	uint16_t uv_data = 0;
 
