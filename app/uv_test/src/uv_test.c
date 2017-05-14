@@ -24,7 +24,7 @@ int main(void)
 	uint16_t uv_data = 0;
 
 	while(1) {
-		read_uv(&uv_sensor, &uv_data);
+		uv_data = read_uv(&uv_sensor);
 		// display data somehow
 		HAL_Delay(500);
 	}

@@ -21,7 +21,7 @@ typedef enum {HALF, ONE, TWO, FOUR} uv_int_time_t;
 void init_uv(I2C_Device_t *device_ptr, uv_int_time_t int_time, uint16_t timeout);
 
 // Read fixed number of bytes from fixed addres in sensor
-void read_uv(I2C_Device_t *device_ptr, uint16_t *data_ptr);
+uint16_t read_uv(I2C_Device_t *device_ptr);
 
 // Set integration time on sensor
 void set_int_time(I2C_Device_t *device_ptr, uv_int_time_t int_time);
