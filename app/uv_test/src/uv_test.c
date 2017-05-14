@@ -3,7 +3,6 @@
 */
 
 #include "stm32f0xx.h"
-#include "pins.h"
 #include "i2clib.h"
 #include "uv.h"
 
@@ -16,7 +15,6 @@ int main(void)
 {
     HAL_Init();
     CLK_Init();
-    GPIO_Init();
 	I2C_init(I2C1);
 
 	I2C_Device_t uv_sensor;
