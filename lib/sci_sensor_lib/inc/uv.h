@@ -4,6 +4,9 @@
  * Product Info: www.adafruit.com/products/2899
 */
 
+#ifndef UV_H_
+#define UV_H_
+
 #include "i2clib.h"
 
 // Addresses for write and read (pg. 6 of datasheet)
@@ -25,3 +28,5 @@ void read_uv(I2C_Device_t *device_ptr, uint16_t *data_ptr);
 
 // Set integration time on sensor
 void set_int_time(I2C_Device_t *device_ptr, uv_int_time_t int_time);
+
+#endif
