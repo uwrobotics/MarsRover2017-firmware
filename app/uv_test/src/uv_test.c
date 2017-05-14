@@ -25,7 +25,7 @@ int main(void)
 
 	while(1) {
 		read_uv(&uv_sensor, &uv_data);
-		printf(uv_data);
+		// display data somehow
 		HAL_Delay(500);
 	}
 
