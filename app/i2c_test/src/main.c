@@ -105,8 +105,91 @@ int test2(void)
     }
 }
 
-void test3(void)
+volatile int tx_done = 0;
+volatile int rx_done = 0;
+
+void I2C_Tx_Complete(I2C_Device_t *device) {
+    if (device == &MCP_temp_sensor) {
+        tx_done = 1;
+    }
+}
+
+void I2C_Rx_Complete(I2C_Device_t *device) {
+    if (device == &MCP_temp_sensor) {
+        rx_done = 1;
+    }
+}
+
+int test3(void)
 {
+    uint8_t temp_thresh_set[3] = {0x03,0x00,0x30}; //3 degC
+    uint8_t temp_thresh_read[2] = {0};
+    uint8_t register_address = 0x03;
+    tx_done = 0;
+    rx_done = 0;
+    //Write to the low temp threshold register
+    I2C_send_data_IT(&MCP_temp_sensor, temp_thresh_set, 3);
+
+    while (!tx_done) {
+        //Do nothing, make sure we get the interupt generated
+        //In normal use we probably wouldn't care about waiting for this interupt unless it was
+        //required to be complete for a subsequent step (in which case the blocking call may be easier)
+    }
+
+    //Write register address to sensor to start read request
+    I2C_send_data(&MCP_temp_sensor, &register_address, 1); //This should be blocking sice its needed for the next step
+
+    //Read the low temperature threshold, compare its values with those set
+    I2C_receive_data_IT(&MCP_temp_sensor, temp_thresh_read, 2);
+
+    while (!rx_done) {
+        //Do nothing and wait for the received interupt. Code that can be executed before getting the sensor readings
+        //could go here
+    }
+
+    tx_done = 0;
+    rx_done = 0;
+    if (temp_thresh_read[0] == 0x00 && temp_thresh_read[1] == 0x30) {
+        return TEST_PASSED;
+    } else {
+        return TEST_FAILED;
+    }
+}
+
+int test4(void)
+{
+    uint8_t temp_thresh_set[2] = {0x02,0xE0};//46 degC
+    uint8_t temp_thresh_read[2] = {0};
+    uint16_t temp_upper_thresh_reg_address = 0x02;
+    tx_done = 0;
+    rx_done = 0;
+    //Write to the low temp threshold register
+    I2C_mem_write_IT(&MCP_temp_sensor, temp_upper_thresh_reg_address, temp_thresh_set, 3);
+
+    while (!tx_done) {
+        //Do nothing, make sure we get the interupt generated
+        //In normal use we probably wouldn't care about waiting for this interupt unless it was
+        //required to be complete for a subsequent step (in which case the blocking call may be easier)
+    }
+
+    //Write register address to sensor to start read request
+    //I2C_mem_write_IT(&MCP_temp_sensor, &register_address, 1); //This should be blocking sice its needed for the next step
+
+    //Read the low temperature threshold, compare its values with those set
+    I2C_mem_read_IT(&MCP_temp_sensor, temp_upper_thresh_reg_address, temp_thresh_read, 2);
+
+    while (!rx_done) {
+        //Do nothing and wait for the received interupt. Code that can be executed before getting the sensor readings
+        //could go here
+    }
+
+    tx_done = 0;
+    rx_done = 0;
+    if (temp_thresh_read[0] == 0x02 && temp_thresh_read[1] == 0xE0) {
+        return TEST_PASSED;
+    } else {
+        return TEST_FAILED;
+    }
 }
 
 int main(void)
@@ -163,6 +246,24 @@ int main(void)
     if (test2() == TEST_PASSED) {
         //If yellow light comes on, then test2 passed
         HAL_GPIO_WritePin(GPIOC, LED_YELLOW, GPIO_PIN_SET);
+        HAL_Delay(1000);
+    } else {
+        goto FAILED;
+    }
+
+
+    if (test3() == TEST_PASSED) {
+        //If red light turns off, then test1 passed
+        HAL_GPIO_WritePin(GPIOC, LED_RED, GPIO_PIN_RESET);
+        HAL_Delay(1000);
+    } else {
+        goto FAILED;
+    }
+
+
+    if (test3() == TEST_PASSED) {
+        //If orange light turns off, then test1 passed
+        HAL_GPIO_WritePin(GPIOC, LED_ORANGE, GPIO_PIN_RESET);
         HAL_Delay(1000);
     } else {
         goto FAILED;
