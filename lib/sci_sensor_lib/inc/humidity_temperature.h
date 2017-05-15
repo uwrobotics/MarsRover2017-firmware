@@ -15,7 +15,7 @@
 // TODO: CHANGE TO 8-BIT ADDRESS?
 #define HT_ADDR			    (0x40)
 
-// Command bits
+// Command bits (pg. 18 of datasheet)
 static const uint8_t HT_MEAS_RH_NOHOLD = 0xF5;
 static const uint8_t HT_MEAS_TEMP_NOHOLD = 0xF3;
 static const uint8_t HT_RESET = 0xFE;
@@ -36,7 +36,10 @@ static const uint8_t HT_SNB_2 = 0xC9;
  * static const uint8_t HT_FIRM_VERS = 0x84B8;
 */
 
-// Arithmetic constants
+// Ideal initialized state of user register (pg. 26 of datasheet)
+#define HT_INIT_STATE 0x3A
+
+// Arithmetic constants (pg. 21-22 of datasheet)
 #define HUM_MULTIPLIER	125
 #define HUM_DIVISOR		65536
 #define HUM_SUBTRACTOR	6
@@ -52,7 +55,7 @@ typedef struct HT_Device {
 } HT_Device_t;
 
 // Initialize sensor with I2C timeout
-void init_ht(HT_Device_t *ht_device_ptr, uint16_t timeout);
+int init_ht(HT_Device_t *ht_device_ptr, uint16_t timeout);
 
 // Read humidity value
 float read_hum(HT_Device_t *ht_device_ptr);
@@ -61,7 +64,7 @@ float read_hum(HT_Device_t *ht_device_ptr);
 float read_temp(HT_Device_t *ht_device_ptr);
 
 // Record unique serial number of different ht sensors
-void store_ser_num(HT_Device *ht_device_ptr);
+int store_ser_num(HT_Device *ht_device_ptr);
 
 // TODO: NEED CHECKSUM PROCESSING FUNCTIONALITY?
 // TODO: NEED TEMPERATURE COMPENSATION DURING HUMIDITY MEASUREMENT?
