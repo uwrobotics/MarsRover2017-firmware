@@ -45,4 +45,9 @@
 #define ENCODER_2B_PIN      GPIO_PIN_7
 #define ENCODER_2B_PORT     GPIOC
 
+// I2C
+#define I2C_SCL_GPIO_PIN GPIO_PIN_6
+#define I2C_SDA_GPIO_PIN GPIO_PIN_7
+#define I2C_GPIO_PORT GPIOB
+
 #endif
