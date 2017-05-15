@@ -12,6 +12,7 @@
 // Note: for future reference, HT = Humidity and Temperature
 
 // I2C slave address
+// TODO: CHANGE TO 8-BIT ADDRESS?
 #define HT_ADDR			    (0x40)
 
 // Command bits
@@ -51,5 +52,7 @@ float read_hum(I2C_Device_t *device_ptr);
 float read_temp(I2C_Device_t *device_ptr);
 
 // TODO: WAY TO IDENTIFY MULTIPLE HT SENSORS ON COLLECTION MODULE
+// TODO: NEED CHECKSUM PROCESSING FUNCTIONALITY?
+// TODO: NEED TEMPERATURE COMPENSATION DURING HUMIDITY MEASUREMENT?
 
 #endif
