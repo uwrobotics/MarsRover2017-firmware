@@ -18,7 +18,7 @@ int main(void)
 	I2C_init(I2C1);
 
 	HT_Device_t ht_sensor;
-	init_uv(&ht_sensor, TIMEOUT);
+	init_ht(&ht_sensor, TIMEOUT);
 
     float humidity = 0;
     float temperature = 0;

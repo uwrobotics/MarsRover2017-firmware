@@ -64,7 +64,7 @@ float read_hum(HT_Device_t *ht_device_ptr);
 float read_temp(HT_Device_t *ht_device_ptr);
 
 // Record unique serial number of different ht sensors
-int store_ser_num(HT_Device *ht_device_ptr);
+int store_ser_num(HT_Device_t *ht_device_ptr);
 
 // TODO: NEED CHECKSUM PROCESSING FUNCTIONALITY?
 // TODO: NEED TEMPERATURE COMPENSATION DURING HUMIDITY MEASUREMENT?

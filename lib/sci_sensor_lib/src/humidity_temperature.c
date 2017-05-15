@@ -4,7 +4,7 @@
  * Product Info: www.adafruit.com/products/3251
 */
 
-#include "stf32f0xx.h"
+#include "stm32f0xx.h"
 #include "i2clib.h"
 #include "humidity_temperature.h"
 
@@ -78,7 +78,7 @@ float read_temp(HT_Device_t *ht_device_ptr) {
 	return temperature;
 }
 
-int store_ser_num(HT_Device *ht_device_ptr) {
+int store_ser_num(HT_Device_t *ht_device_ptr) {
 	// See pg. 23-24 of datasheet for algorithm explanation
 	uint8_t tmp_data = 0;
 

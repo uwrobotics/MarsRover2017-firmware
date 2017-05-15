@@ -4,7 +4,7 @@
  * Product Info: www.adafruit.com/products/2899
 */
 
-#include "stf32f0xx.h"
+#include "stm32f0xx.h"
 #include "i2clib.h"
 #include "uv.h"
 
