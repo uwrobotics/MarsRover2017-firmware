@@ -20,6 +20,10 @@ static const uint8_t HT_MEAS_RH_NOHOLD = 0xF5;
 static const uint8_t HT_MEAS_TEMP_NOHOLD = 0xF3;
 static const uint8_t HT_RESET = 0xFE;
 static const uint8_t HT_READ_RHT_REG = 0xE7;
+static const uint8_t HT_SNA_1 = 0xFA;
+static const uint8_t HT_SNA_2 = 0x0F;
+static const uint8_t HT_SNB_1 = 0xFC;
+static const uint8_t HT_SNB_2 = 0xC9;
 
 /*
  * Note: not using these commands for now; keep for reference
@@ -29,8 +33,6 @@ static const uint8_t HT_READ_RHT_REG = 0xE7;
  * static const uint8_t HT_WRITE_RHT_REG = 0xE6;
  * static const uint8_t HT_WRITE_HEATER_REG = 0x51;
  * static const uint8_t HT_READ_HEATER_REG = 0x11;
- * static const uint8_t HT_ID1 = 0xFA0F;
- * static const uint8_t HT_ID2 = 0xFCC9;
  * static const uint8_t HT_FIRM_VERS = 0x84B8;
 */
 
@@ -42,16 +44,25 @@ static const uint8_t HT_READ_RHT_REG = 0xE7;
 #define TEMP_DIVISOR	65536
 #define TEMP_SUBTRACTOR	46.85
 
+typedef struct HT_Device {
+	I2C_Device_t *device_ptr;
+	// 64-bit unique serial number, retreived in 2 phases (pg. 23-24 of datasheet)
+	uint32_t ser_num_a;
+	uint32_t ser_num_b;
+} HT_Device_t;
+
 // Initialize sensor with I2C timeout
-void init_ht(I2C_Device_t *device_ptr, uint16_t timeout);
+void init_ht(HT_Device_t *ht_device_ptr, uint16_t timeout);
 
 // Read humidity value
-float read_hum(I2C_Device_t *device_ptr);
+float read_hum(HT_Device_t *ht_device_ptr);
 
 // Read temperature value
-float read_temp(I2C_Device_t *device_ptr);
+float read_temp(HT_Device_t *ht_device_ptr);
 
-// TODO: WAY TO IDENTIFY MULTIPLE HT SENSORS ON COLLECTION MODULE
+// Record unique serial number of different ht sensors
+void store_ser_num(HT_Device *ht_device_ptr);
+
 // TODO: NEED CHECKSUM PROCESSING FUNCTIONALITY?
 // TODO: NEED TEMPERATURE COMPENSATION DURING HUMIDITY MEASUREMENT?
 
