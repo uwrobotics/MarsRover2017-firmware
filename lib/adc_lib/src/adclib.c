@@ -25,74 +25,75 @@ int ConfigureADC(uint32_t adc_id)
     __ADC1_CLK_ENABLE();
 
     switch(adc_id){
-      // case 0:
-      //   gpioInit.Pin = GPIO_PIN_0;
-      //   break;
+      //PA0
+      case 1:
+        gpioInit.Pin = GPIO_PIN_0;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOA, &gpioInit);
+        break;
 
       //PA1
-      case 1:
-        gpioInit.Pin = GPIO_PIN_1;
-        gpioInit.Mode = GPIO_MODE_ANALOG;
-        gpioInit.Pull = GPIO_NOPULL;
-        HAL_GPIO_Init(GPIOA, &gpioInit);
-        break;
-
-      //PA2
       case 2:
-        gpioInit.Pin = GPIO_PIN_2;
-        gpioInit.Mode = GPIO_MODE_ANALOG;
-        gpioInit.Pull = GPIO_NOPULL;
-        HAL_GPIO_Init(GPIOA, &gpioInit);
-        break;
-
-      //PA3
-      case 3:
-        gpioInit.Pin = GPIO_PIN_3;
-        gpioInit.Mode = GPIO_MODE_ANALOG;
-        gpioInit.Pull = GPIO_NOPULL;
-        HAL_GPIO_Init(GPIOA, &gpioInit);
-        break;
-
-      //PC1
-      case 4:
         gpioInit.Pin = GPIO_PIN_1;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOA, &gpioInit);
+        break;
+
+      //PA4
+      case 3:
+        gpioInit.Pin = GPIO_PIN_4;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOA, &gpioInit);
+        break;
+
+      //PA5
+      case 4:
+        gpioInit.Pin = GPIO_PIN_5;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOA, &gpioInit);
+        break;
+
+      //PC0
+      case 5:
+        gpioInit.Pin = GPIO_PIN_0;
         gpioInit.Mode = GPIO_MODE_ANALOG;
         gpioInit.Pull = GPIO_NOPULL;
         HAL_GPIO_Init(GPIOC, &gpioInit);
         break;
-      // case 5:
-      //   gpioInit.Pin = GPIO_PIN_5;
-      //   break;
-      // case 6:
-      //   gpioInit.Pin = GPIO_PIN_12;
-      //   break;
-      // case 7:
-      //   gpioInit.Pin = GPIO_PIN_14;
-      //   break;
-      // case 8:
-      //   gpioInit.Pin = GPIO_PIN_15;
-      //   break;
-      // case 9:
-      //   gpioInit.Pin = GPIO_PIN_0;
-      //   break;
+
+      //PC3
+      case 6:
+        gpioInit.Pin = GPIO_PIN_3;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOC, &gpioInit);
+        break;
+
+      //PC4
+      case 7:
+        gpioInit.Pin = GPIO_PIN_4;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOC, &gpioInit);
+        break;
+
+      //PC5
+      case 8:
+        gpioInit.Pin = GPIO_PIN_5;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOC, &gpioInit);
+        break;
 
       //Invalid ADC ID
       default:
         return -1;
     }
 
-    // gpioInit.Pin = GPIO_PIN_0; // this pin is what is where the ADC will look at
-                               // can also initialize multiple pins for ADC
-
-
-    // gpioaInit.Mode = GPIO_MODE_ANALOG;
-    // gpioaInit.Pull = GPIO_NOPULL;
-    // gpiocInit.Mode = GPIO_MODE_ANALOG;
-    // gpiocInit.Pull = GPIO_NOPULL;
-    // HAL_GPIO_Init(GPIOA, &gpioaInit);
-    // HAL_GPIO_Init(GPIOC, &gpiocInit);
-
-    __ADC1_CLK_ENABLE();
 
     // Configure ADC
     AdcHandle.Instance                   = ADC1;
@@ -178,58 +179,6 @@ int ADC_Init(uint32_t adc_id)
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   return ConfigureADC(adc_id);
-
-
-  // while(1) {
-    // int adc_reading = 0;
-
-    // ADC_ChannelConfTypeDef sConfig;
-    // sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
-    // sConfig.SamplingTime = ADC_SAMPLETIME_7CYCLES_5;
-
-    // // this need to be modified depending on which pin you are reading from
-    // sConfig.Channel = ADC_CHANNEL_10;
-    // AdcHandle.Instance->CHSELR = 0;
-    // HAL_ADC_ConfigChannel(&AdcHandle, &sConfig);
-
-    // HAL_ADC_Start(&AdcHandle); // Start conversion
-    // // Wait end of conversion and get value
-    // if (HAL_ADC_PollForConversion(&AdcHandle, 10) == HAL_OK) {
-    //    adc_reading =  (HAL_ADC_GetValue(&AdcHandle));
-    // } else {
-    //    adc_reading = 0;
-    // }
-
-    // UART_LIB_PRINT_INT(adc_reading);
-
-    // if (adc_reading < 0x400) {
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-    // } else if (adc_reading < 0x800) {
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-    // } else if (adc_reading < 0xC00) {
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-    // } else {
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-    //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
-    // }
-
-
-    // HAL_Delay(100);
-
-  // }
-
-  // return 1;
 }
 
 /***************************************************************************
@@ -250,44 +199,45 @@ int ADC_Read(uint32_t adc_id){
   sConfig.SamplingTime = ADC_SAMPLETIME_7CYCLES_5;
 
   switch(adc_id){
-      // case 0:
-      //   gpioInit.Pin = GPIO_PIN_0;
-      //   break;
+      //PA0
+      case 1:
+        sConfig.Channel = ADC_CHANNEL_0;
+        break;
 
       //PA1
-      case 1:
+      case 2:
         sConfig.Channel = ADC_CHANNEL_1;
         break;
 
-      //PA2
-      case 2:
-        sConfig.Channel = ADC_CHANNEL_2;
-        break;
-
-      //PA3
+      //PA4
       case 3:
-        sConfig.Channel = ADC_CHANNEL_3;
+        sConfig.Channel = ADC_CHANNEL_4;
         break;
 
-      //PC1
+      //PA5
       case 4:
-        sConfig.Channel = ADC_CHANNEL_11;
+        sConfig.Channel = ADC_CHANNEL_5;
         break;
-      // case 5:
-      //   gpioInit.Pin = GPIO_PIN_5;
-      //   break;
-      // case 6:
-      //   gpioInit.Pin = GPIO_PIN_12;
-      //   break;
-      // case 7:
-      //   gpioInit.Pin = GPIO_PIN_14;
-      //   break;
-      // case 8:
-      //   gpioInit.Pin = GPIO_PIN_15;
-      //   break;
-      // case 9:
-      //   gpioInit.Pin = GPIO_PIN_0;
-      //   break;
+
+      //PC0
+      case 5:
+        sConfig.Channel = ADC_CHANNEL_10;
+        break;
+
+      //PC3
+      case 6:
+        sConfig.Channel = ADC_CHANNEL_13;
+        break;
+
+      //PC4
+      case 7:
+        sConfig.Channel = ADC_CHANNEL_14;
+        break;
+
+      //PC5
+      case 8:
+        sConfig.Channel = ADC_CHANNEL_15;
+        break;
 
       //Invalid ADC ID
       default:
@@ -296,7 +246,6 @@ int ADC_Read(uint32_t adc_id){
         }
     }
 
-  // sConfig.Channel = ADC_CHANNEL_10;
   AdcHandle.Instance->CHSELR = 0;
   HAL_ADC_ConfigChannel(&AdcHandle, &sConfig);
 
@@ -308,67 +257,5 @@ int ADC_Read(uint32_t adc_id){
     adc_reading = 0;
   }
 
-  // if (adc_reading < 0x400) {
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-  // } else if (adc_reading < 0x800) {
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-  // } else if (adc_reading < 0xC00) {
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-  // } else {
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-  //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
-  // }
-
   return adc_reading;
 }
-
-// int main(void){
-//   int adc_id = 1;
-//   ADC_Init(adc_id);
-//   while(1){
-//     int adc_reading = 0;
-//     adc_reading = ADC_Read(adc_id);
-//     // if (adc_reading < 0x400) {
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-//     // } else if (adc_reading < 0x800) {
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-//     // } else if (adc_reading < 0xC00) {
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-//     // } else {
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
-//     // }
-//     // if (adc_reading == 0){
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-//     // } else {
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-//     //   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-//     // }
-//     HAL_Delay(100);
-//   }
-// }
-
-

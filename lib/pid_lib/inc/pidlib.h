@@ -17,7 +17,7 @@ float ki = 0;
 float kd = 0;
 float dt = 0.001; //time interval
 
-uint8_t flag = 1; //flag that indicate nothing is wrong; should be set somewhere else
+int flag = 1; //flag that indicate nothing is wrong; should be set somewhere else
 
 
 float pid_controller(float curr_val, float target_val);
