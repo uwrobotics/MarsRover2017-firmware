@@ -1,11 +1,18 @@
 #include "stm32f0xx.h"
 #include "pwmlib.h"
+#include "servo_lib.h"
 #include "pins.h"
+#include "adclib.h"
+#include "uart_lib.h"
 #include <math.h>
 #include <string.h>
 
-#define PWM_ID 	3
+#define PWM_ID 	1
+#define ADC_ID	1
 #define PERIOD  19999 // 1 tick = 1 us
+
+
+volatile float dc = 1300;
 
 static void Error_Handler(void)
 {
@@ -65,66 +72,80 @@ void GPIO_Init(void)
 
 }
 
-
-
-
-void HAL_MspInit(void)
-{
-    /* System interrupt init*/
-    /* SysTick_IRQn interrupt configuration */
-    (void)HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
-
-    //Must be set to priority of 1 or else will have higher priority than CAN IRQ
-    HAL_NVIC_SetPriority(SysTick_IRQn, 2, 2);
-}
-
-
-
 int main(void)
 {
-//  Pulse length (degrees) = (MAX – MIN) * degrees / 180 + MIN
-//  Range = 750-2250μsec    
-//  pulse length / period = duty cycle
 
 	HAL_Init();
     CLK_Init();
     GPIO_Init();
-//	uint32_t period = 20000;
+    ServoLibInit(PWM_ID, ADC_ID);
+    
+    PWMLIB_Init(PWM_ID);
+    ADC_Init(ADC_ID);
+	PWMLIB_ChangePeriod(PWM_ID, 20000); // Change period to 50 Hz
 
-	if (PWMLIB_Init(PWM_ID) != 0)
-    {
-        Error_Handler(); 	
-    }
-
-   
-
-	PWMLIB_ChangePeriod(PWM_ID, PERIOD);
-
-	//PWMLIB_WriteServo (PWM_ID, 0);
-	PWMLIB_Write(PWM_ID, 0.075);
+	/*             Test for continuous servos             */
+	
+	/*
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-	HAL_Delay(5000);
-	PWMLIB_Write(PWM_ID, 0.75);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-	HAL_Delay(5000);
-	PWMLIB_Write(PWM_ID, 0.1);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-	HAL_Delay(5000);
-	PWMLIB_Write(PWM_ID, 0.05);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-	HAL_Delay(5000);
-	PWMLIB_Write(PWM_ID, 0.065);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-	HAL_Delay(5000);
-	PWMLIB_Write(PWM_ID, 0.5);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+	WriteContinuousServo(PWM_ID, ADC_ID, 45);	
+	HAL_Delay(2000);
 
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+	WriteContinuousServo(PWM_ID, ADC_ID, 90);
+	HAL_Delay(2000);
+
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+	WriteContinuousServo(PWM_ID, ADC_ID, 180);	
+	HAL_Delay(2000);
+
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+	WriteContinuousServo(PWM_ID, ADC_ID, 270);
+	HAL_Delay(2000);
+
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+	WriteContinuousServo(PWM_ID, ADC_ID, 0);	
+	*/
+
+
+	/*           Test for non-continuous servos           */
+
+	WriteServo(PWM_ID, 0);	
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+	WriteServo(PWM_ID, 45);	
+	HAL_Delay(2000);
+
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+	WriteServo(PWM_ID, -45);
+	HAL_Delay(2000);
+
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+	WriteServo(PWM_ID, 50);	
+	HAL_Delay(2000);
+
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+	WriteServo(PWM_ID, 60);
+	HAL_Delay(2000);
+
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+	WriteServo(PWM_ID, -75);
+	HAL_Delay(2000);	
+	
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+	WriteServo(PWM_ID, 0);
+	
+	while(1);
 }
 
 

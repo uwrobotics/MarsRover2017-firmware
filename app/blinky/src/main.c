@@ -11,7 +11,7 @@
 
 #include "stm32f0xx.h"
 //#include "stm32f072b_discovery.h"
-			
+#include "uart_lib.h"
 
 int main(void)
 {
@@ -53,6 +53,16 @@ int main(void)
 	};
 
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+	UART_LIB_INIT();
+	uint8_t a[] = "Hello";
+	UART_LIB_PRINT_CHAR_ARRAY(a, sizeof(a));
+
+	int b = 1234;
+	UART_LIB_PRINT_INT(b);
+
+	double c = 555.123;
+	UART_LIB_PRINT_DOUBLE(c);
 
 	while(1) {
 		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9); //Toggle the state of pin PC9

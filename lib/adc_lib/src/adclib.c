@@ -17,9 +17,10 @@ ADC_HandleTypeDef AdcHandle;
 //Internal library function that should not be called by users
 int ConfigureADC(uint32_t adc_id)
 {
-    GPIO_InitTypeDef gpioaInit;
-    GPIO_InitTypeDef gpiocInit;
+    GPIO_InitTypeDef gpioInit;
+    // GPIO_InitTypeDef gpiocInit;
 
+    __GPIOA_CLK_ENABLE();
     __GPIOC_CLK_ENABLE();
     __ADC1_CLK_ENABLE();
 
@@ -30,22 +31,34 @@ int ConfigureADC(uint32_t adc_id)
 
       //PA1
       case 1:
-        gpioaInit.Pin = GPIO_PIN_1;
+        gpioInit.Pin = GPIO_PIN_1;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOA, &gpioInit);
         break;
 
       //PA2
       case 2:
-        gpioaInit.Pin = GPIO_PIN_2;
+        gpioInit.Pin = GPIO_PIN_2;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOA, &gpioInit);
         break;
 
       //PA3
       case 3:
-        gpioaInit.Pin = GPIO_PIN_3;
+        gpioInit.Pin = GPIO_PIN_3;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOA, &gpioInit);
         break;
 
       //PC1
       case 4:
-        gpiocInit.Pin = GPIO_PIN_1;
+        gpioInit.Pin = GPIO_PIN_1;
+        gpioInit.Mode = GPIO_MODE_ANALOG;
+        gpioInit.Pull = GPIO_NOPULL;
+        HAL_GPIO_Init(GPIOC, &gpioInit);
         break;
       // case 5:
       //   gpioInit.Pin = GPIO_PIN_5;
@@ -72,12 +85,12 @@ int ConfigureADC(uint32_t adc_id)
                                // can also initialize multiple pins for ADC
 
 
-    gpioaInit.Mode = GPIO_MODE_ANALOG;
-    gpioaInit.Pull = GPIO_NOPULL;
-    gpiocInit.Mode = GPIO_MODE_ANALOG;
-    gpiocInit.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOA, &gpioaInit);
-    HAL_GPIO_Init(GPIOC, &gpiocInit);
+    // gpioaInit.Mode = GPIO_MODE_ANALOG;
+    // gpioaInit.Pull = GPIO_NOPULL;
+    // gpiocInit.Mode = GPIO_MODE_ANALOG;
+    // gpiocInit.Pull = GPIO_NOPULL;
+    // HAL_GPIO_Init(GPIOA, &gpioaInit);
+    // HAL_GPIO_Init(GPIOC, &gpiocInit);
 
     __ADC1_CLK_ENABLE();
 
@@ -290,9 +303,9 @@ int ADC_Read(uint32_t adc_id){
   HAL_ADC_Start(&AdcHandle); // Start conversion
   // Wait end of conversion and get value
   if (HAL_ADC_PollForConversion(&AdcHandle, 10) == HAL_OK) {
-     adc_reading =  (HAL_ADC_GetValue(&AdcHandle));
+    adc_reading =  (HAL_ADC_GetValue(&AdcHandle));
   } else {
-     adc_reading = 0;
+    adc_reading = 0;
   }
 
   // if (adc_reading < 0x400) {

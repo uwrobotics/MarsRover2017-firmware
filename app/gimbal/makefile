@@ -4,7 +4,7 @@
 BASE_PATH = ../..
 
 #filename of outputed .elf and .bin files
-PROJECT = gimbal_out
+PROJECT = gimbal_test
 
 #the folder the current app is in
 #HAS TO BE THE SAME NAME AS THE FOLDER THIS IS IN
