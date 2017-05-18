@@ -23,6 +23,9 @@ Copyright 2017, UW Robotics Team
 /* Timer for heartbeat signals */
 #define HEARTBEAT_TIMER                       TIM6
 
+/* Interrupt priority of timer for triggering heartbeats */
+#define HEARTBEAT_IRQ_PRIORITY                1
+
 /* CAN heartbeat identifiers */
 #define SHOULDER_HEARTBEAT_PRIORITY           100
 #define ELBOW_HEARTBEAT_PRIORITY              101
