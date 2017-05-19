@@ -19,23 +19,69 @@ Commands are received over CAN.
 #include "stm32f0xx.h"
 #include "canlib.h"
 #include "pwmlib.h"
+//#include "encoderlib.h"
 #include "pins.h"
 #include <math.h>
 #include <string.h>
 
-#define PWM_ID          1
-#define CAN_RX_ID       5
-#define CAN_TX_ID       15
+//Code assumes that one board is in charge of motors controlling inclination and azimuth of a joint
+//Example of azimuth vs inclination: http://edndoc.esri.com/arcobjects/9.1/java/arcengine/com/esri/arcgis/geometry/bitmaps/GeomVector3D.gif
 
-#define NUM_CMDS        3
-#define PERIOD          500
+//PWM IDs
+#define PWM_AZIMUTH_ID           1
+#define PWM_INCLINATION_ID       2
+
+//CAN IDs that this will receive messages from
+#define CAN_RX_ID                5   //Arbitrary value
+
+//CAN IDs that this will code will transmit on
+#define CAN_TX_ID                15  //Arbitrary value
+#define CAN_ENCODER_DATA_ID      16  //Arbitrary value
+#define CAN_LIMIT_SW_READ_ID     17  //Arbitrary value
+
+
+#define LIMIT_SWITCH_COUNT       2
+
+//Number of PWM commands per relevant CAN frame received
+#define NUM_CMDS                 2
+//Timer interrupt interval
+#define PERIOD                   500
+//Number of timer intervals of no message received to enter watchdog state
+#define MSG_WATCHDOG_INTERVAL    1
+
+//Index in received CAN frame for float for each axis motors
+//The first 4 bytes contain azimuth motor PWM command and the last 4 contain inclination motor PWM command
+#define AZIMUTH_AXIS_ID          0
+#define INCLINATION_AXIS_ID      1
+
+
+// Limit Switches
+#define LIMIT_SWITCH_1_PIN  GPIO_PIN_4
+#define LIMIT_SWITCH_1_PORT GPIOC
+#define LIMIT_SWITCH_2_PIN  GPIO_PIN_3
+#define LIMIT_SWITCH_2_PORT GPIOC
 
 const float epsilon = 0.0001;
-float incoming_cmd[NUM_CMDS] = { 0 };
-float joy_cmd[NUM_CMDS] = { 0 };
-volatile uint8_t axis_idx = 0;
+float incoming_cmd[NUM_CMDS] = { 0 }; //Array to hold incoming CAN messages
+float joy_cmd[NUM_CMDS] = { 0 }; //Can we just reuse incoming_cmd?
+
+//Flags
 volatile uint8_t data_ready = 0;
 volatile uint8_t msg_received = 0;
+
+//contains abs value of the PWM command for each motor
+volatile float azimuth_motor_duty_cycle = 0;
+volatile float inclination_motor_duty_cycle = 0;
+
+//Bitfield for limit switch readings
+uint8_t limit_switch_readings = 0;
+
+//Direction of each motor. 0 is backwards and 1 is forwards. 
+//Maybe this can be a bitfield instead
+uint8_t azimuth_direction = 0;
+uint8_t inclination_direction = 0;
+
+//volatile uint64_t ms_elapsed = 0;
 
 static TIM_HandleTypeDef s_TimerInstance =
 {
@@ -48,6 +94,7 @@ static void Error_Handler(void)
 
     while (1)
     {
+        //can anything useful be done here?
     }
 }
 
@@ -86,16 +133,34 @@ void TIM14_IRQHandler()
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_7);
-    if (msg_received)
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_7); //blue led (LD6)
+    
+    //If msg_received is greater than the set limit, then reset (or do something else)
+    if (msg_received > MSG_WATCHDOG_INTERVAL)
     {
-        msg_received = 0;
+        //Watchdog expiration
+        //NVIC_SystemReset();
+        //Do something else?
+    }
+    //motor_duty_cycle != 0 implies that the motor is moving
+    else if (msg_received != 0 && (azimuth_motor_duty_cycle || inclination_motor_duty_cycle))
+    {
+        //Increment message received if no message received but motor is moving
+        msg_received++;
     }
     else
     {
-        PWMLIB_Write(PWM_ID, 0);
+        //This sets msg_received to 1 if either the azimuth or inclination motors are moving
+        msg_received = 1 && (azimuth_motor_duty_cycle || inclination_motor_duty_cycle);
     }
 }
+
+//Is this needed?
+/*
+void HAL_SYSTICK_Callback(void)
+{
+    ms_elapsed ++;
+}*/
 
 void Timer_Init(uint32_t period)
 {
@@ -126,14 +191,25 @@ void GPIO_Init(void)
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
 
-    // Direction control pin
+    // Direction control pins
     GPIO_InitTypeDef DirCtrl_InitStruct = {
-            .Pin        = GPIO_PIN_5,
+            .Pin        = GPIO_PIN_5 | GPIO_PIN_2, //Pin 5 for azimuth, pin 2 for inclination. Change as needed  
             .Mode       = GPIO_MODE_OUTPUT_PP,
             .Pull       = GPIO_NOPULL,
             .Speed      = GPIO_SPEED_FREQ_HIGH
     };
     HAL_GPIO_Init(GPIOC, &DirCtrl_InitStruct);
+
+    //Limit switch init. Assumes 2 limit switches
+    GPIO_InitTypeDef LimitSwitch_InitStruct = {
+        .Pin            = LIMIT_SWITCH_1_PIN | LIMIT_SWITCH_2_PIN,
+        .Mode           = GPIO_MODE_INPUT,
+        .Pull           = GPIO_NOPULL,
+        .Speed          = GPIO_SPEED_FREQ_HIGH
+    };
+
+    HAL_GPIO_Init(GPIOC, &LimitSwitch_InitStruct);
+
 }
 
 void HAL_MspInit(void)
@@ -144,23 +220,7 @@ void HAL_MspInit(void)
 
     //Must be set to priority of 1 or else will have higher priority than CAN IRQ
     HAL_NVIC_SetPriority(SysTick_IRQn, 2, 2);
-}
 
-void CAN_Init(uint32_t id)
-{
-    switch(CANLIB_Init(id, 0))
-    {
-        case 0:
-            //Initialization of CAN handler successful
-            break;
-        case -1:
-            //Initialization of CAN handler not successful
-            break;
-        default:
-            break;
-    }
-
-    CANLIB_AddFilter(CAN_RX_ID);
 }
 
 int main(void)
@@ -170,10 +230,14 @@ int main(void)
     GPIO_Init();
     Timer_Init(PERIOD); // 500 ms timer
 
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-    HAL_Delay(500);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+    
 
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+    HAL_Delay(5000);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+    
+    
+    
     if (CANLIB_Init(CAN_TX_ID, 0) != 0)
     {
         Error_Handler();
@@ -182,41 +246,106 @@ int main(void)
     {
         Error_Handler();
     }
-    if (PWMLIB_Init(PWM_ID) != 0)
+
+    HAL_NVIC_SetPriority(TIM14_IRQn, 1, 2);
+    HAL_NVIC_EnableIRQ(TIM14_IRQn);
+    
+    if (PWMLIB_Init(PWM_AZIMUTH_ID) != 0)
+    {
+        Error_Handler();
+    }
+    if (PWMLIB_Init(PWM_INCLINATION_ID) != 0)
     {
         Error_Handler();
     }
 
-//    HAL_NVIC_SetPriority(TIM14_IRQn, 1, 1);
-//    HAL_NVIC_EnableIRQ(TIM14_IRQn);
+    //Encoder stuff doesnt work
+    //uint32_t encoder_1_reading = 0;
+    //uint32_t encoder_2_reading = 0;
+
+    //This encoder stuff doesnt work
+    /*if (EncoderLib_Init(ENCODER1))
+    {
+        Error_Handler();
+    } 
+    else if (EncoderLib_Init(ENCODER2))
+    {
+        Error_Handler();
+    }*/
 
     while(1)
     {
-        while (!data_ready);
-        data_ready = 0;
+        /* 
+        The code here would get and send encoder readings over CAN, given a working library
+        
+        encoder_1_reading = EncoderLib_ReadCount(ENCODER1);
+        encoder_2_reading = EncoderLib_ReadCount(ENCODER2);
+        CANLIB_ChangeID(CAN_ENCODER_READ_ID);
+        CANLIB_Tx_SetInt(encoder_1_reading, CANLIB_INDEX_0);
+        CANLIB_Tx_SetInt(encoder_2_reading, CANLIB_INDEX_1);
+        CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
+        */
 
+        //Read limit switches into bitfield and shut off appropriate motor as req'd and send reading over CAN
+        //Assumes limit switches will output high when hit
+        limit_switch_readings = 
+            HAL_GPIO_ReadPin(LIMIT_SWITCH_1_PORT, LIMIT_SWITCH_1_PIN) |
+            HAL_GPIO_ReadPin(LIMIT_SWITCH_2_PORT, LIMIT_SWITCH_2_PIN) << 1;
+
+        if (limit_switch_readings & 0b0001)
+        {
+            PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
+            
+            CANLIB_Tx_SetByte(limit_switch_readings, 0);
+            CANLIB_ChangeID(CAN_LIMIT_SW_READ_ID);
+            CANLIB_Tx_SendData(CANLIB_DLC_FIRST_BYTE);
+        }
+        if (limit_switch_readings & 0b0010)
+        {
+            PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = 0);
+            
+            CANLIB_Tx_SetByte(limit_switch_readings, 0);
+            CANLIB_ChangeID(CAN_LIMIT_SW_READ_ID);
+            CANLIB_Tx_SendData(CANLIB_DLC_FIRST_BYTE);
+        }
+
+        //If there's no incoming data, restart the loop
+        //Otherwise a message was received to change duty cycle
+        if (!(data_ready))
+        {
+            continue;
+        }
+
+        data_ready = 0;
+        //Reset the variable that counts timer intervals before a software watchdog
+        msg_received = 0;
         memcpy(joy_cmd, incoming_cmd, NUM_CMDS * sizeof(*incoming_cmd));
 
-        if (joy_cmd[0] > (0.0 - epsilon) && joy_cmd[0] < (0.0 + epsilon))
+        //For azimuth motors:
+        //   If joystick command is 0 or close enough, set to 0
+        //   Else if azimuth limit switch not hit, or direction of command is opposite of direction that triggered limit switch:
+        //       Set duty cycle and direction switch accordingly as well as direction and duty cycle variables
+        if (joy_cmd[AZIMUTH_AXIS_ID] > (0.0 - epsilon) && joy_cmd[AZIMUTH_AXIS_ID] < (0.0 + epsilon))
         {
-            PWMLIB_Write(PWM_ID, 0);
+            PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
         }
-        else if (fabs(joy_cmd[0]) <= 0.5) 
+        else if (!(limit_switch_readings & 0b0001) || (azimuth_direction != (joy_cmd[AZIMUTH_AXIS_ID] > 0)))
         {
-            // Forward
-            if (joy_cmd[0] > 0.0)
-            {
-                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
-//                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-            }
-            // Reverse
-            else if (joy_cmd[0] < 0.0)
-            {
-                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
-//                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-            }
-            PWMLIB_Write(PWM_ID, fabs(joy_cmd[0]));
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, azimuth_direction = joy_cmd[AZIMUTH_AXIS_ID] > 0);
+            PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = fmin(fabs(joy_cmd[AZIMUTH_AXIS_ID]), 0.5f));
         }
+
+        //Same as above but for azimuth motors
+        if (joy_cmd[INCLINATION_AXIS_ID] > (0.0 - epsilon) && joy_cmd[INCLINATION_AXIS_ID] < (0.0 + epsilon))
+        {
+            PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = 0);
+        }
+        else if (!(limit_switch_readings & 0b0010) || (inclination_direction != (joy_cmd[INCLINATION_AXIS_ID] > 0)))
+        {
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, inclination_direction = joy_cmd[INCLINATION_AXIS_ID] > 0);
+            PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = fmin(fabs(joy_cmd[INCLINATION_AXIS_ID]), 0.5f));
+        }
+
     }
 
     return 0;
@@ -224,26 +353,15 @@ int main(void)
 
 void CANLIB_Rx_OnMessageReceived(void)
 {
-    static uint32_t prev_idx = NUM_CMDS - 1;
-
     switch(CANLIB_Rx_GetSenderID())
     {
         // Expect frame format to be:
-        // Bytes 0-3: Command
-        // Byte 4: Joystick axis index (i.e. axis 0, axis 1, axis 2)
-        case 5:
-            msg_received = 1;
-            axis_idx = CANLIB_Rx_GetSingleByte(4);
-            if ((axis_idx == (prev_idx + 1) % NUM_CMDS) && !data_ready)
-            {
-                incoming_cmd[axis_idx] = CANLIB_Rx_GetAsFloat(0);
-                prev_idx = axis_idx;
-
-                if (axis_idx == (NUM_CMDS -1))
-                {
-                    data_ready = 1;
-                }
-            }
+        // Bytes 0-3: Azimuth axis PWM input
+        // Byte 4-7: Inclination axis PWM input
+        case CAN_RX_ID:
+            incoming_cmd[AZIMUTH_AXIS_ID] = CANLIB_Rx_GetAsFloat(AZIMUTH_AXIS_ID);
+            incoming_cmd[INCLINATION_AXIS_ID] = CANLIB_Rx_GetAsFloat(INCLINATION_AXIS_ID);
+            data_ready = 1;
             break;
 
         default:
