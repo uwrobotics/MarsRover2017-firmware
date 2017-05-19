@@ -214,8 +214,15 @@ int main(void)
     HAL_GPIO_WritePin(GPIOC, LED_YELLOW, GPIO_PIN_RESET);
     HAL_Delay(1000);
 
+    I2C_TypeDef *I2Cx;
+#ifndef USE_I2C2
+    I2Cx = I2C1; //Use I2C1 bus
+#else
+    I2Cx = I2C2; // Use I2C2 bus
+#endif
 
-    if (I2C_init(I2C1) == 0) {
+
+    if (I2C_init(I2Cx) == 0) {
         //If red light comes on, then init succeeded
         HAL_GPIO_WritePin(GPIOC, LED_RED, GPIO_PIN_SET);
         HAL_Delay(1000);
@@ -224,9 +231,9 @@ int main(void)
     }
 
     //Initialize slave devices
-    if (I2C_slave_init(&MCP_temp_sensor, I2C1, 0x30,1000) != 0)
+    if (I2C_slave_init(&MCP_temp_sensor, I2Cx, 0x30,1000) != 0) //MCP_9808 has address 0x30 if all address pins are connected to ground
         goto FAILED;
-    if (I2C_slave_init(&arduino, I2C1, 0x08,1000) != 0)
+    if (I2C_slave_init(&arduino, I2Cx, 0x08,1000) != 0) //Set up arduino with slave addres 4 (the arduino shifts it to 8)
         goto FAILED;
     if (I2C_slave_mem_init(&MCP_temp_sensor, 8) != 0)
         goto FAILED;
@@ -276,12 +283,13 @@ int main(void)
 
 
     char *test_str = "Hello\n";
-    uint8_t mpc_temp_register = 0x05;
-    uint8_t temperature[2] = {0,0};
     I2C_send_data(&arduino, (uint8_t *)test_str, 6);
 
 
-    //Tests are completed. Let's read temperature readings from the MCP9808
+    uint8_t mpc_temp_register = 0x05;
+    uint8_t temperature[2] = {0,0};
+
+    //Tests are completed. Let's read temperature readings from the MCP9808 and send them to an arduino
     while(1)
     {
         HAL_StatusTypeDef ret = 6;
@@ -292,14 +300,14 @@ int main(void)
         if (ret == HAL_OK){
             //read the temperature
             if (I2C_receive_data(&MCP_temp_sensor, temperature,2)== HAL_OK){
-            HAL_Delay(100);
+                HAL_Delay(100);
 
-            //Send the received temperature to the arduino for serial printing, signal success with blue LED
-            I2C_send_data(&arduino, temperature,2);
-            HAL_GPIO_WritePin(GPIOC, LED_BLUE, GPIO_PIN_SET);
-            HAL_Delay(2000);
-            HAL_GPIO_WritePin(GPIOC, LED_BLUE, GPIO_PIN_RESET);
-            HAL_Delay(2000);
+                //Send the received temperature to the arduino for serial printing, signal success with blue LED
+                I2C_send_data(&arduino, temperature,2);
+                HAL_GPIO_WritePin(GPIOC, LED_BLUE, GPIO_PIN_SET);
+                HAL_Delay(2000);
+                HAL_GPIO_WritePin(GPIOC, LED_BLUE, GPIO_PIN_RESET);
+                HAL_Delay(2000);
            }
         }
         else {
@@ -318,9 +326,10 @@ int main(void)
             HAL_Delay(200);
         }
 
-        //Lets to the same thing with I2C_mem_read
 
+        //Lets to the same thing with I2C_mem_read
         ret = I2C_mem_read(&MCP_temp_sensor, mpc_temp_register, temperature, 2);
+
         if (ret == HAL_OK) {
             //Send the received temperature to the arduino for serial printing, signal success with yellow LED
             I2C_send_data(&arduino, temperature,2);
@@ -365,10 +374,10 @@ FAILED:
     return -1;
 }
 
-//This has NOTHING to do with the CAN library, but something similar is done in all
+
 // All STM32Cube code has similar initialization: First the clocks, peripheral clocks
 // then GPIOs and other things are initialized
-// Here, we set up clocks and PC8 and PC9 as outputs for they are on LEDs that we want
+// Here, we set up clocks and PC6 to PC9 as outputs for they are on LEDs that we want
 // to flicker.
 void setup_test(void)
 {
@@ -407,25 +416,4 @@ void setup_test(void)
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
 
-/*
-//This is the CAN Rx function to implement
-//Do anything you want in here, but it makes sense to do something similar to below:
-// Switch on the node ID of who sends the message, and interpret
-void CANLIB_Rx_OnMessageReceived(void)
-{
-    switch(CANLIB_Rx_GetSenderID())
-    {
-        case 3:
-            CANLIB_Rx_GetBytes(received_bytes);
-            break;
-        case 4:
-            break;
-        case 10:
-            received_number = CANLIB_Rx_GetAsUint(0);
-            break;
-        default:
-            wrongly_received_number = CANLIB_Rx_GetAsUint(0);
-            break;
-    }
 
-}*/

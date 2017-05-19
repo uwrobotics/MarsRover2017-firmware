@@ -16,6 +16,14 @@
  * 1) I2C_init() -- initialize ic2 for the specified I2C bus (I2C1 or I2C2), address, and timeout
  * 2) I2C_slave_init -- initialize the specified slave device for I2C communication
  * 
+VERY IMPORTANT:
+There can be some ambiguity about what to use as the address for a slave. The general format of the start of a transmistion is:
+AAAA_AAA(R/W), where AAAA_AAA is the 7 address bits, and (R/W) is a bit indicating read (1) or write (0).
+
+Some sensor datasheets give the value AAAAAAA as the slave address, and others give AAAAAAA0 (this is the first one shifted left one bit)
+This library uses the second format, so depending on your slave, you may need to shift its address one bit left when initializing. An example of such a slave is Arduino.
+
+
  * Optional:
  * 3) I2C_slave_mem_init -- initialize memory address size for the slave device. Required before calling I2C_mem_xxx functions
  *
@@ -73,11 +81,32 @@ typedef struct I2C_Device {
     uint16_t mem_add_size; //Size of the memory addresses for I2C_mem_xxx.
 } I2C_Device_t;
 
+//Initialise the library. This MUST be called before any I2C functions are used on the specified bus
+// param I2Cx: The I2C bus you want to initialize (send either I2C1 or I2C2. Theses are HAL constants. Do not make your own I2C_TypeDef
+//Examples:
+// I2C_init(I2C1);
+// I2C_init(I2C2);
 int I2C_init(I2C_TypeDef *I2Cx);
+
+/* Initialise a slave device for communication. This must be called fot the specified slave device before communicating with it
+ * @param device: a pointer to an I2C_Device_t you have defined locally. It will store the info that the libreary needs about your device
+ * @param I2Cx: either I2C1 or I2C2. This specifies the I2C bus to use to communicate with the device
+ * @param address: The slave's I2C address. See the warning below
+ * @param timeout: A timeout length, in milliseconds. If the blocking I2C functions do not complete within this time, they will cancel and return an error
+ * @return: -1 if a parameter wan invalid, 0 otherwise
+ */
 int I2C_slave_init(I2C_Device_t *device, I2C_TypeDef *I2Cx, uint16_t address, uint32_t timeout);
+/*VERY IMPORTANT:
+There can be some ambiguity about what to use as the address for a slave. The general format of the start of a transmistion is:
+AAAA_AAA(R/W), where AAAA_AAA is the 7 address bits, and (R/W) is a bit indicating read (1) or write (0).
+
+Some sensor datasheets give the value AAAAAAA as the slave address, and others give AAAAAAA0 (this is the first one shifted left one bit)
+This library uses the second format, so depending on your slave, you may need to shift its address one bit left when initializing. An example of such a slave is Arduino.
+*/
 
 //Required for I2C_mem_xxx functions
 //mem_address_size = 8 or 16, depending on slave
+//returns 0 unless a prameter was invalid, in which case returns a -1
 int I2C_slave_mem_init(I2C_Device_t *device, uint16_t mem_address_size);
 
   /**************************************/
@@ -107,8 +136,6 @@ int I2C_mem_read(I2C_Device_t *device, uint16_t MemAddress, uint8_t *p_data, uin
 //Make sure not to retrieve data before the transmission is complete.
 //Make sure not to call an I2C function while one of these functions is still executing, behaviour resulting from this is undefined.
 
-void I2C_Tx_Complete(I2C_Device_t *device);
-void I2C_Rx_Complete(I2C_Device_t *device);
 
 // Write n_bytes of data to device, without blocking. I2C_Tx_Complete() will be called when action is complete, which the user can overload.
 int I2C_send_data_IT(I2C_Device_t *device, uint8_t *pdata, uint16_t n_bytes);
@@ -121,5 +148,14 @@ int I2C_mem_write_IT(I2C_Device_t *device, uint16_t MemAddress, uint8_t *p_data,
 
 // Read from MemAddress in device, without blocking. I2C_Rx_Complete() will be called when action is complete, which the user can overload.
 int I2C_mem_read_IT(I2C_Device_t *device, uint16_t MemAddress, uint8_t *p_data, uint16_t n_bytes);
+
+
+/* INTERRUPT CALLBACK FUNCTIONS
+ * Overload this in your file and they will be called as an interrupt when a corresponding non-blocking I2C operation has completed
+ * It gives the pointer to the device most recently used with a non-blocking function on the bus for which the interrupt occured
+*/
+void I2C_Tx_Complete(I2C_Device_t *device);
+void I2C_Rx_Complete(I2C_Device_t *device);
+
 
 #endif
