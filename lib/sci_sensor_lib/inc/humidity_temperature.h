@@ -47,7 +47,7 @@ static const uint8_t HT_SNB_2 = 0xC9;
 #define TEMP_SUBTRACTOR	46.85
 
 typedef struct HT_Device {
-	I2C_Device_t *device_ptr;
+	I2C_Device_t device;
 	// 64-bit unique serial number, retreived in 2 phases (pg. 23-24 of datasheet)
 	uint32_t ser_num_a;
 	uint32_t ser_num_b;
