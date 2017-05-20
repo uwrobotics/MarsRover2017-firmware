@@ -24,11 +24,15 @@ int main(void)
     init_uv(&uv_sensor, int_time, TIMEOUT);
 
     uint16_t uv_data = 0;
+    const uint8_t LABEL[] = "UV: ";
+    const uint8_t NEW_LINE[] = "\n";
 
     while(1) {
         uv_data = read_uv(&uv_sensor);
 
+        UART_LIB_PRINT_CHAR_ARRAY(LABEL, sizeof(LABEL));
         UART_LIB_PRINT_INT(uv_data);
+        UART_LIB_PRINT_CHAR_ARRAY(NEW_LINE, sizeof(NEW_LINE));
 
         HAL_Delay(500);
     }

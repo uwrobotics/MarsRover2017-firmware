@@ -25,14 +25,21 @@ int main(void)
     float humidity = 0;
     float temperature = 0;
 
-    uint8_t HUM_LABEL[] = "Humidity:"
+    const uint8_t HUM_LABEL[] = "Hum: ";
+    const uint8_t TEMP_LABEL[] = "Temp: ";
+    const uint8_t SEPARATOR[] = " | ";
+    const uint8_t NEW_LINE[] = "\n";
 
     while(1) {
         humidity = read_hum(&ht_sensor);
         temperature = read_temp(&ht_sensor);
         
+        UART_LIB_PRINT_CHAR_ARRAY(HUM_LABEL, sizeof(HUM_LABEL));
         UART_LIB_PRINT_DOUBLE(humidity);
+        UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
+        UART_LIB_PRINT_CHAR_ARRAY(TEMP_LABEL, sizeof(TEMP_LABEL));
         UART_LIB_PRINT_DOUBLE(temperature);
+        UART_LIB_PRINT_CHAR_ARRAY(NEW_LINE, sizeof(NEW_LINE));
 
         HAL_Delay(500);
     }
