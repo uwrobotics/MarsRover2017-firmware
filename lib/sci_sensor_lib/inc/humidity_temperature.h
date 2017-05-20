@@ -16,8 +16,8 @@
 #define HT_ADDR			    (0x40)
 
 // Command bits (pg. 18 of datasheet)
-static const uint8_t HT_MEAS_RH_NOHOLD = 0xF5;
-static const uint8_t HT_MEAS_TEMP_NOHOLD = 0xF3;
+static const uint8_t HT_MEAS_RH_HOLD = 0xE5;
+static const uint8_t HT_MEAS_TEMP_HOLD = 0xE3;
 static const uint8_t HT_RESET = 0xFE;
 static const uint8_t HT_READ_RHT_REG = 0xE7;
 static const uint8_t HT_SNA_1 = 0xFA;
@@ -27,8 +27,8 @@ static const uint8_t HT_SNB_2 = 0xC9;
 
 /*
  * Note: not using these commands for now; keep for reference
- * static const uint8_t HT_MEAS_RH_HOLD = 0xE5;
- * static const uint8_t HT_MEAS_TEMP_HOLD = 0xE3;
+ * static const uint8_t HT_MEAS_RH_NOHOLD = 0xF5;
+ * static const uint8_t HT_MEAS_TEMP_NOHOLD = 0xF3;
  * static const uint8_t HT_READ_PREV_TEMP = 0xE0;
  * static const uint8_t HT_WRITE_RHT_REG = 0xE6;
  * static const uint8_t HT_WRITE_HEATER_REG = 0x51;
