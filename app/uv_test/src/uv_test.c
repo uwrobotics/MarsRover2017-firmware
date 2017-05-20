@@ -27,7 +27,9 @@ int main(void)
 
 	while(1) {
 		uv_data = read_uv(&uv_sensor);
+
 		UART_LIB_PRINT_INT(uv_data);
+
 		HAL_Delay(500);
 	}
 

@@ -3,8 +3,8 @@
 */
 
 #include "stm32f0xx.h"
-// #include "i2clib.h"
-// #include "humidity_temperature.h"
+#include "i2clib.h"
+#include "humidity_temperature.h"
 #include "uart_lib.h"
 
 static const uint16_t TIMEOUT = 5000;
@@ -16,22 +16,19 @@ int main(void)
 {
     HAL_Init();
     CLK_Init();
-	// I2C_init(I2C1);
+	I2C_init(I2C1);
     UART_LIB_INIT();
 
-	// HT_Device_t ht_sensor;
-	// init_ht(&ht_sensor, TIMEOUT);
+	HT_Device_t ht_sensor;
+	init_ht(&ht_sensor, TIMEOUT);
 
     float humidity = 0;
     float temperature = 0;
 
 	while(1) {
-		// humidity = read_hum(&ht_sensor);
-        // temperature = read_temp(&ht_sensor);
+		humidity = read_hum(&ht_sensor);
+        temperature = read_temp(&ht_sensor);
 		
-        // display data somehow
-        humidity += 1;
-        temperature += 2;
         UART_LIB_PRINT_DOUBLE(humidity);
         UART_LIB_PRINT_DOUBLE(temperature);
 
