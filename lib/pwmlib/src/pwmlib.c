@@ -16,7 +16,6 @@ Copyright 2017, UW Robotics Team
 
 // Each timer has its own handler. Therefore, every PWM channel on the same timer will have the same PWM period.
 TIM_HandleTypeDef TIM1_Handler;
-TIM_HandleTypeDef TIM3_Handler;
 TIM_OC_InitTypeDef sConfig;
 
 // Variable that stores the pulse width written to each channel
@@ -31,10 +30,8 @@ volatile uint16_t pulse_width = 0;
 void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 {
     __HAL_RCC_TIM1_CLK_ENABLE();
-    __HAL_RCC_TIM3_CLK_ENABLE();
 
     __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
 
     GPIO_InitTypeDef GPIO_InitStruct;
 
@@ -50,11 +47,6 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 
     HAL_GPIO_Init(PWM1_GPIO_PORT, &GPIO_InitStruct);
 
-    // PWM pins on GPIOC
-    GPIO_InitStruct.Pin         = PWM4_GPIO_PIN;
-    GPIO_InitStruct.Alternate   = PWM4_GPIO_ALTERNATE;
-
-    HAL_GPIO_Init(PWM4_GPIO_PORT, &GPIO_InitStruct);
 }
 
 // Configures each individual PWM channel. Should not be called outside the library.
@@ -75,10 +67,6 @@ static int PWMLIB_ConfigChannel(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sCo
 
         case 3:
             channel = TIM_CHANNEL_3;
-            break;
-
-        case 4:
-            channel = TIM_CHANNEL_4;
             break;
 
         default:
@@ -121,10 +109,6 @@ static int PWMLIB_TimerInit(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig
         case 2:
         case 3:
             htim->Instance       = TIM1;
-            break;
-
-        case 4:
-            htim->Instance       = TIM3;
             break;
 
         default:
@@ -195,11 +179,6 @@ int PWMLIB_Init(uint32_t pwm_id)
             htim = &TIM1_Handler;
             break;
 
-        // TIM3
-        case 4:
-            htim = &TIM3_Handler;
-            break;
-
         // Invalid PWM number
         default:
             error = -1;
@@ -245,10 +224,6 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
         case 2:
         case 3:
             htim = &TIM1_Handler;
-            break;
-
-        case 4:
-            htim = &TIM3_Handler;
             break;
 
         default:
@@ -322,10 +297,6 @@ int PWMLIB_ChangePeriod(uint32_t pwm_id, uint32_t period)
         case 2:
         case 3:
             htim = &TIM1_Handler;
-            break;
-
-        case 4:
-            htim = &TIM3_Handler;
             break;
 
         default:

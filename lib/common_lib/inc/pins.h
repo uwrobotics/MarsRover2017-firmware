@@ -32,8 +32,6 @@
 #define PWM2_GPIO_PORT      GPIOA
 #define PWM3_GPIO_PIN       GPIO_PIN_10
 #define PWM3_GPIO_PORT      GPIOA
-#define PWM4_GPIO_PIN       GPIO_PIN_9
-#define PWM4_GPIO_PORT      GPIOC
 
 // Encoders
 #define ENCODER_1A_PIN      GPIO_PIN_15
