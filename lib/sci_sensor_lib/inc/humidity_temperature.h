@@ -12,8 +12,7 @@
 // Note: for future reference, HT = Humidity and Temperature
 
 // I2C slave address
-// TODO: CHANGE TO 8-BIT ADDRESS?
-#define HT_ADDR			    (0x40)
+static const uint8_t HT_ADDR = 0x80;
 
 // Command bits (pg. 18 of datasheet)
 static const uint8_t HT_MEAS_RH_HOLD = 0xE5;
