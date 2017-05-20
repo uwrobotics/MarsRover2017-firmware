@@ -16,24 +16,26 @@ int main(void)
 {
     HAL_Init();
     CLK_Init();
-	I2C_init(I2C1);
+    I2C_init(I2C1);
     UART_LIB_INIT();
 
-	HT_Device_t ht_sensor;
-	init_ht(&ht_sensor, TIMEOUT);
+    HT_Device_t ht_sensor;
+    init_ht(&ht_sensor, TIMEOUT);
 
     float humidity = 0;
     float temperature = 0;
 
-	while(1) {
-		humidity = read_hum(&ht_sensor);
+    uint8_t HUM_LABEL[] = "Humidity:"
+
+    while(1) {
+        humidity = read_hum(&ht_sensor);
         temperature = read_temp(&ht_sensor);
-		
+        
         UART_LIB_PRINT_DOUBLE(humidity);
         UART_LIB_PRINT_DOUBLE(temperature);
 
-		HAL_Delay(500);
-	}
+        HAL_Delay(500);
+    }
 
     return 0;
 }

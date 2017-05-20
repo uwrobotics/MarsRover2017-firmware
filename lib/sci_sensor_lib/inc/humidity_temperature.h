@@ -39,18 +39,18 @@ static const uint8_t HT_SNB_2 = 0xC9;
 #define HT_INIT_STATE 0x3A
 
 // Arithmetic constants (pg. 21-22 of datasheet)
-#define HUM_MULTIPLIER	125
-#define HUM_DIVISOR		65536
-#define HUM_SUBTRACTOR	6
-#define TEMP_MULTIPLIER	175.72
-#define TEMP_DIVISOR	65536
-#define TEMP_SUBTRACTOR	46.85
+#define HUM_MULTIPLIER  125
+#define HUM_DIVISOR     65536
+#define HUM_SUBTRACTOR  6
+#define TEMP_MULTIPLIER 175.72
+#define TEMP_DIVISOR    65536
+#define TEMP_SUBTRACTOR 46.85
 
 typedef struct HT_Device {
-	I2C_Device_t device;
-	// 64-bit unique serial number, retreived in 2 phases (pg. 23-24 of datasheet)
-	uint32_t ser_num_a;
-	uint32_t ser_num_b;
+    I2C_Device_t device;
+    // 64-bit unique serial number, retreived in 2 phases (pg. 23-24 of datasheet)
+    uint32_t ser_num_a;
+    uint32_t ser_num_b;
 } HT_Device_t;
 
 // Initialize sensor with I2C timeout

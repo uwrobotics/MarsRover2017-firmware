@@ -16,22 +16,22 @@ int main(void)
 {
     HAL_Init();
     CLK_Init();
-	I2C_init(I2C1);
+    I2C_init(I2C1);
     UART_LIB_INIT();
 
-	I2C_Device_t uv_sensor;
-	uv_int_time_t int_time = ONE;
-	init_uv(&uv_sensor, int_time, TIMEOUT);
+    I2C_Device_t uv_sensor;
+    uv_int_time_t int_time = ONE;
+    init_uv(&uv_sensor, int_time, TIMEOUT);
 
-	uint16_t uv_data = 0;
+    uint16_t uv_data = 0;
 
-	while(1) {
-		uv_data = read_uv(&uv_sensor);
+    while(1) {
+        uv_data = read_uv(&uv_sensor);
 
-		UART_LIB_PRINT_INT(uv_data);
+        UART_LIB_PRINT_INT(uv_data);
 
-		HAL_Delay(500);
-	}
+        HAL_Delay(500);
+    }
 
     return 0;
 }
