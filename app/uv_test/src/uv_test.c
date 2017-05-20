@@ -5,6 +5,7 @@
 #include "stm32f0xx.h"
 #include "i2clib.h"
 #include "uv.h"
+#include "uart_lib.h"
 
 static const uint16_t TIMEOUT = 5000;
 
@@ -16,6 +17,7 @@ int main(void)
     HAL_Init();
     CLK_Init();
 	I2C_init(I2C1);
+    UART_LIB_INIT();
 
 	I2C_Device_t uv_sensor;
 	uv_int_time_t int_time = ONE;
@@ -25,7 +27,7 @@ int main(void)
 
 	while(1) {
 		uv_data = read_uv(&uv_sensor);
-		// display data somehow
+		UART_LIB_PRINT_INT(uv_data);
 		HAL_Delay(500);
 	}
 
