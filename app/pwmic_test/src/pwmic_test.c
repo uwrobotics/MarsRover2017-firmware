@@ -95,6 +95,11 @@ int main(void)
     {
         uint32_t count = PWMICLIB_Read(ENCODER1);
 
+        if (count > 4096)
+        {
+            count = 0;
+        }
+
         if (count < 1024)
         {
             HAL_GPIO_WritePin(LED_GPIO_PORT, LED1_GPIO_PIN, GPIO_PIN_SET);

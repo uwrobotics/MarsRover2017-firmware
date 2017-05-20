@@ -59,7 +59,7 @@ static int PWMICLIB_ConfigChannel(TIM_HandleTypeDef *htim, TIM_IC_InitTypeDef* s
     sConfig->ICPolarity     = TIM_INPUTCHANNELPOLARITY_RISING;  // capture rising edge
     sConfig->ICSelection    = TIM_ICSELECTION_DIRECTTI;         // direct connection
     sConfig->ICPrescaler    = TIM_ICPSC_DIV1;                   // capture all events
-    sConfig->ICFilter       = 0;                                // no filter
+    sConfig->ICFilter       = 3;                                // filter of N events (debouncing)
 
     if (HAL_TIM_IC_ConfigChannel(htim, sConfig, channel) != HAL_OK)
     {
@@ -163,7 +163,6 @@ uint32_t PWMICLIB_Read(uint32_t encoder)
     //     htim->Instance->CNT = 0;
     // }
 
-    //lastCount = htim->Instance->CNT;
-    return htim->Instance->CNT;
+    return htim->Instance->CCR1;
 
 }
