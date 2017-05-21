@@ -62,6 +62,9 @@ float read_hum(HT_Device_t *ht_device_ptr);
 // Read temperature value
 float read_temp(HT_Device_t *ht_device_ptr);
 
+// Fetch unique serial number of different ht sensors
+int get_ser_num(HT_Device_t *ht_device_ptr, uint32_t *ser_num_a_ptr, uint32_t *ser_num_b_ptr);
+
 // Record unique serial number of different ht sensors
 int store_ser_num(HT_Device_t *ht_device_ptr);
 

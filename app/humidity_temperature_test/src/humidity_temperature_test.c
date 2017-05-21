@@ -22,15 +22,31 @@ int main(void)
     HT_Device_t ht_sensor;
     init_ht(&ht_sensor, TIMEOUT);
 
+    float ser_num_a = 0;
+    float ser_num_b = 0;
     float humidity = 0;
     float temperature = 0;
 
+    const uint8_t SNA_LABEL[] = "Ser Num A: ";
+    const uint8_t SNB_LABEL[] = "Ser Num B: ";
     const uint8_t HUM_LABEL[] = "Hum: ";
     const uint8_t TEMP_LABEL[] = "Temp: ";
     const uint8_t SEPARATOR[] = " | ";
     const uint8_t NEW_LINE[] = "\n";
 
+    uint8_t check_var = 0;
+
     while(1) {
+        // check_var = get_ser_num(&ht_sensor, &ser_num_a, &ser_num_b);
+        // if (check_var != -1) {
+        //     UART_LIB_PRINT_CHAR_ARRAY(SNA_LABEL, sizeof(SNA_LABEL));
+        //     UART_LIB_PRINT_DOUBLE(ser_num_a);
+        //     UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
+        //     UART_LIB_PRINT_CHAR_ARRAY(SNB_LABEL, sizeof(SNB_LABEL));
+        //     UART_LIB_PRINT_DOUBLE(ser_num_b);
+        //     UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
+        // }
+
         humidity = read_hum(&ht_sensor);
         temperature = read_temp(&ht_sensor);
         

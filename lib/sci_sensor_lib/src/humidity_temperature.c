@@ -86,6 +86,20 @@ float read_temp(HT_Device_t *ht_device_ptr) {
     return temperature;
 }
 
+int get_ser_num(HT_Device_t *ht_device_ptr, uint32_t *ser_num_a_ptr, uint32_t *ser_num_b_ptr) {
+    uint8_t check_var = store_ser_num(ht_device_ptr);
+
+    if (check_var != 0) {
+        // Serial number extraction failed
+        return -1;
+    }
+
+    *ser_num_a_ptr = ht_device_ptr -> ser_num_a;
+    *ser_num_b_ptr = ht_device_ptr -> ser_num_b;
+
+    return 0;
+}
+
 int store_ser_num(HT_Device_t *ht_device_ptr) {
     // See pg. 23-24 of datasheet for algorithm explanation
     uint8_t tmp_data = 0;
