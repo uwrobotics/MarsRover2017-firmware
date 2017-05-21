@@ -48,6 +48,7 @@ int main(void)
         // }
 
         humidity = read_hum(&ht_sensor);
+        HAL_Delay(500);
         temperature = read_temp(&ht_sensor);
         
         UART_LIB_PRINT_CHAR_ARRAY(HUM_LABEL, sizeof(HUM_LABEL));
@@ -55,6 +56,7 @@ int main(void)
         UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
         UART_LIB_PRINT_CHAR_ARRAY(TEMP_LABEL, sizeof(TEMP_LABEL));
         UART_LIB_PRINT_DOUBLE(temperature);
+
         UART_LIB_PRINT_CHAR_ARRAY(NEW_LINE, sizeof(NEW_LINE));
 
         HAL_Delay(500);

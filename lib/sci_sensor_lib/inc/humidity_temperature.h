@@ -69,6 +69,6 @@ int get_ser_num(HT_Device_t *ht_device_ptr, uint32_t *ser_num_a_ptr, uint32_t *s
 int store_ser_num(HT_Device_t *ht_device_ptr);
 
 // TODO: NEED CHECKSUM PROCESSING FUNCTIONALITY?
-// TODO: NEED TEMPERATURE COMPENSATION DURING HUMIDITY MEASUREMENT?
+// TODO: NEED TEMPERATURE COMPENSATION DURING HUMIDITY MEASUREMENT? (HOLDING & NO CHECKSUM)
 
 #endif
