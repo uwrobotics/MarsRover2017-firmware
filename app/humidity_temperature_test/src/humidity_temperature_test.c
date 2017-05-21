@@ -19,8 +19,13 @@ int main(void)
     I2C_init(I2C1);
     UART_LIB_INIT();
 
+    uint8_t check_var = 0;
+
     HT_Device_t ht_sensor;
-    init_ht(&ht_sensor, TIMEOUT);
+    check_var = init_ht(&ht_sensor, TIMEOUT);
+    if (check_var == -1) {
+        return -1;
+    }
 
     float ser_num_a = 0;
     float ser_num_b = 0;
@@ -33,8 +38,6 @@ int main(void)
     const uint8_t TEMP_LABEL[] = "Temp: ";
     const uint8_t SEPARATOR[] = " | ";
     const uint8_t NEW_LINE[] = "\n";
-
-    uint8_t check_var = 0;
 
     while(1) {
         // check_var = get_ser_num(&ht_sensor, &ser_num_a, &ser_num_b);
