@@ -37,21 +37,13 @@ int init_ht(HT_Device_t *ht_device_ptr, uint16_t timeout) {
 }
 
 float read_hum(HT_Device_t *ht_device_ptr) {
-    // I2C_send_data(&ht_device_ptr -> device, &HT_MEAS_RH_NOHOLD, 1);
-    // HAL_Delay(25);
-
-    // uint8_t tmp_data = 0; // temporary, not temperature
-
-    // I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // uint16_t hum_data = tmp_data << 8;
-    // I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // hum_data |= tmp_data;
-
-    // I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // uint8_t checksum = tmp_data; // processing checksum not yet implemented
-
     uint16_t hum_data = 0;
-    I2C_mem_read(&ht_device_ptr -> device, HT_MEAS_RH_HOLD, &hum_data, 2);
+    uint8_t hum_buffer[2] = {0, 0};
+
+    I2C_mem_read(&ht_device_ptr -> device, HT_MEAS_RH_HOLD, &hum_buffer, 2);
+    hum_data = hum_buffer[0];
+    hum_data <<= 8;
+    hum_data |= hum_buffer[1];
 
     float humidity = hum_data;
     humidity *= HUM_MULTIPLIER;
@@ -62,21 +54,13 @@ float read_hum(HT_Device_t *ht_device_ptr) {
 }
 
 float read_temp(HT_Device_t *ht_device_ptr) {
-    // I2C_send_data(&ht_device_ptr -> device, &HT_MEAS_TEMP_NOHOLD, 1);
-    // HAL_Delay(25);
-
-    // uint8_t tmp_data = 0; // temporary, not temperature
-
-    // I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // uint16_t temp_data = tmp_data << 8;
-    // I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // temp_data |= tmp_data;
-
-    // I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // uint8_t checksum = tmp_data; // processing checksum not yet implemented
-
     uint16_t temp_data = 0;
-    I2C_mem_read(&ht_device_ptr -> device, HT_MEAS_TEMP_HOLD, &temp_data, 2);
+    uint8_t temp_buffer[2] = {0, 0};
+
+    I2C_mem_read(&ht_device_ptr -> device, HT_MEAS_TEMP_HOLD, &temp_buffer, 2);
+    temp_data = temp_buffer[0];
+    temp_data <<= 8;
+    temp_data |= temp_buffer[1];
 
     float temperature = temp_data;
     temperature *= TEMP_MULTIPLIER;
