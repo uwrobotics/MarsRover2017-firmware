@@ -30,6 +30,9 @@ TODO
 #define PWM_AZIMUTH_ID           1
 #define PWM_INCLINATION_ID       2
 
+#define PWM_ID      3
+
+
 //CAN IDs that this will receive messages from
 #define CAN_RX_ID                5   //Arbitrary value
 
@@ -63,6 +66,25 @@ TODO
 #define LIMIT_SWITCH_1_PORT GPIOC
 #define LIMIT_SWITCH_2_PIN  GPIO_PIN_3
 #define LIMIT_SWITCH_2_PORT GPIOC
+
+// PWM ID FOR MOTORS TODO: PLEASE SET
+#define PWM_ELEVATOR_ID 7
+#define PWM_DRILL_ID 8
+#define PWM_FILTER_ID 9
+
+// Duty Cycle Values TODO: ASK FOR RIGHT VALUES
+#define ELEVATOR_DUTY_CYCLE_UP 0.6
+#define ELEVATOR_DUTY_CYCLE_DOWN 0.4
+#define ELEVATION_RETRACT 555
+#define ELEVATION_DRILL 0
+
+/////////////////////////////////////////////////
+uint8_t elev_direction = 0;
+int elevation = 0;
+
+
+
+/////////////////////////////////////////////////
 
 const float epsilon = 0.0001;
 float incoming_cmd[NUM_CMDS] = { 0 }; //Array to hold incoming CAN messages
@@ -187,12 +209,109 @@ void HAL_MspInit(void)
     HAL_NVIC_SetPriority(SysTick_IRQn, 2, 2);
 }
 
+int PWM_Init(uint32_t pwm_id)
+{
+    // should also initialize LED on pin PC9 if pwm_id 4 is passed in
+    if (PWMLIB_Init(pwm_id) != 0)
+    {
+        // error;
+        return -1;
+    }
+
+    return 0;
+}
+
+void runElevator(void)
+{
+    // TODO: read CAN message to run elevator 
+    // elev_direction : 1 = up, 0 = down
+    // TODO: elevation = read_elevator_enc
+    if(elev_direction)
+    {
+        while(elevation < ELEVATION_RETRACT)
+        {
+            PWMLIB_Write(PWM_ELEVATOR_ID,ELEVATOR_DUTY_CYCLE_UP);
+            HAL_Delay(200);
+        }
+    }
+    else
+    {
+        while(elevation > ELEVATION_DRILL)
+        {
+            PWNLIB_Write(PWM_ELEVATOR_ID,ELEVATOR_DUTY_CYCLE_DOWN);
+            HAL_Delay(200);
+        }
+    }
+}
+
+void runDrill(int drill_dutycycle)
+{
+    PWMLIB_Write(PWM_DRILL_ID,drill_dutycycle);
+    HAL_Delay(200);
+}
+
+void runFilterToBin(void)
+{
+
+}
+
+void runFiltertoPassThrough(void)
+{
+
+}
+
+void resetFilter(void)
+{
+
+}
+
+float getHumidity()
+{
+
+}
+
+float getTemp()
+{
+
+}
+
+float getGas()
+{
+
+}
+
+float getUV()
+{
+
+}
+
+
 int main(void)
 {
     HAL_Init();
     CLK_Init();
     GPIO_Init();
     Timer_Init(PERIOD); // 500 ms timer
+    PWM_Init(3);
+
 
     return 0;
+}
+
+void CANLIB_Rx_OnMessageReceived(void)
+{
+    switch(CANLIB_Rx_GetSenderID())
+    {
+        // Expect frame format to be:
+        // Bytes 0-3: Azimuth axis PWM input
+        // Byte 4-7: Inclination axis PWM input
+        case CAN_RX_ID:
+            incoming_cmd[AZIMUTH_AXIS_ID] = CANLIB_Rx_GetAsFloat(AZIMUTH_AXIS_ID);
+            incoming_cmd[INCLINATION_AXIS_ID] = CANLIB_Rx_GetAsFloat(INCLINATION_AXIS_ID);
+            data_ready = 1;
+            break;
+
+        default:
+            break;
+    }
 }
