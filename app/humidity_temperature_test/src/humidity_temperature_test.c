@@ -27,8 +27,6 @@ int main(void)
         return -1;
     }
 
-    float ser_num_a = 0;
-    float ser_num_b = 0;
     float humidity = 0;
     float temperature = 0;
 
@@ -39,19 +37,16 @@ int main(void)
     const uint8_t SEPARATOR[] = " | ";
     const uint8_t NEW_LINE[] = "\n";
 
-    while(1) {
-        // check_var = get_ser_num(&ht_sensor, &ser_num_a, &ser_num_b);
-        // if (check_var != -1) {
-        //     UART_LIB_PRINT_CHAR_ARRAY(SNA_LABEL, sizeof(SNA_LABEL));
-        //     UART_LIB_PRINT_DOUBLE(ser_num_a);
-        //     UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
-        //     UART_LIB_PRINT_CHAR_ARRAY(SNB_LABEL, sizeof(SNB_LABEL));
-        //     UART_LIB_PRINT_DOUBLE(ser_num_b);
-        //     UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
-        // }
+    UART_LIB_PRINT_CHAR_ARRAY(SNA_LABEL, sizeof(SNA_LABEL));
+    UART_LIB_PRINT_DOUBLE(ht_sensor.ser_num_a);
+    UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
+    UART_LIB_PRINT_CHAR_ARRAY(SNB_LABEL, sizeof(SNB_LABEL));
+    UART_LIB_PRINT_DOUBLE(ht_sensor.ser_num_b);
+    
+    UART_LIB_PRINT_CHAR_ARRAY(NEW_LINE, sizeof(NEW_LINE));
 
+    while(1) {
         humidity = read_hum(&ht_sensor);
-        HAL_Delay(500);
         temperature = read_temp(&ht_sensor);
         
         UART_LIB_PRINT_CHAR_ARRAY(HUM_LABEL, sizeof(HUM_LABEL));

@@ -70,85 +70,39 @@ float read_temp(HT_Device_t *ht_device_ptr) {
     return temperature;
 }
 
-int get_ser_num(HT_Device_t *ht_device_ptr, uint32_t *ser_num_a_ptr, uint32_t *ser_num_b_ptr) {
-    uint8_t check_var = store_ser_num(ht_device_ptr);
-
-    if (check_var != 0) {
-        // Serial number extraction failed
-        return -1;
-    }
-
-    *ser_num_a_ptr = ht_device_ptr -> ser_num_a;
-    *ser_num_b_ptr = ht_device_ptr -> ser_num_b;
-
-    return 0;
-}
-
 int store_ser_num(HT_Device_t *ht_device_ptr) {
     // See pg. 23-24 of datasheet for algorithm explanation
-    uint8_t tmp_data = 0;
+    // First access of serial number extraction
+    const uint8_t HT_SNA_BUFFER[2] = {HT_SNA_1, HT_SNA_2};
+    I2C_send_data(&ht_device_ptr -> device, &HT_SNA_BUFFER, 2);
 
-    // First phase of serial number extraction
-
-    I2C_send_data(&ht_device_ptr -> device, &HT_SNA_1, 1);
-    I2C_send_data(&ht_device_ptr -> device, &HT_SNA_2, 1);
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    ht_device_ptr -> ser_num_a = tmp_data;
+    uint8_t first_access_buffer[8] = {0};
+    I2C_receive_data(&ht_device_ptr -> device, &first_access_buffer, 8);
+    ht_device_ptr -> ser_num_a = first_access_buffer[0];
     ht_device_ptr -> ser_num_a <<= 8;
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // uint8_t checksum = tmp_data; // processing checksum not yet implemented
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    ht_device_ptr -> ser_num_a |= tmp_data;
+    ht_device_ptr -> ser_num_a |= first_access_buffer[2];
     ht_device_ptr -> ser_num_a <<= 8;
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // checksum = tmp_data;
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    ht_device_ptr -> ser_num_a |= tmp_data;
+    ht_device_ptr -> ser_num_a |= first_access_buffer[4];
     ht_device_ptr -> ser_num_a <<= 8;
+    ht_device_ptr -> ser_num_a |= first_access_buffer[6];
 
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // checksum = tmp_data;
+    // Second access of serial number extraction
+    const uint8_t HT_SNB_BUFFER[2] = {HT_SNB_1, HT_SNB_2};
+    I2C_send_data(&ht_device_ptr -> device, &HT_SNB_BUFFER, 2);
 
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    ht_device_ptr -> ser_num_a |= tmp_data;
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // checksum = tmp_data;
-
-    // Second phase of serial number extraction
-
-    I2C_send_data(&ht_device_ptr -> device, &HT_SNB_1, 1);
-    I2C_send_data(&ht_device_ptr -> device, &HT_SNB_2, 1);
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
+    uint8_t second_access_buffer[6] = {0};
+    I2C_receive_data(&ht_device_ptr -> device, &second_access_buffer, 6);
     // At this point tmp_data *should* be equal to 0x15 = 21 for Si7021
-    if (tmp_data != 0x15) {
+    if (second_access_buffer[0] != 0x15) {
         return -1;
     }
-    ht_device_ptr -> ser_num_b = tmp_data;
+    ht_device_ptr -> ser_num_b = second_access_buffer[0];
     ht_device_ptr -> ser_num_b <<= 8;
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    ht_device_ptr -> ser_num_b |= tmp_data;
+    ht_device_ptr -> ser_num_b |= second_access_buffer[1];
     ht_device_ptr -> ser_num_b <<= 8;
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // checksum = tmp_data;
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    ht_device_ptr -> ser_num_b |= tmp_data;
+    ht_device_ptr -> ser_num_b |= second_access_buffer[3];
     ht_device_ptr -> ser_num_b <<= 8;
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    ht_device_ptr -> ser_num_b |= tmp_data;
-
-    I2C_receive_data(&ht_device_ptr -> device, &tmp_data, 1);
-    // checksum = tmp_data;
+    ht_device_ptr -> ser_num_b |= second_access_buffer[4];
 
     return 0;
 }
