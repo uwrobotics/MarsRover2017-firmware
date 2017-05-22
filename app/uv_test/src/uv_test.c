@@ -20,18 +20,26 @@ int main(void)
     UART_LIB_INIT();
 
     I2C_Device_t uv_sensor;
-    uv_int_time_t int_time = ONE;
-    init_uv(&uv_sensor, int_time, TIMEOUT);
+    const uv_it_t INT_TIME = TWO_T;
+    init_uv(&uv_sensor, &INT_TIME, TIMEOUT);
 
     uint16_t uv_data = 0;
-    const uint8_t LABEL[] = "UV: ";
+    uv_class_t uv_class = 0;
+
+    const uint8_t DATA_LABEL[] = "UV Data: ";
+    const uint8_t SEPARATOR[] = " | ";
+    const uint8_t CLASS_LABEL[] = "UV Class: ";
     const uint8_t NEW_LINE[] = "\n";
 
     while(1) {
-        uv_data = read_uv(&uv_sensor);
+        uv_data = read_uv(&uv_sensor, &INT_TIME);
+        uv_class = get_uv_class(&uv_sensor, &uv_data, &INT_TIME);
 
-        UART_LIB_PRINT_CHAR_ARRAY(LABEL, sizeof(LABEL));
+        UART_LIB_PRINT_CHAR_ARRAY(DATA_LABEL, sizeof(DATA_LABEL));
         UART_LIB_PRINT_INT(uv_data);
+        UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
+        UART_LIB_PRINT_CHAR_ARRAY(CLASS_LABEL, sizeof(CLASS_LABEL));
+        UART_LIB_PRINT_INT(uv_class);
         UART_LIB_PRINT_CHAR_ARRAY(NEW_LINE, sizeof(NEW_LINE));
 
         HAL_Delay(500);
