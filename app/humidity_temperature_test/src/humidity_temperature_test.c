@@ -40,11 +40,11 @@ int main(void)
     const uint8_t NEW_LINE[] = "\n";
 
     UART_LIB_PRINT_CHAR_ARRAY(SNA_LABEL, sizeof(SNA_LABEL));
-    UART_LIB_PRINT_DOUBLE(ht_sensor.ser_num_a);
+    UART_LIB_PRINT_INT(ht_sensor.ser_num_a);
     UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
     UART_LIB_PRINT_CHAR_ARRAY(SNB_LABEL, sizeof(SNB_LABEL));
-    UART_LIB_PRINT_DOUBLE(ht_sensor.ser_num_b);
-    
+    UART_LIB_PRINT_INT(ht_sensor.ser_num_b);
+
     UART_LIB_PRINT_CHAR_ARRAY(NEW_LINE, sizeof(NEW_LINE));
 
     while(1) {
