@@ -9,6 +9,8 @@
 
 static const uint16_t TIMEOUT = 5000;
 
+#define IS_PREVIOUS 1
+
 static void Error_Handler(void);
 void CLK_Init(void);
 
@@ -47,7 +49,7 @@ int main(void)
 
     while(1) {
         humidity = read_hum(&ht_sensor);
-        temperature = read_temp(&ht_sensor);
+        temperature = read_temp(&ht_sensor, IS_PREVIOUS);
         
         UART_LIB_PRINT_CHAR_ARRAY(HUM_LABEL, sizeof(HUM_LABEL));
         UART_LIB_PRINT_DOUBLE(humidity);

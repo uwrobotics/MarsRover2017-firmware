@@ -16,6 +16,7 @@ static const uint8_t HT_ADDR = 0x80;
 
 // Command bits (pg. 18 of datasheet)
 static const uint8_t HT_MEAS_RH_HOLD = 0xE5;
+static const uint8_t HT_READ_PREV_TEMP = 0xE0;
 static const uint8_t HT_MEAS_TEMP_HOLD = 0xE3;
 static const uint8_t HT_RESET = 0xFE;
 static const uint8_t HT_READ_RHT_REG = 0xE7;
@@ -28,7 +29,6 @@ static const uint8_t HT_SNB_2 = 0xC9;
  * Note: not using these commands for now; keep for reference
  * static const uint8_t HT_MEAS_RH_NOHOLD = 0xF5;
  * static const uint8_t HT_MEAS_TEMP_NOHOLD = 0xF3;
- * static const uint8_t HT_READ_PREV_TEMP = 0xE0;
  * static const uint8_t HT_WRITE_RHT_REG = 0xE6;
  * static const uint8_t HT_WRITE_HEATER_REG = 0x51;
  * static const uint8_t HT_READ_HEATER_REG = 0x11;
@@ -59,8 +59,9 @@ int init_ht(HT_Device_t *ht_device_ptr, uint16_t timeout);
 // Read humidity value
 float read_hum(HT_Device_t *ht_device_ptr);
 
-// Read temperature value
-float read_temp(HT_Device_t *ht_device_ptr);
+// Read temperature value; if is_previous is true, don't make a new temperature measurement,
+// but instead, fetch the temperature that was recorded during previous humidity measurement
+float read_temp(HT_Device_t *ht_device_ptr, uint8_t is_previous);
 
 // Record unique serial number of different ht sensors
 int store_ser_num(HT_Device_t *ht_device_ptr);

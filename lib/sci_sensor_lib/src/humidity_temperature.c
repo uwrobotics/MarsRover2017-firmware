@@ -53,11 +53,19 @@ float read_hum(HT_Device_t *ht_device_ptr) {
     return humidity;
 }
 
-float read_temp(HT_Device_t *ht_device_ptr) {
+float read_temp(HT_Device_t *ht_device_ptr, uint8_t is_previous) {
+    uint8_t read_temp_cmd = 0;
+    if (is_previous) {
+        // Requires a humidity measurement being made prior to this! (pg. 21 of datasheet)
+        read_temp_cmd = HT_READ_PREV_TEMP;
+    } else {
+        read_temp_cmd = HT_MEAS_TEMP_HOLD;
+    }
+
     uint16_t temp_data = 0;
     uint8_t temp_buffer[2] = {0, 0};
 
-    I2C_mem_read(&ht_device_ptr -> device, HT_MEAS_TEMP_HOLD, &temp_buffer, 2);
+    I2C_mem_read(&ht_device_ptr -> device, read_temp_cmd, &temp_buffer, 2);
     temp_data = temp_buffer[0];
     temp_data <<= 8;
     temp_data |= temp_buffer[1];
