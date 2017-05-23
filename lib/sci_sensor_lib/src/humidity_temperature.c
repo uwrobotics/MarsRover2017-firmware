@@ -100,7 +100,7 @@ int store_ser_num(HT_Device_t *ht_device_ptr) {
 
     uint8_t second_access_buffer[6] = {0};
     I2C_receive_data(&ht_device_ptr -> device, &second_access_buffer, 6);
-    // At this point tmp_data *should* be equal to 0x15 = 21 for Si7021
+    // At this point SNB3 *should* be equal to 0x15 = 21 for Si7021
     if (second_access_buffer[0] != 0x15) {
         return -1;
     }
