@@ -57,6 +57,7 @@ typedef struct HT_Device {
     uint32_t ser_num_b;
     // Record of ambient temp. in container *without* soil
     float temp_ambient;
+    float correction_factor;
 } HT_Device_t;
 
 // Initialize sensor with I2C timeout
