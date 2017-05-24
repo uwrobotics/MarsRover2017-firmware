@@ -55,17 +55,24 @@ TODO
 #define AZIMUTH_AXIS_ID          0
 #define INCLINATION_AXIS_ID      1
 
-// Limit Switches
+// Limit Switches TODO: REMOVE
 #define LIMIT_SWITCH_1_PIN  GPIO_PIN_4
 #define LIMIT_SWITCH_1_PORT GPIOC
 #define LIMIT_SWITCH_2_PIN  GPIO_PIN_3
 #define LIMIT_SWITCH_2_PORT GPIOC
 
-// Limit Switches
-#define LIMIT_SWITCH_1_PIN  GPIO_PIN_4
-#define LIMIT_SWITCH_1_PORT GPIOC
-#define LIMIT_SWITCH_2_PIN  GPIO_PIN_3
-#define LIMIT_SWITCH_2_PORT GPIOC
+// Limit Switches for Application TODO: CHECK PINS 
+#define LIMIT_SWITCH_FILTER_OUTER_PIN GPIO_PIN_5
+#define LIMIT_SWITCH_FILTER_OUTER_PORT GPIOC
+#define LIMIT_SWITCH_FILTER_INNER_PIN  GPIO_PIN_6
+#define LIMIT_SWITCH_FILTER_INNER_PORT GPIOC
+
+#define GPIO_DRILL_PIN GPIO_PIN_7
+#define GPIO_DRILL_PORT GPIOC
+#define GPIO_ELEVATOR_PIN GPIO_PIN_8
+#define GPIO_ELEVATOR_PORT GPIOC
+#define GPIO_FILTER_PIN GPIO_PIN_9
+#define GPIO_FITLER_PORT GPIOC
 
 // PWM ID FOR MOTORS TODO: PLEASE SET
 #define PWM_ELEVATOR_ID 7
@@ -78,13 +85,16 @@ TODO
 #define ELEVATION_RETRACT 555
 #define ELEVATION_DRILL 0
 
-/////////////////////////////////////////////////
-uint8_t elev_direction = 0;
+/***************variable wasteland********************/
+uint8_t elevator_upordown = 0;
 int elevation = 0;
+float filter_dutycycle = 0.6;
+uint8_t bin_loc = 0;
+uint8_t filter_dir = 0;
 
 
 
-/////////////////////////////////////////////////
+/*****************************************************/
 
 const float epsilon = 0.0001;
 float incoming_cmd[NUM_CMDS] = { 0 }; //Array to hold incoming CAN messages
@@ -221,12 +231,22 @@ int PWM_Init(uint32_t pwm_id)
     return 0;
 }
 
-void runElevator(void)
+void sensorInit(void)
+{
+    //TODO;
+}
+
+void i2cInit(void)
+{
+
+}
+
+void runElevator(int elevator_upordown)
 {
     // TODO: read CAN message to run elevator 
-    // elev_direction : 1 = up, 0 = down
+    // elevator_upordown : 1 = up, 0 = down
     // TODO: elevation = read_elevator_enc
-    if(elev_direction)
+    if(elevator_upordown)
     {
         while(elevation < ELEVATION_RETRACT)
         {
@@ -238,53 +258,109 @@ void runElevator(void)
     {
         while(elevation > ELEVATION_DRILL)
         {
-            PWNLIB_Write(PWM_ELEVATOR_ID,ELEVATOR_DUTY_CYCLE_DOWN);
+            PWMLIB_Write(PWM_ELEVATOR_ID,ELEVATOR_DUTY_CYCLE_DOWN);
             HAL_Delay(200);
         }
     }
 }
 
-void runDrill(int drill_dutycycle)
+void runDrillDistance(float drill_dutycycle, float elevator_duty_cycle, float distance)
 {
-    PWMLIB_Write(PWM_DRILL_ID,drill_dutycycle);
-    HAL_Delay(200);
+    int drill_dir = 0;
+    if(elevation > distance)
+    {
+        drill_dir = 1;
+        int elevator_dir = 1;
+        while(elevation > distance)
+        {
+            HAL_GPIO_WritePin(GPIO_DRILL_PORT,GPIO_DRILL_PIN,drill_dir);
+            PWMLIB_Write(PWM_DRILL_ID,drill_dutycycle);
+            HAL_GPIO_WritePin(GPIO_ELEVATOR_PORT,GPIO_ELEVATOR_PIN,elevator_dir);
+            PWMLIB_Write(PWM_DRILL_ID,elevator_duty_cycle);
+            HAL_Delay(200);
+        }
+    }
+    else
+    {
+        drill_dir = 0;
+        int elevator_dir = 0;
+        while(elevation < distance)
+        {
+            HAL_GPIO_WritePin(GPIO_DRILL_PORT,GPIO_DRILL_PIN,drill_dir);
+            PWMLIB_Write(PWM_DRILL_ID,drill_dutycycle);
+            HAL_GPIO_WritePin(GPIO_ELEVATOR_PORT,GPIO_ELEVATOR_PIN,elevator_dir);
+            PWMLIB_Write(PWM_DRILL_ID,elevator_duty_cycle);
+            HAL_Delay(200);
+        }        
+    }
 }
 
-void runFilterToBin(void)
+void runFilterToBin(int bin_no)
 {
+    //determine logic to go to certain filter
 
+    uint8_t filter_limits_reading = 1;
+    while(bin_loc != bin_no)
+    {
+        HAL_GPIO_WritePin(GPIO_FILTER_PORT,GPIO_FILTER_PIN,filter_dir);
+        PWMLIB_Write(PWM_FILTER_ID,filter_dutycycle);
+        HAL_Delay(100);
+        filter_limits_reading = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
+        if(!filter_limits_reading)
+        {
+            bin_loc++;
+            bin_loc = bin_loc%4;
+        }
+    }
 }
 
 void runFiltertoPassThrough(void)
 {
-
+    //determine limit switch logic to run filter to pass through
+    runFilterToBin(4);
 }
 
 void resetFilter(void)
 {
-
+    // drive motor
+    uint8_t filter_zeroed = 0; 
+    uint8_t filter_limits_reading[2] = {1};
+    while(!filter_zeroed)
+    {
+        filter_limits_reading[0] = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_OUTER_PORT, LIMIT_SWITCH_FILTER_OUTER_PIN); //pull-up switch 0 when pressed
+        HAL_GPIO_WritePin(GPIO_FILTER_PORT,GPIO_FILTER_PIN,filter_dir);
+        PWMLIB_Write(PWM_FILTER_ID,filter_dutycycle);
+        HAL_Delay(200);
+        if (!filter_limits_reading[0]) 
+            do{
+                PWMLIB_Write(PWM_FILTER_ID,filter_dutycycle/2);
+                filter_limits_reading[1] = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
+                HAL_Delay(100);
+            } while(filter_limits_reading[1]);
+            filter_zeroed = 1;
+    }
+    bin_loc = 0;
 }
 
-float getHumidity()
+float getHumidity(int sensor_no)
+{
+    read_hum(device ptr)
+}
+
+float getTemp(int sensor_no)
 {
 
 }
 
-float getTemp()
+float getGas(int sensor_no)
 {
 
 }
 
-float getGas()
+float getUV(int sensor_no)
 {
 
 }
-
-float getUV()
-{
-
-}
-
 
 int main(void)
 {
