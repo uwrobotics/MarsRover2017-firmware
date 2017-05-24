@@ -47,6 +47,9 @@ static const uint8_t HT_SNB_2 = 0xC9;
 #define TEMP_DIVISOR    65536
 #define TEMP_SUBTRACTOR 46.85
 
+// Placeholder for unintialized variables
+#define HT_FOOBAR 255
+
 typedef struct HT_Device {
     I2C_Device_t device;
     // 64-bit unique serial number, retreived in 2 phases (pg. 23-24 of datasheet)

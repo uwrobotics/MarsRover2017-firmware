@@ -12,14 +12,19 @@
 #include <math.h>
 
 int init_ht(HT_Device_t *ht_device_ptr, uint16_t timeout) {
+    ht_device_ptr -> ser_num_a = HT_FOOBAR;
+    ht_device_ptr -> ser_num_b = HT_FOOBAR;
+    ht_device_ptr -> temp_ambient = HT_FOOBAR;
+
     I2C_slave_init(&ht_device_ptr -> device, I2C1, HT_ADDR, timeout);
     I2C_slave_mem_init(&ht_device_ptr -> device, 8);
 
     // Reset registers on device
     I2C_send_data(&ht_device_ptr -> device, &HT_RESET, 1);
+    HAL_Delay(50);
 
     // Check initialized state of user register (pg. 26 of datasheet)
-    uint8_t check_var = 0;
+    uint8_t check_var = HT_FOOBAR;
     // I2C_send_data(&ht_device_ptr -> device, &HT_READ_RHT_REG, 1);
     // I2C_receive_data(&ht_device_ptr -> device, &check_var, 1);
     I2C_mem_read(&ht_device_ptr -> device, HT_READ_RHT_REG, &check_var, 1);
@@ -39,8 +44,12 @@ int init_ht(HT_Device_t *ht_device_ptr, uint16_t timeout) {
     return 0;
 }
 
+// #include "uart_lib.h"
+// const uint8_t ORH_LABEL[] = "Orig. RH: ";
+// const uint8_t SEPARATOR[] = " | ";
+
 float read_hum(HT_Device_t *ht_device_ptr) {
-    uint16_t hum_data = 0;
+    uint16_t hum_data = HT_FOOBAR;
     uint8_t hum_buffer[2] = {0, 0};
 
     I2C_mem_read(&ht_device_ptr -> device, HT_MEAS_RH_HOLD, &hum_buffer, 2);
@@ -53,16 +62,20 @@ float read_hum(HT_Device_t *ht_device_ptr) {
     humidity /= HUM_DIVISOR;
     humidity -= HUM_SUBTRACTOR;
 
+    // UART_LIB_PRINT_CHAR_ARRAY(ORH_LABEL, sizeof(ORH_LABEL));
+    // UART_LIB_PRINT_DOUBLE(humidity);
+    // UART_LIB_PRINT_CHAR_ARRAY(SEPARATOR, sizeof(SEPARATOR));
+
     // temp. compensation (see pg. 29 of app. note)
-    float temp_meas = read_temp(ht_device_ptr, 1);
-    float cor_fact = 0.0598 - 0.000346 * ht_device_ptr -> temp_ambient;
-    humidity = humidity / (1 - cor_fact * (temp_meas - ht_device_ptr -> temp_ambient));
+    // float temp_meas = read_temp(ht_device_ptr, 1);
+    // float cor_fact = 0.0598 - 0.000346 * ht_device_ptr -> temp_ambient;
+    // humidity = humidity / (1 - cor_fact * (temp_meas - ht_device_ptr -> temp_ambient));
 
     return humidity;
 }
 
 float read_temp(HT_Device_t *ht_device_ptr, uint8_t is_previous) {
-    uint8_t read_temp_cmd = 0;
+    uint8_t read_temp_cmd = HT_FOOBAR;
     if (is_previous) {
         // Requires a humidity measurement being made prior to this! (pg. 21 of datasheet)
         read_temp_cmd = HT_READ_PREV_TEMP;
@@ -70,7 +83,7 @@ float read_temp(HT_Device_t *ht_device_ptr, uint8_t is_previous) {
         read_temp_cmd = HT_MEAS_TEMP_HOLD;
     }
 
-    uint16_t temp_data = 0;
+    uint16_t temp_data = HT_FOOBAR;
     uint8_t temp_buffer[2] = {0, 0};
 
     I2C_mem_read(&ht_device_ptr -> device, read_temp_cmd, &temp_buffer, 2);
