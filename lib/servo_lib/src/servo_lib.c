@@ -25,35 +25,6 @@ Copyright 2017, UW Robotics Team
 //      Public Library Functions      //
 ////////////////////////////////////////
 
-
-/*******************************************************************************************************
-    ServoLibInit
-    -------------------
-
-    Description:
-    ============
-    Initializes ADC and PWM channels.
-
-    Arguments:
-    ==========
-    uint8_t        pwm_id              ID of the PWM channel.
-    uint8_t        adc_id              ID of the ADC channel.
-
-    Returns:
-    ========
-    0               On success
-    -1              PWM library failed to initialize
-    -2              ADC library failed to initialize
-*******************************************************************************************************/
-int ServoLibInit(uint8_t pwm_id,uint8_t adc_id){
-    if (PWMLIB_Init(pwm_id)!=0)
-        return -1;
-    if (ADC_Init(adc_id)!=0)
-        return -2;
-    PWMLIB_ChangePeriod(pwm_id,20000);
-
-}
-
 /*******************************************************************************************************
     PWMLIB_WriteServo
     -------------------

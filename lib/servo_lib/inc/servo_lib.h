@@ -34,7 +34,6 @@ Notes:
 // Potentiometer reading corresponding to 1 degree
 #define READING_PER_DEGREE 	(13.20968)
 
-int ServoLibInit(uint8_t pwm_id, uint8_t adc_id);
 void WriteServo(uint32_t pwm_id, float degrees);
 void WriteContinuousServo(uint32_t pwm_id, uint8_t adc_id, uint16_t degrees);
 #endif
