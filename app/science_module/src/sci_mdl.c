@@ -18,6 +18,9 @@ TODO
 #include "stm32f0xx.h"
 #include "canlib.h"
 #include "pwmlib.h"
+#include "i2clib.h"
+#include "humidity_temperature.h"
+#include "uart_lib.h"
 //#include "encoderlib.h"
 #include "pins.h"
 #include <math.h>
@@ -236,11 +239,6 @@ void sensorInit(void)
     //TODO;
 }
 
-void i2cInit(void)
-{
-
-}
-
 void runElevator(int elevator_upordown)
 {
     // TODO: read CAN message to run elevator 
@@ -370,6 +368,12 @@ int main(void)
     Timer_Init(PERIOD); // 500 ms timer
     PWM_Init(3);
 
+    I2C_init(I2C1);
+    UART_LIB_INIT();
+
+    uint8_t check_var = 0;
+
+    HT_Device_t ht_sensor;
 
     return 0;
 }
