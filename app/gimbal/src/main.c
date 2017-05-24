@@ -78,7 +78,6 @@ int main(void)
 	HAL_Init();
     CLK_Init();
     GPIO_Init();
-    ServoLibInit(PWM_ID, ADC_ID);
     
     PWMLIB_Init(PWM_ID);
     ADC_Init(ADC_ID);
