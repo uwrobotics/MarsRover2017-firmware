@@ -2,6 +2,7 @@
  * Inspired from github.com/adafruit/Adafruit_Si7021
  * Datasheet: https://www.silabs.com/documents/public/data-sheets/Si7021-A20.pdf
  * Product Info: www.adafruit.com/products/3251
+ * Application Note: https://www.silabs.com/documents/public/application-notes/AN607.pdf
 */
 
 #ifndef HUMIDITY_TEMPERATURE_H_
@@ -51,6 +52,8 @@ typedef struct HT_Device {
     // 64-bit unique serial number, retreived in 2 phases (pg. 23-24 of datasheet)
     uint32_t ser_num_a;
     uint32_t ser_num_b;
+    // Record of ambient temp. in container *without* soil
+    float temp_ambient;
 } HT_Device_t;
 
 // Initialize sensor with I2C timeout
@@ -66,7 +69,9 @@ float read_temp(HT_Device_t *ht_device_ptr, uint8_t is_previous);
 // Record unique serial number of different ht sensors
 int store_ser_num(HT_Device_t *ht_device_ptr);
 
+// Ambient temp. for compensation of RH value (pg. 29 of app. note)
+float read_temp_ambient(HT_Device_t *ht_device_ptr);
+
 // TODO: NEED CHECKSUM PROCESSING FUNCTIONALITY?
-// TODO: NEED TEMPERATURE COMPENSATION DURING HUMIDITY MEASUREMENT? (HOLDING & NO CHECKSUM)
 
 #endif

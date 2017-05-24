@@ -2,6 +2,7 @@
  * Inspired from github.com/adafruit/Adafruit_Si7021
  * Datasheet: https://www.silabs.com/documents/public/data-sheets/Si7021-A20.pdf
  * Product Info: www.adafruit.com/products/3251
+ * Application Note: https://www.silabs.com/documents/public/application-notes/AN607.pdf
 */
 
 #include "stm32f0xx.h"
@@ -31,7 +32,9 @@ int init_ht(HT_Device_t *ht_device_ptr, uint16_t timeout) {
     if (check_var != 0) {
         // Serial number extraction failed
         return -1;
-    }   
+    }
+
+    read_temp_ambient(ht_device_ptr);
 
     return 0;
 }
@@ -49,6 +52,11 @@ float read_hum(HT_Device_t *ht_device_ptr) {
     humidity *= HUM_MULTIPLIER;
     humidity /= HUM_DIVISOR;
     humidity -= HUM_SUBTRACTOR;
+
+    // temp. compensation (see pg. 29 of app. note)
+    float temp_meas = read_temp(ht_device_ptr, 1);
+    float cor_fact = 0.0598 - 0.000346 * ht_device_ptr -> temp_ambient;
+    humidity = humidity / (1 - cor_fact * (temp_meas - ht_device_ptr -> temp_ambient));
 
     return humidity;
 }
@@ -76,6 +84,17 @@ float read_temp(HT_Device_t *ht_device_ptr, uint8_t is_previous) {
     temperature -= TEMP_SUBTRACTOR;
 
     return temperature;
+}
+
+float read_temp_ambient(HT_Device_t *ht_device_ptr) {
+    float total = 0;
+    uint8_t NUM_ITER = 5;
+    uint8_t idx = 0;
+    for (idx = 0; idx < NUM_ITER; idx += 1) {
+        total += read_temp(ht_device_ptr, 0);
+        HAL_Delay(100);
+    }
+    ht_device_ptr -> temp_ambient = total / NUM_ITER;
 }
 
 int store_ser_num(HT_Device_t *ht_device_ptr) {
