@@ -42,8 +42,8 @@ Copyright 2017, UW Robotics Team
 void WriteServo(uint32_t pwm_id, float degrees)
 {
     // Limit range to 60 degrees. Note: servo is capped at 60 degrees on either side
-    if (degrees>60)
-        degrees=60;
+    if (degrees>50)
+        degrees=50;
     else if (degrees<-60)
         degrees=-60;
     PWMLIB_Write(pwm_id, (1500 + degrees/0.08)/20000); // From manufacturere: 0.08 degrees per us

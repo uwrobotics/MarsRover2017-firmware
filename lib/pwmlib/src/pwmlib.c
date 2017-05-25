@@ -252,19 +252,15 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
     switch (pwm_id)
     {
         case 1:
-            channel=1;
+            channel=TIM_CHANNEL_1;
             break;
 
         case 2:
-            channel=2;
+            channel=TIM_CHANNEL_2;
             break;
 
         case 3:
-            channel=3;
-            break;
-
-        case 4:
-            channel=4;
+            channel=TIM_CHANNEL_3;
             break;
 
         default:

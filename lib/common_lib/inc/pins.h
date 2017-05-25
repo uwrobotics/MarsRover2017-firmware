@@ -9,7 +9,7 @@
  */
 
 #ifndef PINS_H_
-#define CANLIB_H_
+#define PINS_H_
 
 #define DISCOVERY       1
 
