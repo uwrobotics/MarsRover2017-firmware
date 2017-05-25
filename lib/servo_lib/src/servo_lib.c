@@ -76,7 +76,7 @@ void WriteContinuousServo(uint32_t pwm_id, uint8_t adc_id, uint16_t degrees)
     float distance = 0;
     uint16_t pulseWidth;
     // Move the servo until close enough to the destination (1 degree)
-    while (abs(error)>READING_PER_DEGREE){
+    if (abs(error)>READING_PER_DEGREE){
         readIn = ADC_Read(adc_id);
         distance = pid_controller(readIn, degrees*READING_PER_DEGREE);
         error = degrees*READING_PER_DEGREE - readIn;
@@ -87,6 +87,7 @@ void WriteContinuousServo(uint32_t pwm_id, uint8_t adc_id, uint16_t degrees)
         PWMLIB_Write(pwm_id, pulseWidth/20000.0);
         HAL_Delay(2);
     }
-    //Stop the servo from moving any further
-    PWMLIB_Write(pwm_id, 1465/20000.0);
+    else
+        //Stop the servo from moving any further
+        PWMLIB_Write(pwm_id, 1465/20000.0);
 }
