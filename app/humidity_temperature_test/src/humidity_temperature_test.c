@@ -21,7 +21,7 @@ int main(void)
     I2C_init(I2C1);
     UART_LIB_INIT();
 
-    uint8_t check_var = 0;
+    uint8_t check_var = HT_FOOBAR;
 
     HT_Device_t ht_sensor;
     check_var = init_ht(&ht_sensor, TIMEOUT);
@@ -29,8 +29,8 @@ int main(void)
         return -1;
     }
 
-    float humidity = 0;
-    float temperature = 0;
+    float humidity = HT_FOOBAR;
+    float temperature = HT_FOOBAR;
 
     const uint8_t SNA_LABEL[] = "Ser Num A: ";
     const uint8_t SNB_LABEL[] = "Ser Num B: ";
