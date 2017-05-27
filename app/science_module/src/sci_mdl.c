@@ -26,93 +26,128 @@ TODO
 #include <math.h>
 #include <string.h>
 
+//
+/*
+    LIMIT 1= PC12
+    LIMIT 2 =PC13
+    LIMIT 3 =PC14
+    LIMIT 4 =PC15
+
+    MOTORPWM1 = A8
+    MOTORPWM2 = A9
+    MOTORPWM3 = A10
+
+    MOTORDIR1 = C8
+    MOTORDIR2 = C9
+    MOTORDIR3 = C10
+
+    FAMPWM = C11
+
+    LEDS1 = C0
+    LEDS2 = C1
+    LEDS_STAY = PC4
+    LEDS_CAN = PC5
+*/
+
 //Code assumes that one board is in charge of motors controlling inclination and azimuth of a joint
 //Example of azimuth vs inclination: http://edndoc.esri.com/arcobjects/9.1/java/arcengine/com/esri/arcgis/geometry/bitmaps/GeomVector3D.gif
 
 //PWM IDs
-#define PWM_AZIMUTH_ID           1
-#define PWM_INCLINATION_ID       2
+//#define PWM_AZIMUTH_ID           1
+//#define PWM_INCLINATION_ID       2
 
-#define PWM_ID      3
+//#define PWM_ID      3
 
 
 //CAN IDs that this will receive messages from
-#define CAN_RX_ID                5   //Arbitrary value
+//#define CAN_RX_ID                5   //Arbitrary value
 
 //CAN IDs that this will code will transmit on
-#define CAN_TX_ID                15  //Arbitrary value
-#define CAN_ENCODER_DATA_ID      16  //Arbitrary value
-#define CAN_LIMIT_SW_READ_ID     17  //Arbitrary value
+//#define CAN_TX_ID                15  //Arbitrary value
+//#define CAN_ENCODER_DATA_ID      16  //Arbitrary value
+//#define CAN_LIMIT_SW_READ_ID     17  //Arbitrary value
 
-#define LIMIT_SWITCH_COUNT       2
+//#define LIMIT_SWITCH_COUNT       2
 
 //Number of PWM commands per relevant CAN frame received
-#define NUM_CMDS                 2
+//#define NUM_CMDS                 2
+
 //Timer interrupt interval
 #define PERIOD                   500
+
 //Number of timer intervals of no message received to enter watchdog state
-#define MSG_WATCHDOG_INTERVAL    1
+//#define MSG_WATCHDOG_INTERVAL    1
 
 //Index in received CAN frame for float for each axis motors
 //The first 4 bytes contain azimuth motor PWM command and the last 4 contain inclination motor PWM command
-#define AZIMUTH_AXIS_ID          0
-#define INCLINATION_AXIS_ID      1
+//#define AZIMUTH_AXIS_ID          0
+//#define INCLINATION_AXIS_ID      1
 
 // Limit Switches TODO: REMOVE
-#define LIMIT_SWITCH_1_PIN  GPIO_PIN_4
-#define LIMIT_SWITCH_1_PORT GPIOC
-#define LIMIT_SWITCH_2_PIN  GPIO_PIN_3
-#define LIMIT_SWITCH_2_PORT GPIOC
+#define LIMIT_SWITCH_ELEVATORTOP_PIN  GPIO_PIN_15
+#define LIMIT_SWITCH_ELEVATORTOP_PORT GPIOC
+#define LIMIT_SWITCH_ELEVATORBOTTOM_PIN  GPIO_PIN_14
+#define LIMIT_SWITCH_ELEVATORBOTTOM_PORT GPIOC
 
 // Limit Switches for Application TODO: CHECK PINS 
-#define LIMIT_SWITCH_FILTER_OUTER_PIN GPIO_PIN_5
+#define LIMIT_SWITCH_FILTER_OUTER_PIN GPIO_PIN_13
 #define LIMIT_SWITCH_FILTER_OUTER_PORT GPIOC
-#define LIMIT_SWITCH_FILTER_INNER_PIN  GPIO_PIN_6
+#define LIMIT_SWITCH_FILTER_INNER_PIN  GPIO_PIN_12
 #define LIMIT_SWITCH_FILTER_INNER_PORT GPIOC
 
-#define GPIO_DRILL_PIN GPIO_PIN_7
-#define GPIO_DRILL_PORT GPIOC
-#define GPIO_ELEVATOR_PIN GPIO_PIN_8
-#define GPIO_ELEVATOR_PORT GPIOC
-#define GPIO_FILTER_PIN GPIO_PIN_9
-#define GPIO_FITLER_PORT GPIOC
+#define GPIO_DRILL_DIR_PIN GPIO_PIN_8
+#define GPIO_DRILL_DIR_PORT GPIOC
+#define GPIO_ELEVATOR_DIR_PIN GPIO_PIN_9
+#define GPIO_ELEVATOR_DIR_PORT GPIOC
+#define GPIO_FILTER_DIR_PIN GPIO_PIN_10
+#define GPIO_FILTER_DIR_PORT GPIOC
+
+#define CAN_FILTERID_ELEVATOR_DRILL 12
+#define CAN_FILTERID_FILTER 13
+
+#define MOTOR_FWD_DIR 1
+#define MOTOR_RVR_DIR 0
 
 // PWM ID FOR MOTORS TODO: PLEASE SET
-#define PWM_ELEVATOR_ID 7
-#define PWM_DRILL_ID 8
-#define PWM_FILTER_ID 9
+#define PWM_DRILL_ID 1
+#define PWM_ELEVATOR_ID 2
+#define PWM_FILTER_ID 3
 
-// Duty Cycle Values TODO: ASK FOR RIGHT VALUES
-#define ELEVATOR_DUTY_CYCLE_UP 0.6
-#define ELEVATOR_DUTY_CYCLE_DOWN 0.4
-#define ELEVATION_RETRACT 555
-#define ELEVATION_DRILL 0
+#define TRANSMITTER         1
+#define LOOPBACK            1
+#define DEBUG_MODE          1
 
 /***************variable wasteland********************/
-uint8_t elevator_upordown = 0;
-int elevation = 0;
-float filter_dutycycle = 0.6;
 uint8_t bin_loc = 0;
-uint8_t filter_dir = 0;
+float incoming_msg[2] = {0};
+int access_id = -1;
+float number1 = 0.25;
+float number2 = 0.69;
 
+uint8_t limit_switch_readings = 0xff;
 
+/*  LIMIT SWITCH BIT VECTOR 
+    elevator retracted          = 0000 1000;
+    elevator extended           = 0000 0100;
+    sample selector inner limit = 0000 0010;
+    sample selector outer limit = 0000 0001;
 
 /*****************************************************/
 
-const float epsilon = 0.0001;
-float incoming_cmd[NUM_CMDS] = { 0 }; //Array to hold incoming CAN messages
-float joy_cmd[NUM_CMDS] = { 0 }; //Can we just reuse incoming_cmd?
+//const float epsilon = 0.0001;
+//float incoming_cmd[NUM_CMDS] = { 0 }; //Array to hold incoming CAN messages
+//float joy_cmd[NUM_CMDS] = { 0 }; //Can we just reuse incoming_cmd?
 
 //Flags
 volatile uint8_t data_ready = 0;
 volatile uint8_t msg_received = 0;
 
 //contains abs value of the PWM command for each motor
-volatile float azimuth_motor_duty_cycle = 0;
-volatile float inclination_motor_duty_cycle = 0;
+// volatile float azimuth_motor_duty_cycle = 0;
+// volatile float inclination_motor_duty_cycle = 0;
 
 //Bitfield for limit switch readings
-uint8_t limit_switch_readings = 0;
+//uint8_t limit_switch_readings = 0;
 
 //Direction of each motor. 0 is backwards and 1 is forwards. 
 //Maybe this can be a bitfield instead
@@ -126,6 +161,24 @@ static TIM_HandleTypeDef s_TimerInstance =
 
 static void Error_Handler(void)
 {
+
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+
+    while (1)
+    {
+        //can anything useful be done here?
+    }
+}
+
+
+static void Error_Handler_Motors(void)
+{
+
+#if DEBUG_MODE
+    uint8_t debug_msg[] = "motors not connected";
+    UART_LIB_PRINT_CHAR_ARRAY(debug_msg,sizeof(debug_msg));    
+#endif
+
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
 
     while (1)
@@ -178,20 +231,43 @@ void GPIO_Init(void)
 {
     __HAL_RCC_GPIOC_CLK_ENABLE();
 
-    // LEDs
-    GPIO_InitTypeDef LED_InitStruct = {
-            .Pin        = GPIO_PIN_8 | GPIO_PIN_7 | GPIO_PIN_6,
+    /*
+    LIMIT 1 = PC12
+    LIMIT 2 = PC13
+    LIMIT 3 = PC14
+    LIMIT 4 = PC15
+
+    MOTORPWM1 = A8
+    MOTORPWM2 = A9
+    MOTORPWM3 = A10
+
+    MOTORDIR1 = C8
+    MOTORDIR2 = C9
+    MOTORDIR3 = C10
+
+    FAMPWM = C11
+
+    LEDS1 = C0
+    LEDS2 = C1
+    LEDS_STAY = PC4
+    LEDS_CAN = PC5
+    */
+
+    // LEDs and M
+    GPIO_InitTypeDef MotorDir_InitStruct = {
+            .Pin        = GPIO_DRILL_DIR_PIN | GPIO_ELEVATOR_DIR_PIN | GPIO_FILTER_DIR_PIN,
             .Mode       = GPIO_MODE_OUTPUT_PP,
             .Pull       = GPIO_NOPULL,
             .Speed      = GPIO_SPEED_FREQ_HIGH
     };
-    HAL_GPIO_Init(GPIOC, &LED_InitStruct);
+    HAL_GPIO_Init(GPIOC, &MotorDir_InitStruct);
 
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_DRILL_DIR_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_ELEVATOR_DIR_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_FILTER_DIR_PIN, GPIO_PIN_RESET);
 
     // Direction control pins
+    /*
     GPIO_InitTypeDef DirCtrl_InitStruct = {
             .Pin        = GPIO_PIN_5 | GPIO_PIN_2, //Pin 5 for azimuth, pin 2 for inclination. Change as needed  
             .Mode       = GPIO_MODE_OUTPUT_PP,
@@ -199,12 +275,13 @@ void GPIO_Init(void)
             .Speed      = GPIO_SPEED_FREQ_HIGH
     };
     HAL_GPIO_Init(GPIOC, &DirCtrl_InitStruct);
+    */
 
     //Limit switch init. Assumes 2 limit switches
     GPIO_InitTypeDef LimitSwitch_InitStruct = {
-        .Pin            = LIMIT_SWITCH_1_PIN | LIMIT_SWITCH_2_PIN,
+        .Pin            = LIMIT_SWITCH_FILTER_INNER_PIN | LIMIT_SWITCH_FILTER_OUTER_PIN | LIMIT_SWITCH_ELEVATORBOTTOM_PIN | LIMIT_SWITCH_ELEVATORTOP_PIN,
         .Mode           = GPIO_MODE_INPUT,
-        .Pull           = GPIO_NOPULL,
+        .Pull           = GPIO_PULLUP,
         .Speed          = GPIO_SPEED_FREQ_HIGH
     };
 
@@ -234,77 +311,149 @@ int PWM_Init(uint32_t pwm_id)
     return 0;
 }
 
+void CAN_Init(uint32_t id)
+{
+    // uint32_t i;
+
+    /* First relevant thing: Initialize CAN communication handler
+     * The input parameter to CANLIB_Init() is the node ID you want this node to have.
+     * In this case, we start with a node ID of 1
+     * Second parameter means no loopback mode
+     * This demo was developed with 1 board, so loopback mode is ON
+     */
+    switch(CANLIB_Init(id, LOOPBACK))
+    {
+        case 0:
+            //Initialization of CAN handler successful
+            break;
+        case -1:
+            //Initialization of CAN handler not successful
+            break;
+        default:
+            break;
+    }
+
+#if (!TRANSMITTER && !LOOPBACK) || LOOPBACK
+    //Using CANLIB_AddFilter() will allow you to specify who this node can receive messages from
+    // according to the sender node ID. This ensures less CAN interrupts
+    //Without calling this function, no messages will be received
+    // for (i = 0; i < (sizeof(node_ids)/sizeof(uint32_t)); i++)
+    // {
+    //     CANLIB_AddFilter(i);
+    // }
+    CANLIB_AddFilter(CAN_FILTERID_ELEVATOR_DRILL);
+    CANLIB_AddFilter(CAN_FILTERID_FILTER);
+
+#endif
+}
+
 void sensorInit(void)
 {
     //TODO;
 }
 
-void runElevator(int elevator_upordown)
+void motor_pwm_init(void)
 {
-    // TODO: read CAN message to run elevator 
-    // elevator_upordown : 1 = up, 0 = down
-    // TODO: elevation = read_elevator_enc
-    if(elevator_upordown)
+
+    
+    if (PWMLIB_Init(PWM_ELEVATOR_ID) != 0)
     {
-        while(elevation < ELEVATION_RETRACT)
-        {
-            PWMLIB_Write(PWM_ELEVATOR_ID,ELEVATOR_DUTY_CYCLE_UP);
-            HAL_Delay(200);
-        }
+        //Error_Handler_Motors();
     }
-    else
+    if (PWMLIB_Init(PWM_DRILL_ID) != 0)
     {
-        while(elevation > ELEVATION_DRILL)
-        {
-            PWMLIB_Write(PWM_ELEVATOR_ID,ELEVATOR_DUTY_CYCLE_DOWN);
-            HAL_Delay(200);
-        }
+        Error_Handler_Motors();
     }
+    
+
 }
 
-void runDrillDistance(float drill_dutycycle, float elevator_duty_cycle, float distance)
+void runDrillDistance(float drill_duty_cycle, float elevator_duty_cycle)
 {
-    int drill_dir = 0;
-    if(elevation > distance)
-    {
-        drill_dir = 1;
-        int elevator_dir = 1;
-        while(elevation > distance)
-        {
-            HAL_GPIO_WritePin(GPIO_DRILL_PORT,GPIO_DRILL_PIN,drill_dir);
-            PWMLIB_Write(PWM_DRILL_ID,drill_dutycycle);
-            HAL_GPIO_WritePin(GPIO_ELEVATOR_PORT,GPIO_ELEVATOR_PIN,elevator_dir);
-            PWMLIB_Write(PWM_DRILL_ID,elevator_duty_cycle);
-            HAL_Delay(200);
-        }
+    int drill_dir = MOTOR_FWD_DIR;
+    int elevator_dir = MOTOR_FWD_DIR;
+    
+    // Assuming 0 is down
+    if ((drill_duty_cycle<0))
+        drill_dir = MOTOR_RVR_DIR;
+    if (elevator_duty_cycle<0) 
+        elevator_dir = MOTOR_RVR_DIR;
+
+    checkLimits();
+    if((elevator_duty_cycle<0) && (limit_switch_readings & 0x04))
+    {    
+        PWMLIB_Write(PWM_ELEVATOR_ID,0.0);
+        HAL_Delay(100);
+        return;
     }
-    else
-    {
-        drill_dir = 0;
-        int elevator_dir = 0;
-        while(elevation < distance)
-        {
-            HAL_GPIO_WritePin(GPIO_DRILL_PORT,GPIO_DRILL_PIN,drill_dir);
-            PWMLIB_Write(PWM_DRILL_ID,drill_dutycycle);
-            HAL_GPIO_WritePin(GPIO_ELEVATOR_PORT,GPIO_ELEVATOR_PIN,elevator_dir);
-            PWMLIB_Write(PWM_DRILL_ID,elevator_duty_cycle);
-            HAL_Delay(200);
-        }        
+
+    if((elevator_duty_cycle>0) && (limit_switch_readings & 0x08))
+    {    
+        PWMLIB_Write(PWM_ELEVATOR_ID,0.0);   
+        HAL_Delay(100);
+        return;
     }
+    
+    HAL_GPIO_WritePin(GPIO_DRILL_DIR_PORT,GPIO_DRILL_DIR_PIN,drill_dir);
+    HAL_GPIO_WritePin(GPIO_ELEVATOR_DIR_PORT,GPIO_ELEVATOR_DIR_PIN,elevator_dir);
+    PWMLIB_Write(PWM_DRILL_ID,fabs(drill_duty_cycle));
+    PWMLIB_Write(PWM_ELEVATOR_ID,fabs(elevator_duty_cycle));
+    HAL_Delay(100);
 }
 
-void runFilterToBin(int bin_no)
+void resetFilter(uint8_t filter_dir, float filter_duty_cycle)
+{
+    // drive motor
+    uint8_t filter_zeroed = 0; 
+    //uint8_t filter_limits_reading[2] = {1};
+    while(!filter_zeroed)
+    {
+        checkLimits();
+        //limit_switch_readings 
+//        uint8_t result, lim1, lim2;
+//        result = 
+//        result = lim1 << 1 | ;
+//        1010
+        HAL_GPIO_WritePin(GPIO_FILTER_DIR_PORT,GPIO_FILTER_DIR_PIN,filter_dir);
+        PWMLIB_Write(PWM_FILTER_ID,filter_duty_cycle);
+        HAL_Delay(100);
+        //if (!filter_limits_reading[0]) 
+        if(!(limit_switch_readings & 0x02))
+        {
+            do{
+                checkLimits();
+                PWMLIB_Write(PWM_FILTER_ID,filter_duty_cycle/2);
+                HAL_Delay(50);
+            } while((limit_switch_readings & 0x01));
+            filter_zeroed = 1;
+        }
+    }
+    bin_loc = 0;
+}
+
+void runFilterToBin(int bin_no, float filter_duty_cycle)
 {
     //determine logic to go to certain filter
+    uint8_t filter_dir = 1;
+    if (filter_duty_cycle>0)
+    {
+        filter_dir = 0;
+    }
 
-    uint8_t filter_limits_reading = 1;
+    if(bin_no == -1)
+    {
+        resetFilter(bin_no, filter_duty_cycle);
+    }
+
+    //uint8_t filter_limits_reading = 1;
     while(bin_loc != bin_no)
     {
-        HAL_GPIO_WritePin(GPIO_FILTER_PORT,GPIO_FILTER_PIN,filter_dir);
-        PWMLIB_Write(PWM_FILTER_ID,filter_dutycycle);
+        HAL_GPIO_WritePin(GPIO_FILTER_DIR_PORT,GPIO_FILTER_DIR_PIN,filter_dir);
+        PWMLIB_Write(PWM_FILTER_ID,fabs(filter_duty_cycle));
         HAL_Delay(100);
-        filter_limits_reading = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
-        if(!filter_limits_reading)
+        //filter_limits_reading = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
+        checkLimits();
+        if(!(limit_switch_readings & 0x01))
         {
             bin_loc++;
             bin_loc = bin_loc%4;
@@ -312,37 +461,87 @@ void runFilterToBin(int bin_no)
     }
 }
 
-void runFiltertoPassThrough(void)
+void testMotor(float drill_duty_cycle)
 {
-    //determine limit switch logic to run filter to pass through
-    runFilterToBin(4);
-}
+    uint8_t drill_dir;
+    if (drill_duty_cycle<0)
+        drill_dir = 0;
+    
+    //uint8_t  = "Hello";
+    //UART_LIB_PRINT_CHAR_ARRAY(a, sizeof(a));
 
-void resetFilter(void)
-{
-    // drive motor
-    uint8_t filter_zeroed = 0; 
-    uint8_t filter_limits_reading[2] = {1};
-    while(!filter_zeroed)
+
+    HAL_GPIO_WritePin(GPIO_DRILL_DIR_PORT,GPIO_DRILL_DIR_PIN,drill_dir);
+    if (!(limit_switch_readings & 0x01))
     {
-        filter_limits_reading[0] = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_OUTER_PORT, LIMIT_SWITCH_FILTER_OUTER_PIN); //pull-up switch 0 when pressed
-        HAL_GPIO_WritePin(GPIO_FILTER_PORT,GPIO_FILTER_PIN,filter_dir);
-        PWMLIB_Write(PWM_FILTER_ID,filter_dutycycle);
-        HAL_Delay(200);
-        if (!filter_limits_reading[0]) 
-            do{
-                PWMLIB_Write(PWM_FILTER_ID,filter_dutycycle/2);
-                filter_limits_reading[1] = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
-                HAL_Delay(100);
-            } while(filter_limits_reading[1]);
-            filter_zeroed = 1;
+            PWMLIB_Write(PWM_DRILL_ID,0.0);
     }
-    bin_loc = 0;
+    else
+    {
+        PWMLIB_Write(PWM_DRILL_ID,fabs(drill_duty_cycle));
+    }
+    HAL_Delay(100);   
 }
 
-float getHumidity(int sensor_no)
+void sendCAN(int send_to_id)
 {
-    read_hum(device ptr)
+    UART_LIB_INIT();
+#if TRANSMITTER
+    //Here, we change the node ID to 10, put a 32 bit uint in the 4 LSBs of the
+    // CAN data array (indicated by CANLIB_INDEX_0), and send the first 4 bytes.
+    CANLIB_ChangeID(send_to_id);
+    CANLIB_Tx_SetFloat(number1, CANLIB_INDEX_0);
+    CANLIB_Tx_SetFloat(number2, CANLIB_INDEX_1);
+    CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
+//     CANLIB_ClearDataArray();
+ 
+#endif
+/*
+#if (!LOOPBACK && !TRANSMITTER) || LOOPBACK
+    //If the number received from the callback is the same as the one sent,
+    // turn on the green LED.
+    // Else, turn on the red LED.
+    // UART_LIB_PRINT_DOUBLE(received_number);
+
+    if (incoming_msg[1] == 12)
+    {
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET); //green
+    }
+    else
+    {
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+    }
+
+    HAL_Delay(1000);
+
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+    HAL_Delay(2000);
+#endif
+*/
+}
+
+/*  LIMIT SWITCH BIT VECTOR 
+    elevator retracted          = 0000 1000;
+    elevator extended           = 0000 0100;
+    sample selector outer limit = 0000 0010;
+    sample selector inner limit = 0000 0001;
+*/
+
+void checkLimits()
+{
+    limit_switch_readings =     HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT,LIMIT_SWITCH_FILTER_INNER_PIN) |
+                                HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_OUTER_PORT,LIMIT_SWITCH_FILTER_OUTER_PIN) << 1 | 
+                                HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORTOP_PORT,LIMIT_SWITCH_ELEVATORTOP_PIN) << 2 |
+                                HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORBOTTOM_PORT,LIMIT_SWITCH_ELEVATORBOTTOM_PIN) << 3;  
+
+    UART_LIB_PRINT_INT(limit_switch_readings);
+
+}
+
+float getHumidity(int sensor_no)    
+{
+
 }
 
 float getTemp(int sensor_no)
@@ -367,31 +566,98 @@ int main(void)
     GPIO_Init();
     Timer_Init(PERIOD); // 500 ms timer
     PWM_Init(3);
+    CANLIB_Init(1,LOOPBACK);
+    CAN_Init(12);
+     //init board transmitter ID ()
 
-    I2C_init(I2C1);
     UART_LIB_INIT();
+    
+    /*
+    while (1)
+    {
+        checkLimits();
+        sendCAN(12);
+        testMotor(incoming_msg[1]);
+    }
+    */
 
-    uint8_t check_var = 0;
+    /* EXAMPLE OF UART USE FOR TESTING 
+    UART_LIB_INIT();
+    uint8_t a[] = "Hello";
+    UART_LIB_PRINT_CHAR_ARRAY(a, sizeof(a));
 
-    HT_Device_t ht_sensor;
+    int b = 1234;
+    UART_LIB_PRINT_INT(b);
+
+    double c = 555.123;
+    UART_LIB_PRINT_DOUBLE(c);
+    */
+
+    
+    while(1)
+    {
+        checkLimits();
+        switch(access_id)
+        {
+            case CAN_FILTERID_ELEVATOR_DRILL: ; //empty statement - C quirk >_>
+                //getFiltertoBin
+                float drill_duty_cycle = incoming_msg[0];
+                float elevator_duty_cycle = incoming_msg[1];
+                runDrillDistance(drill_duty_cycle,elevator_duty_cycle);
+                break;
+
+            case CAN_FILTERID_FILTER: ;
+                //determine filter_no;
+                int bin_no = (int)incoming_msg[0];
+                float filter_duty_cycle = incoming_msg[1];
+                runFilterToBin(bin_no,filter_duty_cycle);
+                
+               
+            /* add cases for sensors */    
+
+                // determine drill_duty_cycle, elevator_duty_cycle_distance
+            default:
+                break;
+        }
+    }
+    
 
     return 0;
 }
 
 void CANLIB_Rx_OnMessageReceived(void)
 {
+/* 
     switch(CANLIB_Rx_GetSenderID())
     {
         // Expect frame format to be:
         // Bytes 0-3: Azimuth axis PWM input
         // Byte 4-7: Inclination axis PWM input
+
         case CAN_RX_ID:
             incoming_cmd[AZIMUTH_AXIS_ID] = CANLIB_Rx_GetAsFloat(AZIMUTH_AXIS_ID);
             incoming_cmd[INCLINATION_AXIS_ID] = CANLIB_Rx_GetAsFloat(INCLINATION_AXIS_ID);
             data_ready = 1;
+            incoming_cmd[0] = CANLIB_Rx_GetAsFloat
             break;
 
         default:
             break;
     }
+*/
+    access_id = CANLIB_Rx_GetSenderID();
+    incoming_msg[0] = CANLIB_Rx_GetAsFloat(0);
+    incoming_msg[1] = CANLIB_Rx_GetAsFloat(1);
+
+
+
+#if DEBUG_MODE
+
+    UART_LIB_INIT();
+    UART_LIB_PRINT_INT(access_id);
+    UART_LIB_PRINT_DOUBLE(incoming_msg[0]);
+    UART_LIB_PRINT_DOUBLE(incoming_msg[1]);
+
+#endif
+
 }
