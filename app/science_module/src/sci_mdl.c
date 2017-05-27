@@ -105,6 +105,9 @@ TODO
 #define CAN_FILTERID_ELEVATOR_DRILL 12
 #define CAN_FILTERID_FILTER 13
 
+#define MOTOR_FWD_DIR 1
+#define MOTOR_RVR_DIR 0
+
 // PWM ID FOR MOTORS TODO: PLEASE SET
 #define PWM_DRILL_ID 1
 #define PWM_ELEVATOR_ID 2
@@ -367,46 +370,61 @@ void motor_pwm_init(void)
 
 void runDrillDistance(float drill_duty_cycle, float elevator_duty_cycle)
 {
-    int drill_dir = 1;
-    int elevator_dir = 1;
+    int drill_dir = MOTOR_FWD_DIR;
+    int elevator_dir = MOTOR_FWD_DIR;
     
-    if (drill_duty_cycle<0)
-        drill_dir = 0;
-    if (elevator_duty_cycle<0)
-        elevator_dir = 0;
+    // Assuming 0 is down
+    if ((drill_duty_cycle<0))
+        drill_dir = MOTOR_RVR_DIR;
+    if (elevator_duty_cycle<0) 
+        elevator_dir = MOTOR_RVR_DIR;
+
+    checkLimits();
+    if((elevator_duty_cycle<0) && (limit_switch_readings & 0x04))
+    {    
+        PWMLIB_Write(PWM_ELEVATOR_ID,0.0);
+        HAL_Delay(100);
+        return;
+    }
+
+    if((elevator_duty_cycle>0) && (limit_switch_readings & 0x08))
+    {    
+        PWMLIB_Write(PWM_ELEVATOR_ID,0.0);   
+        HAL_Delay(100);
+        return;
+    }
     
     HAL_GPIO_WritePin(GPIO_DRILL_DIR_PORT,GPIO_DRILL_DIR_PIN,drill_dir);
-    PWMLIB_Write(PWM_DRILL_ID,fabs(drill_duty_cycle));
     HAL_GPIO_WritePin(GPIO_ELEVATOR_DIR_PORT,GPIO_ELEVATOR_DIR_PIN,elevator_dir);
-    PWMLIB_Write(PWM_DRILL_ID,fabs(elevator_duty_cycle));
-    HAL_Delay(200);
+    PWMLIB_Write(PWM_DRILL_ID,fabs(drill_duty_cycle));
+    PWMLIB_Write(PWM_ELEVATOR_ID,fabs(elevator_duty_cycle));
+    HAL_Delay(100);
 }
 
 void resetFilter(uint8_t filter_dir, float filter_duty_cycle)
 {
     // drive motor
     uint8_t filter_zeroed = 0; 
-    uint8_t filter_limits_reading[2] = {1};
+    //uint8_t filter_limits_reading[2] = {1};
     while(!filter_zeroed)
     {
-        filter_limits_reading[0] = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_OUTER_PORT, LIMIT_SWITCH_FILTER_OUTER_PIN); //pull-up switch 0 when pressed
-        
-        uint8_t result, lim1, lim2;
-        result = 
-        result = lim1 << 1 | ;
-        1010
-
-
+        checkLimits();
+        //limit_switch_readings 
+//        uint8_t result, lim1, lim2;
+//        result = 
+//        result = lim1 << 1 | ;
+//        1010
         HAL_GPIO_WritePin(GPIO_FILTER_DIR_PORT,GPIO_FILTER_DIR_PIN,filter_dir);
         PWMLIB_Write(PWM_FILTER_ID,filter_duty_cycle);
-        HAL_Delay(200);
-        if (!filter_limits_reading[0]) 
+        HAL_Delay(100);
+        //if (!filter_limits_reading[0]) 
+        if(!(limit_switch_readings & 0x02))
         {
             do{
+                checkLimits();
                 PWMLIB_Write(PWM_FILTER_ID,filter_duty_cycle/2);
-                filter_limits_reading[1] = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
-                HAL_Delay(100);
-            } while(filter_limits_reading[1]);
+                HAL_Delay(50);
+            } while((limit_switch_readings & 0x01));
             filter_zeroed = 1;
         }
     }
@@ -433,8 +451,9 @@ void runFilterToBin(int bin_no, float filter_duty_cycle)
         HAL_GPIO_WritePin(GPIO_FILTER_DIR_PORT,GPIO_FILTER_DIR_PIN,filter_dir);
         PWMLIB_Write(PWM_FILTER_ID,fabs(filter_duty_cycle));
         HAL_Delay(100);
-        filter_limits_reading = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
-        if(!filter_limits_reading)
+        //filter_limits_reading = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
+        checkLimits();
+        if(!(limit_switch_readings & 0x01))
         {
             bin_loc++;
             bin_loc = bin_loc%4;
@@ -553,12 +572,14 @@ int main(void)
 
     UART_LIB_INIT();
     
+    /*
     while (1)
     {
         checkLimits();
         sendCAN(12);
         testMotor(incoming_msg[1]);
     }
+    */
 
     /* EXAMPLE OF UART USE FOR TESTING 
     UART_LIB_INIT();
@@ -572,7 +593,7 @@ int main(void)
     UART_LIB_PRINT_DOUBLE(c);
     */
 
-    /*
+    
     while(1)
     {
         checkLimits();
@@ -580,10 +601,8 @@ int main(void)
         {
             case CAN_FILTERID_ELEVATOR_DRILL: ; //empty statement - C quirk >_>
                 //getFiltertoBin
-                float drill_duty_cycle; 
-                drill_duty_cycle = incoming_msg[0];
-                float elevator_duty_cycle;
-                elevator_duty_cycle = incoming_msg[1];
+                float drill_duty_cycle = incoming_msg[0];
+                float elevator_duty_cycle = incoming_msg[1];
                 runDrillDistance(drill_duty_cycle,elevator_duty_cycle);
                 break;
 
@@ -593,12 +612,15 @@ int main(void)
                 float filter_duty_cycle = incoming_msg[1];
                 runFilterToBin(bin_no,filter_duty_cycle);
                 
+               
+            /* add cases for sensors */    
+
                 // determine drill_duty_cycle, elevator_duty_cycle_distance
             default:
                 break;
         }
     }
-    */
+    
 
     return 0;
 }
