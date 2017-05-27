@@ -68,6 +68,7 @@ float read_hum(HT_Device_t *ht_device_ptr);
 
 // Read temperature value; if is_previous is true, don't make a new temperature measurement,
 // but instead, fetch the temperature that was recorded during previous humidity measurement
+// See pg. 21 of datasheet
 float read_temp(HT_Device_t *ht_device_ptr, uint8_t is_previous);
 
 // Record unique serial number of different ht sensors
@@ -76,6 +77,7 @@ int store_ser_num(HT_Device_t *ht_device_ptr);
 // Ambient temp. for compensation of RH value (pg. 29 of app. note)
 float read_temp_ambient(HT_Device_t *ht_device_ptr);
 
-// TODO: NEED CHECKSUM PROCESSING FUNCTIONALITY?
+// Checksum valudati
+int check_CRC(uint8_t *data_buffer);
 
 #endif
