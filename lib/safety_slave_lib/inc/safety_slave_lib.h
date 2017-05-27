@@ -23,6 +23,13 @@ Copyright 2017, UW Robotics Team
 /* Timer for heartbeat signals */
 #define HEARTBEAT_TIMER                       TIM6
 
+/* Timer use definition */
+//#define HEARTBEAT_TIM2
+//#define HEARTBEAT_TIM3
+#define HEARTBEAT_TIM6
+//#define HEARTBEAT_TIM7
+//#define HEARTBEAT_TIM14
+
 /* Interrupt priority of timer for triggering heartbeats */
 #define HEARTBEAT_IRQ_PRIORITY                1
 

@@ -104,9 +104,11 @@ extern ToggleBoard_t Vision;
 ReporterBoard_t* ReporterBoard_Init(ReporterBoard_t* board, uint8_t active, uint32_t heartbeat_id, uint8_t bit_flag);
 void GPIO_Set(GPIOPin_t* pin);
 void GPIO_Reset(GPIOPin_t* pin);
+void GPIO_Toggle(GPIOPin_t* pin);
 GPIO_PinState GPIO_Read(GPIOPin_t* pin);
 void Relay_Set(Relay_t* relay);
 void Relay_Reset(Relay_t* relay);
+void Relay_Toggle(Relay_t* relay);
 GPIO_PinState Relay_Read(Relay_t* relay);
 
 #endif

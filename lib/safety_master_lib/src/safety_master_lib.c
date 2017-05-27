@@ -66,6 +66,13 @@ void GPIO_Reset(GPIOPin_t* pin){
 	HAL_GPIO_WritePin(pin->port, pin->pin_num, GPIO_PIN_RESET);
 }
 
+void GPIO_Toggle(GPIOPin_t* pin){
+	if(!(IS_GPIO_PIN(pin->pin_num))){
+		return;
+	}
+	HAL_GPIO_TogglePin(pin->port, pin->pin_num);
+}
+
 GPIO_PinState GPIO_Read(GPIOPin_t* pin){
 	if(!(IS_GPIO_PIN(pin->pin_num))){
 		return -1;
@@ -79,6 +86,10 @@ void Relay_Set(Relay_t* relay){
 
 void Relay_Reset(Relay_t* relay){
 	GPIO_Reset(relay->trigger);
+}
+
+void Relay_Toggle(Relay_t* relay){
+	GPIO_Toggle(relay->trigger);
 }
 
 GPIO_PinState Relay_Read(Relay_t* relay){

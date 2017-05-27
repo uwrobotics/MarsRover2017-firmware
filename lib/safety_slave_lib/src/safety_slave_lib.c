@@ -15,6 +15,9 @@ Copyright 2017, UW Robotics Team
 #include "safety_slave_lib.h"
 #include "canlib.h"
 
+/* Comment out the following line when compiling the heartbeat master */
+//#define HEARTBEAT_SLAVE
+
 static uint32_t HeartbeatPriority;
 static TIM_HandleTypeDef HeartbeatTimer = { 
     .Instance = HEARTBEAT_TIMER
@@ -81,40 +84,52 @@ void Heartbeat_Init(uint32_t priority){
     HAL_TIM_Base_Start_IT(&HeartbeatTimer);
 }
 
+#ifdef HEARTBEAT_TIM2
 void TIM2_IRQHandler(){
     HAL_TIM_IRQHandler(&HeartbeatTimer);
 }
+#endif
 
+#ifdef HEARTBEAT_TIM3
 void TIM3_IRQHandler(){
     HAL_TIM_IRQHandler(&HeartbeatTimer);
 }
+#endif 
 
+#ifdef HEARTBEAT_TIM6
 void TIM6_IRQHandler(){
     HAL_TIM_IRQHandler(&HeartbeatTimer);
 }
+#endif
 
+#ifdef HEARTBEAT_TIM7
 void TIM7_IRQHandler(){
     HAL_TIM_IRQHandler(&HeartbeatTimer);
 }
+#endif
 
+#ifdef HEARTBEAT_TIM14
 void TIM14_IRQHandler(){
     HAL_TIM_IRQHandler(&HeartbeatTimer);
 }
+#endif
 
+#ifdef HEARTBEAT_SLAVE
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9);
     CANLIB_ChangeID(HeartbeatPriority);
     CANLIB_Tx_SetUint(HEARTBEAT_MESSAGE, CANLIB_INDEX_0);
     CANLIB_Tx_SendData(CANLIB_DLC_FOUR_BYTES);
 }
+#endif
 
 /* FOR TESTING RECEIVED CAN MESSAGES */
-/*
+#ifdef HEARTBEAT_SLAVE
 void CANLIB_Rx_OnMessageReceived(void){
-    uint8_t i, sender_id;
+    uint8_t sender_id;
     uint32_t data_received;
     sender_id = CANLIB_Rx_GetSenderID();
     data_received = CANLIB_Rx_GetAsUint(0);
     HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
 }
-*/
+#endif

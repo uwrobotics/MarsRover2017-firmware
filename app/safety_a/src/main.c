@@ -36,7 +36,7 @@ extern "C"
 #define PC_INDEX                      5
 
 /* A unit8_t allows 8 boards to have unique indicator bits */
-volatile static uint8_t HeartbeatCheck = 0;
+volatile static uint8_t HeartbeatCheck = 0xFF;
 
 static ReporterBoard_t HeartbeatMasterRef[MAX_NUM_BOARDS];
 
@@ -50,12 +50,12 @@ void HeartbeatMasterRef_Init(ReporterBoard_t* HeartbeatMasterRef){
 		HeartbeatMasterRef[i].active = REPORTER_INACTIVE;
 	}
 	/* Comment out boards if they are not being used */
-	ReporterBoard_Init((&(HeartbeatMasterRef[SHOULDER_INDEX])), REPORTER_ACTIVE, SHOULDER_HEARTBEAT_PRIORITY, SHOULDER_FLAG);
-	ReporterBoard_Init((&(HeartbeatMasterRef[ELBOW_INDEX])), REPORTER_ACTIVE, ELBOW_HEARTBEAT_PRIORITY, ELBOW_FLAG);
-	ReporterBoard_Init((&(HeartbeatMasterRef[WRIST_INDEX])), REPORTER_ACTIVE, WRIST_HEARTBEAT_PRIORITY, WRIST_FLAG);
+	//ReporterBoard_Init((&(HeartbeatMasterRef[SHOULDER_INDEX])), REPORTER_ACTIVE, SHOULDER_HEARTBEAT_PRIORITY, SHOULDER_FLAG);
+	//ReporterBoard_Init((&(HeartbeatMasterRef[ELBOW_INDEX])), REPORTER_ACTIVE, ELBOW_HEARTBEAT_PRIORITY, ELBOW_FLAG);
+	//ReporterBoard_Init((&(HeartbeatMasterRef[WRIST_INDEX])), REPORTER_ACTIVE, WRIST_HEARTBEAT_PRIORITY, WRIST_FLAG);
 	ReporterBoard_Init((&(HeartbeatMasterRef[VISION_INDEX])), REPORTER_ACTIVE, VISION_HEARTBEAT_PRIORITY, VISION_FLAG);
-	ReporterBoard_Init((&(HeartbeatMasterRef[EXTRACTION_INDEX])), REPORTER_ACTIVE, EXTRACTION_HEARTBEAT_PRIORITY, EXTRACTION_FLAG);
-	ReporterBoard_Init((&(HeartbeatMasterRef[PC_INDEX])), REPORTER_ACTIVE, PC_HEARTBEAT_PRIORITY, PC_FLAG);
+	//ReporterBoard_Init((&(HeartbeatMasterRef[EXTRACTION_INDEX])), REPORTER_ACTIVE, EXTRACTION_HEARTBEAT_PRIORITY, EXTRACTION_FLAG);
+	//ReporterBoard_Init((&(HeartbeatMasterRef[PC_INDEX])), REPORTER_ACTIVE, PC_HEARTBEAT_PRIORITY, PC_FLAG);
 }
 
 void TIM2_IRQHandler(){
@@ -63,23 +63,30 @@ void TIM2_IRQHandler(){
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	/* Set all boards to active in case they were previously turned off */
-	GPIO_Reset(Appliance.reset);
-	GPIO_Reset(Vision.reset);
-	Relay_Reset(&Relay1);
-
+	/*
 	if(!((HeartbeatCheck & EXTRACTION_FLAG) || (HeartbeatCheck & ARM_FLAG))){
-		/* Toggle appliance board(s) */
+		// Toggle appliance board(s)
 		GPIO_Set(Appliance.reset);
 	}
+	*/
 	if(!(HeartbeatCheck & VISION_FLAG)){
-		/* Toggle vision board */
-		GPIO_Set(Vision.reset);
+		// Toggle vision board
+		GPIO_Toggle(Vision.reset);
+		// Debug the relays
+		Relay_Toggle(&Relay1);
+		Relay_Toggle(&Relay2);
+		Relay_Toggle(&Relay3);
+	}else{
+		Relay_Toggle(&Relay1);
+		Relay_Toggle(&Relay2);
+		Relay_Toggle(&Relay3);
 	}
+	/*
 	if(!(HeartbeatCheck & PC_FLAG)){
-		/* Toggle PC relay */
+		// Toggle PC relay
 		Relay_Set(&Relay1);
 	}
+	*/
 	HeartbeatCheck = 0;
 }
 
@@ -206,11 +213,14 @@ void Initialization(void){
 	Oscillator_Init();
 	Clock_Init();
 	GPIO_Init();
-	Timer_Init(TIMER_PERIOD);
-
+	CAN_Init(CAN_SAFETY_SEND_PRIORITY);
 	HeartbeatMasterRef_Init(HeartbeatMasterRef);
 
-	CAN_Init(CAN_SAFETY_SEND_PRIORITY);
+	Relay_Set(&Relay1);
+	Relay_Set(&Relay2);
+	Relay_Set(&Relay3);
+
+	Timer_Init(TIMER_PERIOD);
 
 	HAL_NVIC_SetPriority(TIM2_IRQn, 1, 1);
     HAL_NVIC_EnableIRQ(TIM2_IRQn);
