@@ -23,18 +23,26 @@ TODO
 #include <math.h>
 #include <string.h>
 
-//Code assumes that one board is in charge of motors controlling inclination and azimuth of a joint
-//Example of azimuth vs inclination: http://edndoc.esri.com/arcobjects/9.1/java/arcengine/com/esri/arcgis/geometry/bitmaps/GeomVector3D.gif
 
 //PWM IDs
-#define PWM_AZIMUTH_ID           1
-#define PWM_INCLINATION_ID       2
-
-#define PWM_ID      3
-
+#define PWM_DRILL_ID            1
+#define PWM_ELEVATOR_ID         2
+#define PWM_SAMPLE_ID           3
 
 //CAN IDs that this will receive messages from
-#define CAN_RX_ID                5   //Arbitrary value
+#define CAN_DRILL_ELEVATOR_ID   700
+#define CAN_SAMPLE_ID           701
+#define CAN_LIMIT_SWITCH_ID     702
+#define CAN_UV_ID               703
+#define CAN_GAS_ID              704
+#define CAN_TMP_1_ID            705
+#define CAN_HUM_1_ID            706
+#define CAN_TMP_2_ID            707
+#define CAN_HUM_2_ID            708
+#define CAN_TMP_3_ID            709
+#define CAN_HUM_3_ID            710
+#define CAN_TRIGGER_ID          711
+#define CAN_STOP_ID             712
 
 //CAN IDs that this will code will transmit on
 #define CAN_TX_ID                15  //Arbitrary value
@@ -43,17 +51,8 @@ TODO
 
 #define LIMIT_SWITCH_COUNT       2
 
-//Number of PWM commands per relevant CAN frame received
-#define NUM_CMDS                 2
 //Timer interrupt interval
-#define PERIOD                   500
-//Number of timer intervals of no message received to enter watchdog state
-#define MSG_WATCHDOG_INTERVAL    1
-
-//Index in received CAN frame for float for each axis motors
-//The first 4 bytes contain azimuth motor PWM command and the last 4 contain inclination motor PWM command
-#define AZIMUTH_AXIS_ID          0
-#define INCLINATION_AXIS_ID      1
+#define PERIOD                   1000
 
 // Limit Switches TODO: REMOVE
 #define LIMIT_SWITCH_1_PIN  GPIO_PIN_4
@@ -61,7 +60,7 @@ TODO
 #define LIMIT_SWITCH_2_PIN  GPIO_PIN_3
 #define LIMIT_SWITCH_2_PORT GPIOC
 
-// Limit Switches for Application TODO: CHECK PINS 
+// Limit Switches for Application TODO: CHECK PINS
 #define LIMIT_SWITCH_FILTER_OUTER_PIN GPIO_PIN_5
 #define LIMIT_SWITCH_FILTER_OUTER_PORT GPIOC
 #define LIMIT_SWITCH_FILTER_INNER_PIN  GPIO_PIN_6
@@ -73,11 +72,6 @@ TODO
 #define GPIO_ELEVATOR_PORT GPIOC
 #define GPIO_FILTER_PIN GPIO_PIN_9
 #define GPIO_FITLER_PORT GPIOC
-
-// PWM ID FOR MOTORS TODO: PLEASE SET
-#define PWM_ELEVATOR_ID 7
-#define PWM_DRILL_ID 8
-#define PWM_FILTER_ID 9
 
 // Duty Cycle Values TODO: ASK FOR RIGHT VALUES
 #define ELEVATOR_DUTY_CYCLE_UP 0.6
@@ -96,25 +90,28 @@ uint8_t filter_dir = 0;
 
 /*****************************************************/
 
-const float epsilon = 0.0001;
 float incoming_cmd[NUM_CMDS] = { 0 }; //Array to hold incoming CAN messages
 float joy_cmd[NUM_CMDS] = { 0 }; //Can we just reuse incoming_cmd?
 
 //Flags
 volatile uint8_t data_ready = 0;
-volatile uint8_t msg_received = 0;
 
-//contains abs value of the PWM command for each motor
-volatile float azimuth_motor_duty_cycle = 0;
-volatile float inclination_motor_duty_cycle = 0;
+//Counter for timer
+volatile uint32_t millis = 0;
 
 //Bitfield for limit switch readings
 uint8_t limit_switch_readings = 0;
 
-//Direction of each motor. 0 is backwards and 1 is forwards. 
+//Duty cycle of each motor
+float drill_direction = 0.5;
+float elevator_direction = 0.5;
+float sample_direction = 0.5;
+
+//Direction of each motor. 0 is backwards and 1 is forwards.
 //Maybe this can be a bitfield instead
-uint8_t azimuth_direction = 0;
-uint8_t inclination_direction = 0;
+uint8_t drill_direction = 0;
+uint8_t elevator_direction = 0;
+uint8_t sample_direction = 0;
 
 static TIM_HandleTypeDef s_TimerInstance =
 {
@@ -159,6 +156,19 @@ void CLK_Init(void)
     }
 }
 
+void TIM14_IRQHandler()
+{
+    HAL_TIM_IRQHandler(&s_TimerInstance);
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    // do stuff in here
+
+    // add logic to only increment when start signal occurs
+    millis++;
+}
+
 void Timer_Init(uint32_t period)
 {
     __HAL_RCC_TIM14_CLK_ENABLE();
@@ -190,7 +200,7 @@ void GPIO_Init(void)
 
     // Direction control pins
     GPIO_InitTypeDef DirCtrl_InitStruct = {
-            .Pin        = GPIO_PIN_5 | GPIO_PIN_2, //Pin 5 for azimuth, pin 2 for inclination. Change as needed  
+            .Pin        = GPIO_PIN_5 | GPIO_PIN_2, //Pin 5 for azimuth, pin 2 for inclination. Change as needed
             .Mode       = GPIO_MODE_OUTPUT_PP,
             .Pull       = GPIO_NOPULL,
             .Speed      = GPIO_SPEED_FREQ_HIGH
@@ -219,14 +229,17 @@ void HAL_MspInit(void)
     HAL_NVIC_SetPriority(SysTick_IRQn, 2, 2);
 }
 
-int PWM_Init(uint32_t pwm_id)
+int CAN_Init(uint32_t can_id)
 {
-    // should also initialize LED on pin PC9 if pwm_id 4 is passed in
-    if (PWMLIB_Init(pwm_id) != 0)
+    if (CANLIB_Init(can_id, 0) != 0)
     {
-        // error;
         return -1;
     }
+
+    CANLIB_AddFilter(CAN_DRILL_ELEVATOR_ID);
+    CANLIB_AddFilter(CAN_SAMPLE_ID);
+    CANLIB_AddFilter(CAN_TRIGGER_ID);
+    CANLIB_AddFilter(CAN_STOP_ID);
 
     return 0;
 }
@@ -243,7 +256,7 @@ void i2cInit(void)
 
 void runElevator(int elevator_upordown)
 {
-    // TODO: read CAN message to run elevator 
+    // TODO: read CAN message to run elevator
     // elevator_upordown : 1 = up, 0 = down
     // TODO: elevation = read_elevator_enc
     if(elevator_upordown)
@@ -291,7 +304,7 @@ void runDrillDistance(float drill_dutycycle, float elevator_duty_cycle, float di
             HAL_GPIO_WritePin(GPIO_ELEVATOR_PORT,GPIO_ELEVATOR_PIN,elevator_dir);
             PWMLIB_Write(PWM_DRILL_ID,elevator_duty_cycle);
             HAL_Delay(200);
-        }        
+        }
     }
 }
 
@@ -323,7 +336,7 @@ void runFiltertoPassThrough(void)
 void resetFilter(void)
 {
     // drive motor
-    uint8_t filter_zeroed = 0; 
+    uint8_t filter_zeroed = 0;
     uint8_t filter_limits_reading[2] = {1};
     while(!filter_zeroed)
     {
@@ -331,7 +344,7 @@ void resetFilter(void)
         HAL_GPIO_WritePin(GPIO_FILTER_PORT,GPIO_FILTER_PIN,filter_dir);
         PWMLIB_Write(PWM_FILTER_ID,filter_dutycycle);
         HAL_Delay(200);
-        if (!filter_limits_reading[0]) 
+        if (!filter_limits_reading[0])
             do{
                 PWMLIB_Write(PWM_FILTER_ID,filter_dutycycle/2);
                 filter_limits_reading[1] = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
@@ -367,9 +380,25 @@ int main(void)
     HAL_Init();
     CLK_Init();
     GPIO_Init();
-    Timer_Init(PERIOD); // 500 ms timer
-    PWM_Init(3);
+    Timer_Init(PERIOD); // 1000 ms timer
 
+    if (PWMLIB_Init(PWM_DRILL_ID) != 0)
+    {
+        Error_Handler();
+    }
+    if (PWMLIB_Init(PWM_ELEVATOR_ID) != 0)
+    {
+        Error_Handler();
+    }
+    if (PWMLIB_Init(PWM_DRILL_ID) != 0)
+    {
+        Error_Handler();
+    }
+
+    if (CAN_Init(CAN_LIMIT_SWITCH_ID) != 0)
+    {
+        Error_Handler();
+    }
 
     return 0;
 }
@@ -378,13 +407,22 @@ void CANLIB_Rx_OnMessageReceived(void)
 {
     switch(CANLIB_Rx_GetSenderID())
     {
-        // Expect frame format to be:
-        // Bytes 0-3: Azimuth axis PWM input
-        // Byte 4-7: Inclination axis PWM input
-        case CAN_RX_ID:
-            incoming_cmd[AZIMUTH_AXIS_ID] = CANLIB_Rx_GetAsFloat(AZIMUTH_AXIS_ID);
-            incoming_cmd[INCLINATION_AXIS_ID] = CANLIB_Rx_GetAsFloat(INCLINATION_AXIS_ID);
-            data_ready = 1;
+        // Frame format: 1st float is drill duty cycle, 2nd float is elevator
+        // duty cycle
+        case CAN_DRILL_ELEVATOR_ID:
+            break;
+
+        // Frame format: 1st float is sample selector duty cycle
+        case CAN_SAMPLE_ID:
+            break;
+
+        // Frame format: uint that is either 1 (trigger) or 0 (no trigger)
+        // Should act more like a flag, where action only taken on trigger
+        case CAN_TRIGGER_ID:
+            break;
+
+        // Frame format: similar to trigger, but for stopping
+        case CAN_STOP_ID:
             break;
 
         default:
