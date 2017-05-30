@@ -13,7 +13,7 @@ How to use this library:
 #ifndef PID_LIB_DEF
 #define PID_LIB_DEF
 //Controller variables, should change to tune
-static float kp = 0.0013;
+static float kp = 0.001;
 static float ki = 0;
 static float kd = 0;
 static float dt = 0.02; //time interval

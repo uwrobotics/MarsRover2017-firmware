@@ -42,8 +42,8 @@ Copyright 2017, UW Robotics Team
 void WriteServo(uint32_t pwm_id, float degrees)
 {
     // Limit range to 60 degrees. Note: servo is capped at 60 degrees on either side
-    if (degrees>50)
-        degrees=50;
+    if (degrees>45)
+        degrees=45;
     else if (degrees<-60)
         degrees=-60;
     PWMLIB_Write(pwm_id, (1500 + degrees/0.08)/20000); // From manufacturere: 0.08 degrees per us
@@ -76,18 +76,20 @@ void WriteContinuousServo(uint32_t pwm_id, uint8_t adc_id, uint16_t degrees)
     float distance = 0;
     uint16_t pulseWidth;
     // Move the servo until close enough to the destination (1 degree)
-    if (abs(error)>READING_PER_DEGREE){
-        readIn = ADC_Read(adc_id);
-        distance = pid_controller(readIn, degrees*READING_PER_DEGREE);
-        error = degrees*READING_PER_DEGREE - readIn;
-        if (error<0)
-            pulseWidth = (uint16_t)(1490 - 87.5*distance);
-        else
-            pulseWidth = (uint16_t)(1430 - 87.5*distance);
-        PWMLIB_Write(pwm_id, pulseWidth/20000.0);
-        HAL_Delay(2);
-    }
-    else
-        //Stop the servo from moving any further
-        PWMLIB_Write(pwm_id, 1465/20000.0);
+        while (abs(error)>READING_PER_DEGREE)
+        {
+            HAL_Delay(2);
+            UART_LIB_PRINT_INT(readIn);  
+            readIn = ADC_Read(adc_id);
+            distance = pid_controller(readIn, degrees*READING_PER_DEGREE);
+            error = degrees*READING_PER_DEGREE - readIn;
+            // distance = error/4905.0;
+            if (error>0)
+                pulseWidth = (uint16_t)(1490 + 87.5*distance); // Define later
+            else
+                pulseWidth = (uint16_t)(1430 + 87.5*distance);
+            PWMLIB_Write(pwm_id, pulseWidth/20000.0);
+        }
+    //Stop the servo from moving any further
+    PWMLIB_Write(pwm_id, 1465/20000.0);
 }
