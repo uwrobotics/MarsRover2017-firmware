@@ -12,9 +12,9 @@
 #define ADC_ID	1
 
 //TODO: set these values to the correct ones for the pins used
-#define HORZ_PWM 1
-#define VERT_PWM 2
-#define HORZ_ADC 1
+#define HORZ_PWM 1 //PA8
+#define VERT_PWM 2 //PA9
+#define HORZ_ADC 1 //PA0
 #define PERIOD  19999 // 1 tick = 1 us
 
 #define GIMBAL_CAN_NODE 600
@@ -68,7 +68,7 @@ void GPIO_Init(void)
 
     // LEDs
     GPIO_InitTypeDef LED_InitStruct = {
-            .Pin        = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8
+            .Pin        = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8,
             .Mode       = GPIO_MODE_OUTPUT_PP,
             .Pull       = GPIO_NOPULL,
             .Speed      = GPIO_SPEED_FREQ_HIGH
@@ -114,21 +114,20 @@ int main(void)
     PWMLIB_ChangePeriod(HORZ_PWM, 20000);
 
     //This is just testing. Remove for comp
-    /*
-    WriteServo(VERT_PWM,-60);
-    HAL_Delay(1000);
+    
+    // WriteServo(VERT_PWM,-60);
+    // HAL_Delay(1000);
 
-    WriteServo(VERT_PWM,-30);
-    HAL_Delay(1000);
+    // WriteServo(VERT_PWM,-30);
+    // HAL_Delay(1000);
 
-    WriteServo(VERT_PWM,0);
-    HAL_Delay(1000);
+    // WriteServo(VERT_PWM,0);
+    // HAL_Delay(1000);
 
-    WriteServo(VERT_PWM,30);
-    HAL_Delay(1000);
-    WriteServo(VERT_PWM,59);
-    HAL_Delay(1000);
-    */
+    // WriteServo(VERT_PWM,30);
+    // HAL_Delay(1000);
+    // WriteServo(VERT_PWM,59);
+    // HAL_Delay(1000);
 
     //Actual Code
 	while(1) {
