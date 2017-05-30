@@ -11,6 +11,7 @@
 #define PWM_ID 	1
 #define ADC_ID	1
 
+//TODO: set these values to the correct ones for the pins used
 #define HORZ_PWM 1
 #define VERT_PWM 2
 #define HORZ_ADC 1
@@ -100,19 +101,20 @@ int main(void)
     CLK_Init();
     GPIO_Init();
     //ServoLibInit(PWM_ID, ADC_ID);
+    //TODO: initialise safety board code
     
     PWMLIB_Init(HORZ_PWM);
     PWMLIB_Init(VERT_PWM);
     ADC_Init(HORZ_ADC);
 
     CANLIB_Init(GIMBAL_CAN_NODE, CANLIB_LOOPBACK_OFF);
-    CANLIB_AddFilter(1);
-    //Add filter?
+    CANLIB_AddFilter(600);
 
 	PWMLIB_ChangePeriod(VERT_PWM, 20000); // Change period to 50 Hz //Is this necessary? (taken from gimbal test example)
-    //PWMLIB_ChangePeriod(HORZ_PWM, 20000);
+    PWMLIB_ChangePeriod(HORZ_PWM, 20000);
 
-
+    //This is just testing. Remove for comp
+    /*
     WriteServo(VERT_PWM,-60);
     HAL_Delay(1000);
 
@@ -126,11 +128,11 @@ int main(void)
     HAL_Delay(1000);
     WriteServo(VERT_PWM,59);
     HAL_Delay(1000);
+    */
 
+    //Actual Code
 	while(1) {
         WriteContinuousServo(HORZ_PWM,HORZ_ADC, horizontal_angle);
-       // HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_7);
-       // HAL_Delay(1000);
     }
 }
 
