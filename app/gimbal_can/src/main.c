@@ -11,9 +11,10 @@
 #define PWM_ID 	1
 #define ADC_ID	1
 
+//TODO: set these values to the correct ones for the pins used
 #define HORZ_PWM 1
 #define VERT_PWM 2
-#define HORZ_ADC 7
+#define HORZ_ADC 1
 #define PERIOD  19999 // 1 tick = 1 us
 
 #define GIMBAL_CAN_NODE 600
@@ -67,15 +68,16 @@ void GPIO_Init(void)
 
     // LEDs
     GPIO_InitTypeDef LED_InitStruct = {
-            .Pin        = GPIO_PIN_2 | GPIO_PIN_3,
+            .Pin        = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8
             .Mode       = GPIO_MODE_OUTPUT_PP,
             .Pull       = GPIO_NOPULL,
             .Speed      = GPIO_SPEED_FREQ_HIGH
     };
     HAL_GPIO_Init(GPIOC, &LED_InitStruct);
 
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
 
 }
 
@@ -99,55 +101,39 @@ int main(void)
     CLK_Init();
     GPIO_Init();
     //ServoLibInit(PWM_ID, ADC_ID);
+    //TODO: initialise safety board code
     
     PWMLIB_Init(HORZ_PWM);
     PWMLIB_Init(VERT_PWM);
     ADC_Init(HORZ_ADC);
 
-    // CANLIB_Init(GIMBAL_CAN_NODE, CANLIB_LOOPBACK_OFF);
-    // CANLIB_AddFilter(1);
-    //Add filter?
+    CANLIB_Init(GIMBAL_CAN_NODE, CANLIB_LOOPBACK_OFF);
+    CANLIB_AddFilter(600);
 
 	PWMLIB_ChangePeriod(VERT_PWM, 20000); // Change period to 50 Hz //Is this necessary? (taken from gimbal test example)
-    //PWMLIB_ChangePeriod(HORZ_PWM, 20000);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
-    WriteServo(VERT_PWM, -45);
-    WriteContinuousServo(HORZ_PWM,HORZ_ADC, 90);
-    HAL_Delay(5000);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET);
-    WriteServo(VERT_PWM, 35);
-    WriteContinuousServo(HORZ_PWM,HORZ_ADC, 180);
-    HAL_Delay(5000);
+    PWMLIB_ChangePeriod(HORZ_PWM, 20000);
 
-    while(1)
-    {
-        WriteContinuousServo(HORZ_PWM,HORZ_ADC, 0);
+    //This is just testing. Remove for comp
+    /*
+    WriteServo(VERT_PWM,-60);
+    HAL_Delay(1000);
+
+    WriteServo(VERT_PWM,-30);
+    HAL_Delay(1000);
+
+    WriteServo(VERT_PWM,0);
+    HAL_Delay(1000);
+
+    WriteServo(VERT_PWM,30);
+    HAL_Delay(1000);
+    WriteServo(VERT_PWM,59);
+    HAL_Delay(1000);
+    */
+
+    //Actual Code
+	while(1) {
+        WriteContinuousServo(HORZ_PWM,HORZ_ADC, horizontal_angle);
     }
-
-    // while(1){
-    // HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_7);  
-    // WriteContinuousServo(HORZ_PWM,HORZ_ADC, 45);
-    // }
-
-    // WriteServo(VERT_PWM,-60);
-    // HAL_Delay(1000);
-
-    // WriteServo(VERT_PWM,-30);
-    // HAL_Delay(1000);
-
-    // WriteServo(VERT_PWM,0);
-    // HAL_Delay(1000);
-
-    // WriteServo(VERT_PWM,30);
-    // HAL_Delay(1000);
-    // WriteServo(VERT_PWM,59);
-    // HAL_Delay(1000);
-
-	// while(1) {
- //        WriteContinuousServo(HORZ_PWM,HORZ_ADC, horizontal_angle);
- //       // HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_7);
- //       // HAL_Delay(1000);
- //    }
 }
 
 
