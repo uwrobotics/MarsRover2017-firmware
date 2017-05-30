@@ -32,7 +32,7 @@ Commands are received over CAN.
 #define PWM_INCLINATION_ID       2
 
 //CAN IDs that this will receive messages from
-#define CAN_RX_ID                5   //Arbitrary value
+#define CAN_RX_ID                68   //Arbitrary value
 
 //CAN IDs that this will code will transmit on
 #define CAN_TX_ID                15  //Arbitrary value
@@ -176,24 +176,25 @@ void Timer_Init(uint32_t period)
 
 void GPIO_Init(void)
 {
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOC_CLK_ENABLE();
 
     // LEDs
     GPIO_InitTypeDef LED_InitStruct = {
-            .Pin        = GPIO_PIN_8 | GPIO_PIN_7 | GPIO_PIN_6,
+            .Pin        = GPIO_PIN_10 | GPIO_PIN_11,
             .Mode       = GPIO_MODE_OUTPUT_PP,
             .Pull       = GPIO_NOPULL,
             .Speed      = GPIO_SPEED_FREQ_HIGH
     };
     HAL_GPIO_Init(GPIOC, &LED_InitStruct);
 
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_11, GPIO_PIN_RESET);
 
     // Direction control pins
     GPIO_InitTypeDef DirCtrl_InitStruct = {
-            .Pin        = GPIO_PIN_5 | GPIO_PIN_2, //Pin 5 for azimuth, pin 2 for inclination. Change as needed  
+            .Pin        = GPIO_PIN_8 | GPIO_PIN_9, //Pin 8 for azimuth, pin 9 for inclination. Change as needed  
             .Mode       = GPIO_MODE_OUTPUT_PP,
             .Pull       = GPIO_NOPULL,
             .Speed      = GPIO_SPEED_FREQ_HIGH
@@ -210,6 +211,24 @@ void GPIO_Init(void)
 
     HAL_GPIO_Init(GPIOC, &LimitSwitch_InitStruct);
 
+    GPIO_InitTypeDef ALT_PIM = {
+        .Pin            = GPIO_PIN_10 | GPIO_PIN_11,
+        .Mode           = GPIO_MODE_OUTPUT_PP,
+        .Pull           = GPIO_NOPULL,
+        .Speed          = GPIO_SPEED_FREQ_HIGH
+    };
+
+    HAL_GPIO_Init(GPIOB, &ALT_PIM);
+
+
+    GPIO_InitTypeDef ALT_PIM_2 = {
+        .Pin            = GPIO_PIN_4,
+        .Mode           = GPIO_MODE_OUTPUT_PP,
+        .Pull           = GPIO_NOPULL,
+        .Speed          = GPIO_SPEED_FREQ_HIGH
+    };
+
+    HAL_GPIO_Init(GPIOA, &ALT_PIM_2);
 }
 
 void HAL_MspInit(void)
@@ -228,14 +247,7 @@ int main(void)
     HAL_Init();
     CLK_Init();
     GPIO_Init();
-    Timer_Init(PERIOD); // 500 ms timer
-
-    
-
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-    HAL_Delay(5000);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-    
+    Timer_Init(PERIOD); // 500 ms timer 
     
     
     if (CANLIB_Init(CAN_TX_ID, 0) != 0)
@@ -273,6 +285,9 @@ int main(void)
         Error_Handler();
     }*/
 
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_SET);
+    // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_SET);
+    // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
     while(1)
     {
         /* 
@@ -286,28 +301,28 @@ int main(void)
         CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
         */
 
-        //Read limit switches into bitfield and shut off appropriate motor as req'd and send reading over CAN
+        //Read limit switches into bitfield and shut off launchappropriate motor as req'd and send reading over CAN
         //Assumes limit switches will output high when hit
-        limit_switch_readings = 
-            HAL_GPIO_ReadPin(LIMIT_SWITCH_1_PORT, LIMIT_SWITCH_1_PIN) |
-            HAL_GPIO_ReadPin(LIMIT_SWITCH_2_PORT, LIMIT_SWITCH_2_PIN) << 1;
+        // limit_switch_readings = 
+        //     HAL_GPIO_ReadPin(LIMIT_SWITCH_1_PORT, LIMIT_SWITCH_1_PIN) |
+        //     HAL_GPIO_ReadPin(LIMIT_SWITCH_2_PORT, LIMIT_SWITCH_2_PIN) << 1;
 
-        if (limit_switch_readings & 0b0001)
-        {
-            PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
+        // if (limit_switch_readings & 0b0001)
+        // {
+        //     PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
             
-            CANLIB_Tx_SetByte(limit_switch_readings, 0);
-            CANLIB_ChangeID(CAN_LIMIT_SW_READ_ID);
-            CANLIB_Tx_SendData(CANLIB_DLC_FIRST_BYTE);
-        }
-        if (limit_switch_readings & 0b0010)
-        {
-            PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = 0);
+        //     CANLIB_Tx_SetByte(limit_switch_readings, 0);
+        //     CANLIB_ChangeID(CAN_LIMIT_SW_READ_ID);
+        //     CANLIB_Tx_SendData(CANLIB_DLC_FIRST_BYTE);
+        // }
+        // if (limit_switch_readings & 0b0010)
+        // {
+        //     PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = 0);
             
-            CANLIB_Tx_SetByte(limit_switch_readings, 0);
-            CANLIB_ChangeID(CAN_LIMIT_SW_READ_ID);
-            CANLIB_Tx_SendData(CANLIB_DLC_FIRST_BYTE);
-        }
+        //     CANLIB_Tx_SetByte(limit_switch_readings, 0);
+        //     CANLIB_ChangeID(CAN_LIMIT_SW_READ_ID);
+        //     CANLIB_Tx_SendData(CANLIB_DLC_FIRST_BYTE);
+        // }
 
         //If there's no incoming data, restart the loop
         //Otherwise a message was received to change duty cycle
@@ -331,7 +346,8 @@ int main(void)
         }
         else if (!(limit_switch_readings & 0b0001) || (azimuth_direction != (joy_cmd[AZIMUTH_AXIS_ID] > 0)))
         {
-            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, azimuth_direction = joy_cmd[AZIMUTH_AXIS_ID] > 0);
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, azimuth_direction = joy_cmd[AZIMUTH_AXIS_ID] > 0);
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, azimuth_direction = joy_cmd[AZIMUTH_AXIS_ID] > 0);
             PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = fmin(fabs(joy_cmd[AZIMUTH_AXIS_ID]), 0.5f));
         }
 
@@ -342,17 +358,17 @@ int main(void)
         }
         else if (!(limit_switch_readings & 0b0010) || (inclination_direction != (joy_cmd[INCLINATION_AXIS_ID] > 0)))
         {
-            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, inclination_direction = joy_cmd[INCLINATION_AXIS_ID] > 0);
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, inclination_direction = joy_cmd[INCLINATION_AXIS_ID] > 0);
             PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = fmin(fabs(joy_cmd[INCLINATION_AXIS_ID]), 0.5f));
         }
 
     }
-
     return 0;
 }
 
 void CANLIB_Rx_OnMessageReceived(void)
 {
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_11, GPIO_PIN_SET);
     switch(CANLIB_Rx_GetSenderID())
     {
         // Expect frame format to be:

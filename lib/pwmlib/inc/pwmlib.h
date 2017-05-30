@@ -39,7 +39,7 @@ Notes:
 #include "pins.h"
 
 
-#define MAX_PWM_CHANNELS            4
+#define MAX_PWM_CHANNELS            3
 
 // PWM GPIO configurations
 #define PWM_GPIO_MODE               GPIO_MODE_AF_PP
@@ -48,7 +48,6 @@ Notes:
 #define PWM1_GPIO_ALTERNATE         GPIO_AF2_TIM1
 #define PWM2_GPIO_ALTERNATE         GPIO_AF2_TIM1
 #define PWM3_GPIO_ALTERNATE         GPIO_AF2_TIM1
-#define PWM4_GPIO_ALTERNATE         GPIO_AF1_TIM3
 
 // PWM timer configuration
 #define PWM_PRESCALER               47  // 1 tick = 1 us
