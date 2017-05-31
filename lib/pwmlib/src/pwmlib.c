@@ -263,7 +263,7 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
 
     if (duty_cycle >= 1.0)
     {
-        pulse_width = PWM_PERIOD;
+        pulse_width = htim->Init.Period;
     }
     else if (duty_cycle <= 0.0)
     {
@@ -271,7 +271,7 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
     }
     else
     {
-        pulse_width = (uint16_t) (duty_cycle * PWM_PERIOD);
+        pulse_width = (uint16_t) (duty_cycle * htim->Init.Period);
     }
 
     if (PWMLIB_ConfigChannel(htim, &sConfig, pwm_id) != 0)
