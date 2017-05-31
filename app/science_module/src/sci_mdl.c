@@ -67,32 +67,37 @@ TODO
 #define GPIO_FILTER_DIR_PIN                 GPIO_PIN_10
 #define GPIO_FILTER_DIR_PORT                GPIOC
 
-//Timer interrupt interval
-#define PERIOD                  1000
+// Timer interrupt interval
+#define PERIOD                  			000
 
-#define CAN_DRILL_ELEVATOR_ID   700
-#define CAN_SAMPLE_ID           701
-#define CAN_LIMIT_SWITCH_ID     702
-#define CAN_UV_ID               703
-#define CAN_GAS_ID              704
-#define CAN_TMP_1_ID            705
-#define CAN_HUM_1_ID            706
-#define CAN_TMP_2_ID            707
-#define CAN_HUM_2_ID            708
-#define CAN_TMP_3_ID            709
-#define CAN_HUM_3_ID            710
-#define CAN_TRIGGER_ID          711
-#define CAN_STOP_ID             712
+// Can IDs
+#define CAN_DRILL_ELEVATOR_ID   			700
+#define CAN_SAMPLE_ID           			701
+#define CAN_LIMIT_SWITCH_ID     			702
+#define CAN_UV_ID               			703
+#define CAN_GAS_ID              			704
+#define CAN_TMP_1_ID            			705
+#define CAN_HUM_1_ID            			706
+#define CAN_TMP_2_ID            			707
+#define CAN_HUM_2_ID            			708
+#define CAN_TMP_3_ID            			709
+#define CAN_HUM_3_ID            			710
+#define CAN_TRIGGER_ID          			711
+#define CAN_STOP_ID             			712
 
-#define MOTOR_FWD_DIR           1
-#define MOTOR_RVR_DIR           0
+#define CAN_FILTERID_ELEVATOR_DRILL 		12
+#define CAN_FILTERID_FILTER 				13
+
+
+#define MOTOR_FWD_DIR           			1
+#define MOTOR_RVR_DIR           			0
 
 // PWM ID FOR MOTORS TODO: PLEASE SET
-#define PWM_DRILL_ID            1
-#define PWM_ELEVATOR_ID         2
-#define PWM_FILTER_ID           3
+#define PWM_DRILL_ID            			1
+#define PWM_ELEVATOR_ID         			2
+#define PWM_FILTER_ID           			3
 
-#define DEBUG_MODE              1
+#define DEBUG_MODE              			1
 
 /***************variable wasteland********************/
 uint8_t bin_loc = 0;
@@ -116,22 +121,10 @@ uint8_t limit_switch_readings = 0xff;
 //float joy_cmd[NUM_CMDS] = { 0 }; //Can we just reuse incoming_cmd?
 
 //Flags
-volatile uint8_t data_ready = 0;
+volatile uint8_t data_ready = 0; // Only place this is used is in the comments
 
 //Counter for timer
-volatile uint32_t millis = 0;
-
-//Duty cycle of each motor
-float drill_direction = 0.5;
-float elevator_direction = 0.5;
-float sample_direction = 0.5;
-
-//Direction of each motor. 0 is backwards and 1 is forwards.
-//Maybe this can be a bitfield instead
-uint8_t drill_direction = 0;
-uint8_t elevator_direction = 0;
-uint8_t sample_direction = 0;
-
+volatile uint32_t millis = 0; // Don't think this is even used
 
 static TIM_HandleTypeDef s_TimerInstance =
 {
@@ -303,7 +296,7 @@ int PWM_Init(uint32_t pwm_id)
     return 0;
 }
 
-int CAN_Init(uint32_t id)
+int CAN_Init(uint32_t can_id)
 {
     if (CANLIB_Init(can_id, 0) != 0)
     {
@@ -337,6 +330,24 @@ void motor_pwm_init(void)
     }
 
 
+}
+
+
+/*  LIMIT SWITCH BIT VECTOR
+    elevator retracted          = 0000 1000;
+    elevator extended           = 0000 0100;
+    sample selector outer limit = 0000 0010;
+    sample selector inner limit = 0000 0001;
+*/
+
+void checkLimits()
+{
+    limit_switch_readings =     HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT,LIMIT_SWITCH_FILTER_INNER_PIN) |
+                                HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_OUTER_PORT,LIMIT_SWITCH_FILTER_OUTER_PIN) << 1 |
+                                HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORTOP_PORT,LIMIT_SWITCH_ELEVATORTOP_PIN) << 2 |
+                                HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORBOTTOM_PORT,LIMIT_SWITCH_ELEVATORBOTTOM_PIN) << 3;
+
+    UART_LIB_PRINT_INT(limit_switch_readings);
 }
 
 void runDrillDistance(float drill_duty_cycle, float elevator_duty_cycle)
@@ -465,24 +476,6 @@ void sendCAN(int send_to_id)
     CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
 }
 
-/*  LIMIT SWITCH BIT VECTOR
-    elevator retracted          = 0000 1000;
-    elevator extended           = 0000 0100;
-    sample selector outer limit = 0000 0010;
-    sample selector inner limit = 0000 0001;
-*/
-
-void checkLimits()
-{
-    limit_switch_readings =     HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT,LIMIT_SWITCH_FILTER_INNER_PIN) |
-                                HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_OUTER_PORT,LIMIT_SWITCH_FILTER_OUTER_PIN) << 1 |
-                                HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORTOP_PORT,LIMIT_SWITCH_ELEVATORTOP_PIN) << 2 |
-                                HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORBOTTOM_PORT,LIMIT_SWITCH_ELEVATORBOTTOM_PIN) << 3;
-
-    UART_LIB_PRINT_INT(limit_switch_readings);
-
-}
-
 float getHumidity(int sensor_no)
 {
 
@@ -530,7 +523,7 @@ int main(void)
 
     UART_LIB_INIT();
 
-    HAL_NVIC_SetPriority(TIM14_IRQn, 2, 2)
+    HAL_NVIC_SetPriority(TIM14_IRQn, 2, 2);
 
     /*
     while (1)
@@ -559,7 +552,7 @@ int main(void)
         checkLimits();
         switch(access_id)
         {
-            case CAN_FILTERID_ELEVATOR_DRILL: ; //empty statement - C quirk >_>
+            case CAN_FILTERID_ELEVATOR_DRILL: ;//empty statement - C quirk >_>
                 //getFiltertoBin
                 float drill_duty_cycle = incoming_msg[0];
                 float elevator_duty_cycle = incoming_msg[1];
