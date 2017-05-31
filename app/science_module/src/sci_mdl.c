@@ -68,10 +68,10 @@ TODO
 #define GPIO_FILTER_DIR_PIN                 GPIO_PIN_10
 #define GPIO_FILTER_DIR_PORT                GPIOC
 
-// Timer interrupt interval
-#define PERIOD                              000
+// Timer interrupt period
+#define PERIOD                              1000
 
-// Can IDs
+// CAN IDs
 #define CAN_DRILL_ELEVATOR_ID               700
 #define CAN_SAMPLE_ID                       701
 #define CAN_LIMIT_SWITCH_ID                 702
@@ -83,17 +83,19 @@ TODO
 #define CAN_HUM_2_ID                        708
 #define CAN_TMP_3_ID                        709
 #define CAN_HUM_3_ID                        710
-#define CAN_TRIGGER_ID                      711
-#define CAN_STOP_ID                         712
+#define CAN_START_STOP_ID                   711
 
-#define CAN_FILTERID_ELEVATOR_DRILL         12
-#define CAN_FILTERID_FILTER                 13
-
-
+// Directions
 #define MOTOR_FWD_DIR                       1
 #define MOTOR_RVR_DIR                       0
 
-// PWM ID FOR MOTORS TODO: PLEASE SET
+// Motor indexes
+#define NUM_MOTORS                          3
+#define DRILL_IDX                           0
+#define ELEVATOR_IDX                        1
+#define SAMPLE_IDX                          2
+
+// PWM IDs
 #define PWM_DRILL_ID                        1
 #define PWM_ELEVATOR_ID                     2
 #define PWM_FILTER_ID                       3
@@ -102,7 +104,7 @@ TODO
 
 /***************variable wasteland********************/
 uint8_t bin_loc = 0;
-float incoming_msg[2] = {0};
+float incoming_msg[NUM_MOTORS] = {0};
 int access_id = -1;
 float number1 = 0.25;
 float number2 = 0.69;
@@ -123,6 +125,7 @@ uint8_t limit_switch_readings = 0xff;
 
 //Flags
 volatile uint8_t data_ready = 0; // Only place this is used is in the comments
+volatile uint8_t start = 0; // flag for starting and stopping the process
 
 //Counter for timer
 volatile uint32_t millis = 0; // Don't think this is even used
@@ -233,7 +236,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
 
     // add logic to only increment when start signal occurs
-    millis++;
+    if (start)
+    {
+        millis++;
+    }
 }
 
 void Timer_Init(uint32_t period)
@@ -504,17 +510,6 @@ void testMotor(float drill_duty_cycle)
     HAL_Delay(100);
 }
 
-void sendCAN(int send_to_id)
-{
-    UART_LIB_INIT();
-    //Here, we change the node ID to 10, put a 32 bit uint in the 4 LSBs of the
-    // CAN data array (indicated by CANLIB_INDEX_0), and send the first 4 bytes.
-    CANLIB_ChangeID(send_to_id);
-    CANLIB_Tx_SetFloat(number1, CANLIB_INDEX_0);
-    CANLIB_Tx_SetFloat(number2, CANLIB_INDEX_1);
-    CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
-}
-
 float getHumidity(int sensor_no)
 {
 
@@ -543,7 +538,6 @@ int main(void)
     sensorInit();
     Timer_Init(PERIOD); // 500 ms timer
 
-
     if (PWMLIB_Init(PWM_DRILL_ID) != 0)
     {
         Error_Handler();
@@ -566,92 +560,64 @@ int main(void)
 
     HAL_NVIC_SetPriority(TIM14_IRQn, 2, 2);
 
-    /*
-    while (1)
-    {
-        checkLimits();
-        sendCAN(12);
-        testMotor(incoming_msg[1]);
-    }
-    */
-
-    /* EXAMPLE OF UART USE FOR TESTING
-    UART_LIB_INIT();
-    uint8_t a[] = "Hello";
-    UART_LIB_PRINT_CHAR_ARRAY(a, sizeof(a));
-
-    int b = 1234;
-    UART_LIB_PRINT_INT(b);
-
-    double c = 555.123;
-    UART_LIB_PRINT_DOUBLE(c);
-    */
-
-
     while(1)
     {
-        checkLimits();
-        switch(access_id)
-        {
-            case CAN_FILTERID_ELEVATOR_DRILL: ;//empty statement - C quirk >_>
-                //getFiltertoBin
-                float drill_duty_cycle = incoming_msg[0];
-                float elevator_duty_cycle = incoming_msg[1];
-                runDrillDistance(drill_duty_cycle,elevator_duty_cycle);
-                break;
+        // checkLimits();
+        // switch(access_id)
+        // {
+        //     case CAN_FILTERID_ELEVATOR_DRILL: ;//empty statement - C quirk >_>
+        //         //getFiltertoBin
+        //         float drill_duty_cycle = incoming_msg[0];
+        //         float elevator_duty_cycle = incoming_msg[1];
+        //         runDrillDistance(drill_duty_cycle,elevator_duty_cycle);
+        //         break;
 
-            case CAN_FILTERID_FILTER: ;
-                //determine filter_no;
-                int bin_no = (int)incoming_msg[0];
-                float filter_duty_cycle = incoming_msg[1];
-                runFilterToBin(bin_no,filter_duty_cycle);
+        //     case CAN_FILTERID_FILTER: ;
+        //         //determine filter_no;
+        //         int bin_no = (int)incoming_msg[0];
+        //         float filter_duty_cycle = incoming_msg[1];
+        //         runFilterToBin(bin_no,filter_duty_cycle);
 
 
-            /* add cases for sensors */
+        //     /* add cases for sensors */
 
-                // determine drill_duty_cycle, elevator_duty_cycle_distance
-            default:
-                break;
-        }
+        //         // determine drill_duty_cycle, elevator_duty_cycle_distance
+        //     default:
+        //         break;
+        // }
     }
-
 
     return 0;
 }
 
+// CAN Rx Callback
 void CANLIB_Rx_OnMessageReceived(void)
 {
-/*
     switch(CANLIB_Rx_GetSenderID())
     {
-        // Expect frame format to be:
-        // Bytes 0-3: Azimuth axis PWM input
-        // Byte 4-7: Inclination axis PWM input
-
-        case CAN_RX_ID:
-            incoming_cmd[AZIMUTH_AXIS_ID] = CANLIB_Rx_GetAsFloat(AZIMUTH_AXIS_ID);
-            incoming_cmd[INCLINATION_AXIS_ID] = CANLIB_Rx_GetAsFloat(INCLINATION_AXIS_ID);
-            data_ready = 1;
-            incoming_cmd[0] = CANLIB_Rx_GetAsFloat
+        // Message Organization:
+        // incoming_msg[0] -- drill, 1st float in CAN_DRILL_ELEVATOR_ID
+        // incoming_msg[1] -- elevator, 2nd float in CAN_DRILL_ELEVATOR_ID
+        // incoming_msg[2] -- sample selector, 1st float in CAN_SAMPLE_ID
+        case CAN_DRILL_ELEVATOR_ID:
+            incoming_msg[DRILL_IDX] = CANLIB_Rx_GetAsFloat(0);
+            incoming_msg[ELEVATOR_IDX] = CANLIB_Rx_GetAsFloat(1);
             break;
+
+        case CAN_SAMPLE_ID:
+            incoming_msg[SAMPLE_IDX] = CANLIB_Rx_GetAsFloat(0);
+            break;
+
+        case CAN_START_STOP_ID:
+            start = !start;
+            if (!start)
+            {
+                millis = 0;
+            }
+            break;
+
 
         default:
             break;
     }
-*/
-    access_id = CANLIB_Rx_GetSenderID();
-    incoming_msg[0] = CANLIB_Rx_GetAsFloat(0);
-    incoming_msg[1] = CANLIB_Rx_GetAsFloat(1);
-
-
-
-#if DEBUG_MODE
-
-    UART_LIB_INIT();
-    UART_LIB_PRINT_INT(access_id);
-    UART_LIB_PRINT_DOUBLE(incoming_msg[0]);
-    UART_LIB_PRINT_DOUBLE(incoming_msg[1]);
-
-#endif
-
 }
