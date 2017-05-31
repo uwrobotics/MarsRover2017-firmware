@@ -20,6 +20,7 @@ TODO
 #include "pwmlib.h"
 #include "i2clib.h"
 #include "humidity_temperature.h"
+#include "uv.h"
 #include "uart_lib.h"
 //#include "encoderlib.h"
 #include "pins.h"
@@ -68,36 +69,36 @@ TODO
 #define GPIO_FILTER_DIR_PORT                GPIOC
 
 // Timer interrupt interval
-#define PERIOD                  			000
+#define PERIOD                              000
 
 // Can IDs
-#define CAN_DRILL_ELEVATOR_ID   			700
-#define CAN_SAMPLE_ID           			701
-#define CAN_LIMIT_SWITCH_ID     			702
-#define CAN_UV_ID               			703
-#define CAN_GAS_ID              			704
-#define CAN_TMP_1_ID            			705
-#define CAN_HUM_1_ID            			706
-#define CAN_TMP_2_ID            			707
-#define CAN_HUM_2_ID            			708
-#define CAN_TMP_3_ID            			709
-#define CAN_HUM_3_ID            			710
-#define CAN_TRIGGER_ID          			711
-#define CAN_STOP_ID             			712
+#define CAN_DRILL_ELEVATOR_ID               700
+#define CAN_SAMPLE_ID                       701
+#define CAN_LIMIT_SWITCH_ID                 702
+#define CAN_UV_ID                           703
+#define CAN_GAS_ID                          704
+#define CAN_TMP_1_ID                        705
+#define CAN_HUM_1_ID                        706
+#define CAN_TMP_2_ID                        707
+#define CAN_HUM_2_ID                        708
+#define CAN_TMP_3_ID                        709
+#define CAN_HUM_3_ID                        710
+#define CAN_TRIGGER_ID                      711
+#define CAN_STOP_ID                         712
 
-#define CAN_FILTERID_ELEVATOR_DRILL 		12
-#define CAN_FILTERID_FILTER 				13
+#define CAN_FILTERID_ELEVATOR_DRILL         12
+#define CAN_FILTERID_FILTER                 13
 
 
-#define MOTOR_FWD_DIR           			1
-#define MOTOR_RVR_DIR           			0
+#define MOTOR_FWD_DIR                       1
+#define MOTOR_RVR_DIR                       0
 
 // PWM ID FOR MOTORS TODO: PLEASE SET
-#define PWM_DRILL_ID            			1
-#define PWM_ELEVATOR_ID         			2
-#define PWM_FILTER_ID           			3
+#define PWM_DRILL_ID                        1
+#define PWM_ELEVATOR_ID                     2
+#define PWM_FILTER_ID                       3
 
-#define DEBUG_MODE              			1
+#define DEBUG_MODE                          1
 
 /***************variable wasteland********************/
 uint8_t bin_loc = 0;
@@ -125,6 +126,14 @@ volatile uint8_t data_ready = 0; // Only place this is used is in the comments
 
 //Counter for timer
 volatile uint32_t millis = 0; // Don't think this is even used
+
+
+
+/*   Initialization of the two sensors  */
+HT_Device_t ht_sensor;
+I2C_Device_t uv_sensor;
+const uv_it_t INT_TIME = 250;
+
 
 static TIM_HandleTypeDef s_TimerInstance =
 {
@@ -195,6 +204,33 @@ void TIM14_IRQHandler()
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     // do stuff in here
+
+    uint32_t timeStamp; // TODO time stamp
+
+
+    for (int id=CAN_TMP_1_ID; id<CAN_TMP_3_ID; id+=2)
+    {
+        // Humidity
+        float humidity = read_hum(&ht_sensor);
+        CANLIB_ChangeID(id+1);
+        CANLIB_Tx_SetFloat(humidity, CANLIB_INDEX_0); // socketcan to topic assumes MSB bytes are float
+        CANLIB_Tx_SetUint(timeStamp, CANLIB_INDEX_1);
+        CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
+
+        // Temperature
+        float temperature = read_temp(&ht_sensor, 1); // uses temperature measured when reading humidity
+        CANLIB_ChangeID(id);
+        CANLIB_Tx_SetFloat(temperature, CANLIB_INDEX_0); // socketcan to topic assumes MSB bytes are float
+        CANLIB_Tx_SetUint(timeStamp, CANLIB_INDEX_1);
+        CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
+    }
+
+    uint32_t uv_data = read_uv(&uv_sensor, &INT_TIME);
+    uv_class_t uv_class = get_uv_class(&uv_sensor, &uv_data, &INT_TIME); // Where would this be used?
+    CANLIB_ChangeID(CAN_UV_ID);
+    CANLIB_Tx_SetUint(uv_data, CANLIB_INDEX_0);
+    CANLIB_Tx_SetUint(timeStamp, CANLIB_INDEX_1);
+    CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
 
     // add logic to only increment when start signal occurs
     millis++;
@@ -314,6 +350,9 @@ int CAN_Init(uint32_t can_id)
 void sensorInit(void)
 {
     //TODO;
+        /*     Initialization of the uv and ht sensors    */
+    init_ht(&ht_sensor, 5000); // Timeout of 5000 ms
+    init_uv(&uv_sensor, &INT_TIME, 5000);
 }
 
 void motor_pwm_init(void)
@@ -501,7 +540,9 @@ int main(void)
     HAL_Init();
     CLK_Init();
     GPIO_Init();
+    sensorInit();
     Timer_Init(PERIOD); // 500 ms timer
+
 
     if (PWMLIB_Init(PWM_DRILL_ID) != 0)
     {
