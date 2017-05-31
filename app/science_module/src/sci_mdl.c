@@ -326,12 +326,18 @@ void HAL_MspInit(void)
     HAL_NVIC_SetPriority(SysTick_IRQn, 2, 2);
 }
 
-int PWM_Init(uint32_t pwm_id)
+int PWM_Init(void)
 {
-    // should also initialize LED on pin PC9 if pwm_id 4 is passed in
-    if (PWMLIB_Init(pwm_id) != 0)
+    if (PWMLIB_Init(PWM_DRILL_ID) != 0)
     {
-        // error;
+        return -1
+    }
+    if (PWMLIB_Init(PWM_ELEVATOR_ID) != 0)
+    {
+        return -1;
+    }
+    if (PWMLIB_Init(PWM_DRILL_ID) != 0)
+    {
         return -1;
     }
 
@@ -353,30 +359,13 @@ int CAN_Init(uint32_t can_id)
     return 0;
 }
 
-void sensorInit(void)
+void Sensor_Init(void)
 {
     //TODO;
         /*     Initialization of the uv and ht sensors    */
     init_ht(&ht_sensor, 5000); // Timeout of 5000 ms
     init_uv(&uv_sensor, &INT_TIME, 5000);
 }
-
-void motor_pwm_init(void)
-{
-
-
-    if (PWMLIB_Init(PWM_ELEVATOR_ID) != 0)
-    {
-        //Error_Handler_Motors();
-    }
-    if (PWMLIB_Init(PWM_DRILL_ID) != 0)
-    {
-        Error_Handler_Motors();
-    }
-
-
-}
-
 
 /*  LIMIT SWITCH BIT VECTOR
     elevator retracted          = 0000 1000;
@@ -387,12 +376,13 @@ void motor_pwm_init(void)
 
 void checkLimits()
 {
-    limit_switch_readings =     HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT,LIMIT_SWITCH_FILTER_INNER_PIN) |
-                                HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_OUTER_PORT,LIMIT_SWITCH_FILTER_OUTER_PIN) << 1 |
-                                HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORTOP_PORT,LIMIT_SWITCH_ELEVATORTOP_PIN) << 2 |
-                                HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORBOTTOM_PORT,LIMIT_SWITCH_ELEVATORBOTTOM_PIN) << 3;
-
+    limit_switch_readings = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN) |
+                            HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_OUTER_PORT, LIMIT_SWITCH_FILTER_OUTER_PIN) << 1 |
+                            HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORTOP_PORT, LIMIT_SWITCH_ELEVATORTOP_PIN) << 2 |
+                            HAL_GPIO_ReadPin(LIMIT_SWITCH_ELEVATORBOTTOM_PORT, LIMIT_SWITCH_ELEVATORBOTTOM_PIN) << 3;
+#if DEBUG_MODE
     UART_LIB_PRINT_INT(limit_switch_readings);
+#endif
 }
 
 void runDrillDistance(float drill_duty_cycle, float elevator_duty_cycle)
@@ -401,22 +391,26 @@ void runDrillDistance(float drill_duty_cycle, float elevator_duty_cycle)
     int elevator_dir = MOTOR_FWD_DIR;
 
     // Assuming 0 is down
-    if ((drill_duty_cycle<0))
+    if (drill_duty_cycle < 0)
+    {
         drill_dir = MOTOR_RVR_DIR;
-    if (elevator_duty_cycle<0)
+    }
+    if (elevator_duty_cycle < 0)
+    {
         elevator_dir = MOTOR_RVR_DIR;
+    }
 
     checkLimits();
-    if((elevator_duty_cycle<0) && (limit_switch_readings & 0x04))
+    if ((elevator_duty_cycle < 0) && (limit_switch_readings & 0x04))
     {
-        PWMLIB_Write(PWM_ELEVATOR_ID,0.0);
+        PWMLIB_Write(PWM_ELEVATOR_ID, 0.0);
         HAL_Delay(100);
         return;
     }
 
-    if((elevator_duty_cycle>0) && (limit_switch_readings & 0x08))
+    if ((elevator_duty_cycle > 0) && (limit_switch_readings & 0x08))
     {
-        PWMLIB_Write(PWM_ELEVATOR_ID,0.0);
+        PWMLIB_Write(PWM_ELEVATOR_ID, 0.0);
         HAL_Delay(100);
         return;
     }
@@ -433,7 +427,7 @@ void resetFilter(uint8_t filter_dir, float filter_duty_cycle)
     // drive motor
     uint8_t filter_zeroed = 0;
     //uint8_t filter_limits_reading[2] = {1};
-    while(!filter_zeroed)
+    while (!filter_zeroed)
     {
         checkLimits();
         //limit_switch_readings
@@ -441,17 +435,18 @@ void resetFilter(uint8_t filter_dir, float filter_duty_cycle)
 //        result =
 //        result = lim1 << 1 | ;
 //        1010
-        HAL_GPIO_WritePin(GPIO_FILTER_DIR_PORT,GPIO_FILTER_DIR_PIN,filter_dir);
-        PWMLIB_Write(PWM_FILTER_ID,filter_duty_cycle);
+        HAL_GPIO_WritePin(GPIO_FILTER_DIR_PORT, GPIO_FILTER_DIR_PIN, filter_dir);
+        PWMLIB_Write(PWM_FILTER_ID, filter_duty_cycle);
         HAL_Delay(100);
         //if (!filter_limits_reading[0])
-        if(!(limit_switch_readings & 0x02))
+        if (!(limit_switch_readings & 0x02))
         {
-            do{
+            do
+            {
                 checkLimits();
-                PWMLIB_Write(PWM_FILTER_ID,filter_duty_cycle/2);
+                PWMLIB_Write(PWM_FILTER_ID, filter_duty_cycle/2);
                 HAL_Delay(50);
-            } while((limit_switch_readings & 0x01));
+            } while (limit_switch_readings & 0x01);
             filter_zeroed = 1;
         }
     }
@@ -462,12 +457,12 @@ void runFilterToBin(int bin_no, float filter_duty_cycle)
 {
     //determine logic to go to certain filter
     uint8_t filter_dir = 1;
-    if (filter_duty_cycle>0)
+    if (filter_duty_cycle > 0)
     {
         filter_dir = 0;
     }
 
-    if(bin_no == -1)
+    if (bin_no == -1)
     {
         resetFilter(bin_no, filter_duty_cycle);
     }
@@ -475,8 +470,8 @@ void runFilterToBin(int bin_no, float filter_duty_cycle)
     //uint8_t filter_limits_reading = 1;
     while(bin_loc != bin_no)
     {
-        HAL_GPIO_WritePin(GPIO_FILTER_DIR_PORT,GPIO_FILTER_DIR_PIN,filter_dir);
-        PWMLIB_Write(PWM_FILTER_ID,fabs(filter_duty_cycle));
+        HAL_GPIO_WritePin(GPIO_FILTER_DIR_PORT, GPIO_FILTER_DIR_PIN, filter_dir);
+        PWMLIB_Write(PWM_FILTER_ID, fabs(filter_duty_cycle));
         HAL_Delay(100);
         //filter_limits_reading = HAL_GPIO_ReadPin(LIMIT_SWITCH_FILTER_INNER_PORT, LIMIT_SWITCH_FILTER_INNER_PIN);
         checkLimits();
@@ -491,21 +486,19 @@ void runFilterToBin(int bin_no, float filter_duty_cycle)
 void testMotor(float drill_duty_cycle)
 {
     uint8_t drill_dir;
-    if (drill_duty_cycle<0)
+    if (drill_duty_cycle < 0)
+    {
         drill_dir = 0;
+    }
 
-    //uint8_t  = "Hello";
-    //UART_LIB_PRINT_CHAR_ARRAY(a, sizeof(a));
-
-
-    HAL_GPIO_WritePin(GPIO_DRILL_DIR_PORT,GPIO_DRILL_DIR_PIN,drill_dir);
+    HAL_GPIO_WritePin(GPIO_DRILL_DIR_PORT, GPIO_DRILL_DIR_PIN, drill_dir);
     if (!(limit_switch_readings & 0x01))
     {
-            PWMLIB_Write(PWM_DRILL_ID,0.0);
+        PWMLIB_Write(PWM_DRILL_ID, 0.0);
     }
     else
     {
-        PWMLIB_Write(PWM_DRILL_ID,fabs(drill_duty_cycle));
+        PWMLIB_Write(PWM_DRILL_ID, fabs(drill_duty_cycle));
     }
     HAL_Delay(100);
 }
@@ -535,28 +528,21 @@ int main(void)
     HAL_Init();
     CLK_Init();
     GPIO_Init();
-    sensorInit();
+    Sensor_Init();
     Timer_Init(PERIOD); // 500 ms timer
 
-    if (PWMLIB_Init(PWM_DRILL_ID) != 0)
+    if (PWM_Init() != 0)
     {
         Error_Handler();
     }
-    if (PWMLIB_Init(PWM_ELEVATOR_ID) != 0)
-    {
-        Error_Handler();
-    }
-    if (PWMLIB_Init(PWM_DRILL_ID) != 0)
-    {
-        Error_Handler();
-    }
-
     if (CAN_Init(CAN_LIMIT_SWITCH_ID) != 0)
     {
         Error_Handler();
     }
 
+#if DEBUG_MODE
     UART_LIB_INIT();
+#endif
 
     HAL_NVIC_SetPriority(TIM14_IRQn, 2, 2);
 
@@ -615,7 +601,6 @@ void CANLIB_Rx_OnMessageReceived(void)
                 millis = 0;
             }
             break;
-
 
         default:
             break;
