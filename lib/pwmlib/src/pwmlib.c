@@ -210,7 +210,6 @@ int PWMLIB_Init(uint32_t pwm_id)
     ========
     0               On success
     -1              Invalid pwm_id
-    -2              Configuring the PWM channel failed
 *******************************************************************************************************/
 int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
 {
@@ -237,7 +236,7 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
 
     if (duty_cycle >= 1.0)
     {
-        pulse_width = PWM_PERIOD;
+        pulse_width = htim->Init.Period;
     }
     else if (duty_cycle <= 0.0)
     {
@@ -245,14 +244,30 @@ int PWMLIB_Write(uint32_t pwm_id, float duty_cycle)
     }
     else
     {
-        pulse_width = (uint16_t) (duty_cycle * PWM_PERIOD);
+        pulse_width = (uint16_t) (duty_cycle * htim->Init.Period);
     }
 
-    if (PWMLIB_ConfigChannel(htim, &sConfig, pwm_id) != 0)
+    uint32_t channel = TIM_CHANNEL_1;
+    switch (pwm_id)
     {
-        return -2;
+        case 1:
+            channel=TIM_CHANNEL_1;
+            break;
+
+        case 2:
+            channel=TIM_CHANNEL_2;
+            break;
+
+        case 3:
+            channel=TIM_CHANNEL_3;
+            break;
+
+        default:
+            error = 1;
+            break;
     }
 
+    __HAL_TIM_SET_COMPARE(htim, channel, pulse_width);
     return 0;
 }
 
