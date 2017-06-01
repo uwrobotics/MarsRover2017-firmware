@@ -46,13 +46,13 @@ int main(void)
 	__GPIOC_CLK_ENABLE();
 
 	GPIO_InitTypeDef GPIO_InitStruct = {
-			.Pin = GPIO_PIN_0,
+			.Pin = GPIO_PIN_10,
 			.Mode = GPIO_MODE_OUTPUT_PP,
 			.Pull = GPIO_NOPULL,
 			.Speed = GPIO_SPEED_FREQ_HIGH
 	};
 
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 	// UART_LIB_INIT();
 	// uint8_t a[] = "Hello";
@@ -66,5 +66,7 @@ int main(void)
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
 	while(1) {
 		 //Toggle the state of pin PC9
+		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_10);
+		HAL_Delay(500);
 	}
 }
