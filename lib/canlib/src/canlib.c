@@ -437,7 +437,7 @@ void CANLIB_Rx_Decode(void)
     Description:
     Returns the frame's source ID
 */
-uint8_t CANLIB_Rx_GetSenderID(void)
+uint16_t CANLIB_Rx_GetSenderID(void)
 {
     return received_message.transmitter_ID;
 }

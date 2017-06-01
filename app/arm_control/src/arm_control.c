@@ -32,7 +32,7 @@ Commands are received over CAN.
 #define PWM_INCLINATION_ID       2
 
 //CAN IDs that this will receive messages from
-#define CAN_RX_ID                68   //Arbitrary value
+#define CAN_RX_ID                500   //Arbitrary value
 
 //CAN IDs that this will code will transmit on
 #define CAN_TX_ID                15  //Arbitrary value

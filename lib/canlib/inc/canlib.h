@@ -225,7 +225,7 @@ void CANLIB_Tx_SetLongInt(int64_t message);
 //
 //  Called when message is received. Must be user implemented
 __weak void CANLIB_Rx_OnMessageReceived();
-uint8_t     CANLIB_Rx_GetSenderID();
+uint16_t    CANLIB_Rx_GetSenderID();
 uint8_t     CANLIB_Rx_GetDLC();
 uint8_t     CANLIB_Rx_GetSingleByte(uint8_t byte_index);
 uint8_t     CANLIB_Rx_GetSingleChar(uint8_t byte_index);
