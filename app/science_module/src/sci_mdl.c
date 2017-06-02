@@ -403,7 +403,7 @@ void runDrillDistance(float drill_duty_cycle, float elevator_duty_cycle)
     }
 
     checkLimits();
-    // hit top (limit switches are active low)
+    // hit top (limit switches are active high)
     if ((elevator_duty_cycle > 0) && (limit_switch_readings & 0x01))
     {
         PWMLIB_Write(PWM_ELEVATOR_ID, 0.0);
