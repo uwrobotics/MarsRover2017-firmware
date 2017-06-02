@@ -318,7 +318,7 @@ int PWM_Init(void)
 {
     if (PWMLIB_Init(PWM_DRILL_ID) != 0)
     {
-        return -1
+        return -1;
     }
     if (PWMLIB_Init(PWM_ELEVATOR_ID) != 0)
     {
@@ -403,14 +403,14 @@ void runDrillDistance(float drill_duty_cycle, float elevator_duty_cycle)
     }
 
     checkLimits();
-    // hit top (limit switches are active low)
-    if ((elevator_duty_cycle > 0) && !(limit_switch_readings & 0b01))
+    // hit top (limit switches are active high)
+    if ((elevator_duty_cycle > 0) && (limit_switch_readings & 0x01))
     {
         PWMLIB_Write(PWM_ELEVATOR_ID, 0.0);
         return;
     }
     // hit bottom (limit switches are active low)
-    if ((elevator_duty_cycle < 0) && !((limit_switch_readings & 0b02) >> 1))
+    if ((elevator_duty_cycle < 0) && (limit_switch_readings & 0x02) >> 1)
     {
         PWMLIB_Write(PWM_ELEVATOR_ID, 0.0);
         return;
@@ -432,13 +432,13 @@ void resetElevator(void)
         checkLimits();
         if (limit_switch_readings & 0b01)
         {
-            PWMLIB_Write(PWM_ELEVATOR_ID, ELEVATOR_DUTY_CYCLE);
+            PWMLIB_Write(PWM_ELEVATOR_ID, MAX_ELEVATOR_DUTY_CYCLE);
         }
         else
         {
             PWMLIB_Write(PWM_ELEVATOR_ID, 0.0);
         }
-    } while (limit_switch_readings & 0b01);
+    } while (!limit_switch_readings & 0x01);
     PWMLIB_Write(PWM_ELEVATOR_ID, 0.0);
 }
 
