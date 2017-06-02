@@ -8,30 +8,52 @@
 #include <math.h>
 #include <string.h>
 
-#define PWM_ID 	1
-#define ADC_ID	1
-
 //TODO: set these values to the correct ones for the pins used
-#define HORZ_PWM 1 //PA8
-#define VERT_PWM 2 //PA9
-#define HORZ_ADC 1 //PA0
+#define PAN_PWM 1 //PA8
+#define TILT_PWM 2 //PA9
+#define PAN_ADC 7 //PA0
 #define PERIOD  19999 // 1 tick = 1 us
 
+//state led is PC2
+//can led is PC3
+
+//yellow LED to the right of CAN is PC2
+//yellow LED on CAN ethernet is PC3
+
+//pan = 130 tilt = -5 will put the camera centered
+#define PAN_OFFSET 130
+#define TILT_OFFSET -5
+
 #define GIMBAL_CAN_NODE 600
+//pwm1 is yellow and is pan
+//pwm2 is green and is tilt
+//pc4 is pot
 
 
-
-volatile int horizontal_angle = 0;
+volatile int horizontal_angle = PAN_OFFSET;
 
 static void Error_Handler(void)
 {
 	while (1){
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
     HAL_Delay(500);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_RESET);
+    HAL_Delay(500);
 	}
     
 }
+
+void HAL_MspInit(void)
+{
+    /* System interrupt init*/
+    /* SysTick_IRQn interrupt configuration */
+    (void)HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+
+    //Must be set to priority of 1 or else will have higher priority than CAN IRQ
+    HAL_NVIC_SetPriority(SysTick_IRQn, 2, 2);
+
+}
+
 
 void CLK_Init(void)
 {
@@ -68,29 +90,28 @@ void GPIO_Init(void)
 
     // LEDs
     GPIO_InitTypeDef LED_InitStruct = {
-            .Pin        = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8,
+            .Pin        = GPIO_PIN_2 | GPIO_PIN_3,
             .Mode       = GPIO_MODE_OUTPUT_PP,
             .Pull       = GPIO_NOPULL,
             .Speed      = GPIO_SPEED_FREQ_HIGH
     };
     HAL_GPIO_Init(GPIOC, &LED_InitStruct);
 
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_RESET);
 
 }
 
 void CANLIB_Rx_OnMessageReceived() {
 //We have recieved a message, find out what it is telling us to do.
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-    int horz_angle = CANLIB_Rx_GetAsInt(0);
-
-    int vert_angle = CANLIB_Rx_GetAsInt(1);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET);
+    
+    int horz_angle = CANLIB_Rx_GetAsInt(0) + PAN_OFFSET; //offsets to bring to center
+    int vert_angle = CANLIB_Rx_GetAsInt(1) + TILT_OFFSET; //offset to bring to center
     horizontal_angle = horz_angle;
-	//WriteContinuousServo(HORZ_PWM, HORZ_ADC, horz_angle);
-    WriteServo(VERT_PWM, vert_angle);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+	//WriteContinuousServo(PAN_PWM, PAN_ADC, horz_angle);
+    WriteServo (TILT_PWM, vert_angle);
+    //HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
 	
 }
 
@@ -100,38 +121,42 @@ int main(void)
 	HAL_Init();
     CLK_Init();
     GPIO_Init();
-    //ServoLibInit(PWM_ID, ADC_ID);
     //TODO: initialise safety board code
     
-    PWMLIB_Init(HORZ_PWM);
-    PWMLIB_Init(VERT_PWM);
-    ADC_Init(HORZ_ADC);
+    PWMLIB_Init(PAN_PWM);
+    PWMLIB_Init (TILT_PWM);
+    ADC_Init(PAN_ADC);
 
-    CANLIB_Init(GIMBAL_CAN_NODE, CANLIB_LOOPBACK_OFF);
-    CANLIB_AddFilter(600);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
+    if (CANLIB_Init(543, CANLIB_LOOPBACK_OFF) != 0) Error_Handler();
+    if(CANLIB_AddFilter(600)!= 0) Error_Handler();
 
-	PWMLIB_ChangePeriod(VERT_PWM, 20000); // Change period to 50 Hz //Is this necessary? (taken from gimbal test example)
-    PWMLIB_ChangePeriod(HORZ_PWM, 20000);
+	PWMLIB_ChangePeriod (TILT_PWM, 20000); // Change period to 50 Hz //Is this necessary? (taken from gimbal test example)
+    PWMLIB_ChangePeriod(PAN_PWM, 20000);
+
+    WriteServo(TILT_PWM, TILT_OFFSET);
+    WriteContinuousServo(PAN_PWM, PAN_ADC, PAN_OFFSET);
+    HAL_Delay(5000);
 
     //This is just testing. Remove for comp
     
-    // WriteServo(VERT_PWM,-60);
+    // WriteServo (TILT_PWM,-60);
     // HAL_Delay(1000);
 
-    // WriteServo(VERT_PWM,-30);
+    // WriteServo (TILT_PWM,-30);
     // HAL_Delay(1000);
 
-    // WriteServo(VERT_PWM,0);
+    // WriteServo (TILT_PWM,0);
     // HAL_Delay(1000);
 
-    // WriteServo(VERT_PWM,30);
+    // WriteServo (TILT_PWM,30);
     // HAL_Delay(1000);
-    // WriteServo(VERT_PWM,59);
+    // WriteServo (TILT_PWM,59);
     // HAL_Delay(1000);
 
     //Actual Code
 	while(1) {
-        WriteContinuousServo(HORZ_PWM,HORZ_ADC, horizontal_angle);
+        WriteContinuousServo(PAN_PWM, PAN_ADC, horizontal_angle);
     }
 }
 

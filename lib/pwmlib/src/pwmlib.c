@@ -46,7 +46,6 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
     GPIO_InitStruct.Alternate   = PWM1_GPIO_ALTERNATE;
 
     HAL_GPIO_Init(PWM1_GPIO_PORT, &GPIO_InitStruct);
-
 }
 
 // Configures each individual PWM channel. Should not be called outside the library.
@@ -168,7 +167,7 @@ static int PWMLIB_TimerInit(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef *sConfig
 int PWMLIB_Init(uint32_t pwm_id)
 {
     int error = 0;
-    TIM_HandleTypeDef *htim = NULL;
+    TIM_HandleTypeDef *htim;
 
     switch (pwm_id)
     {
