@@ -90,12 +90,6 @@ TODO
 #define MOTOR_FWD_DIR                       1
 #define MOTOR_RVR_DIR                       0
 
-// Motor indexes
-#define NUM_MOTORS                          1
-#define DRILL_IDX                           0
-// #define ELEVATOR_IDX                        1
-// #define SAMPLE_IDX                          2
-
 // PWM IDs
 #define PWM_DRILL_ID                        1
 #define PWM_ELEVATOR_ID                     2
@@ -120,10 +114,6 @@ uint8_t limit_switch_readings = 0xff;
     elevator bottom     = 0000 0010; */
 
 /*****************************************************/
-
-//const float epsilon = 0.0001;
-//float incoming_cmd[NUM_CMDS] = { 0 }; //Array to hold incoming CAN messages
-//float joy_cmd[NUM_CMDS] = { 0 }; //Can we just reuse incoming_cmd?
 
 //Flags
 volatile uint8_t data_ready = 0; // Only place this is used is in the comments
@@ -509,7 +499,7 @@ int main(void)
     CLK_Init();
     GPIO_Init();
     Sensor_Init();
-    Timer_Init(PERIOD); // 500 ms timer
+    Timer_Init(PERIOD); // 1000 ms timer
 
     if (PWM_Init() != 0)
     {
