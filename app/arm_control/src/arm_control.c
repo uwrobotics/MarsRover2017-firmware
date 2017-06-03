@@ -27,39 +27,51 @@ Commands are received over CAN.
 //Code assumes that one board is in charge of motors controlling inclination and azimuth of a joint
 //Example of azimuth vs inclination: http://edndoc.esri.com/arcobjects/9.1/java/arcengine/com/esri/arcgis/geometry/bitmaps/GeomVector3D.gif
 
+//1 for shoulder/turntable, 2 for elbow, 3 for wrist
+#define BOARD_TYPE                  3
+
 //PWM IDs
-#define PWM_AZIMUTH_ID           1
-#define PWM_INCLINATION_ID       2
+#define PWM_AZIMUTH_ID              1
+#define PWM_INCLINATION_ID          2
 
 //CAN IDs that this will receive messages from
-#define CAN_RX_ID                500   //Arbitrary value
+#if BOARD_TYPE == 1
+#define CAN_RX_ID                   500  // Shoulder
+#elif BOARD_TYPE == 2
+#define CAN_RX_ID                   501  // Elbow
+#elif BOARD_TYPE == 3
+#define CAN_RX_ID                   502  // Wrist
+#endif
 
 //CAN IDs that this will code will transmit on
-#define CAN_TX_ID                15  //Arbitrary value
-#define CAN_ENCODER_DATA_ID      16  //Arbitrary value
-#define CAN_LIMIT_SW_READ_ID     17  //Arbitrary value
-
-
-#define LIMIT_SWITCH_COUNT       2
+#define CAN_TX_ID                   304  //Arbitrary value
+// #define CAN_ENCODER_DATA_ID     16  //Arbitrary value
+#define CAN_LIMIT_SW_TABLE_ID       300
+#define CAN_LIMIT_SW_ELBOW_ID       301
+#define CAN_LIMIT_SW_SHOULDER_ID    302
 
 //Number of PWM commands per relevant CAN frame received
-#define NUM_CMDS                 2
+#define NUM_CMDS                    2
 //Timer interrupt interval
-#define PERIOD                   500
+#define PERIOD                      500
 //Number of timer intervals of no message received to enter watchdog state
-#define MSG_WATCHDOG_INTERVAL    1
+#define MSG_WATCHDOG_INTERVAL       1
 
 //Index in received CAN frame for float for each axis motors
 //The first 4 bytes contain azimuth motor PWM command and the last 4 contain inclination motor PWM command
-#define AZIMUTH_AXIS_ID          0
-#define INCLINATION_AXIS_ID      1
+#define AZIMUTH_AXIS_ID             0
+#define INCLINATION_AXIS_ID         1
 
 
 // Limit Switches
-#define LIMIT_SWITCH_1_PIN  GPIO_PIN_4
-#define LIMIT_SWITCH_1_PORT GPIOC
-#define LIMIT_SWITCH_2_PIN  GPIO_PIN_3
-#define LIMIT_SWITCH_2_PORT GPIOC
+#define LIMIT_SWITCH_1_PIN      GPIO_PIN_12
+#define LIMIT_SWITCH_1_PORT     GPIOC
+#define LIMIT_SWITCH_2_PIN      GPIO_PIN_13
+#define LIMIT_SWITCH_2_PORT     GPIOC
+#define LIMIT_SWITCH_3_PIN      GPIO_PIN_14
+#define LIMIT_SWITCH_3_PORT     GPIOC
+#define LIMIT_SWITCH_4_PIN      GPIO_PIN_15
+#define LIMIT_SWITCH_4_PORT     GPIOC
 
 const float epsilon = 0.0001;
 float incoming_cmd[NUM_CMDS] = { 0 }; //Array to hold incoming CAN messages
@@ -76,7 +88,7 @@ volatile float inclination_motor_duty_cycle = 0;
 //Bitfield for limit switch readings
 uint8_t limit_switch_readings = 0;
 
-//Direction of each motor. 0 is backwards and 1 is forwards. 
+//Direction of each motor. 0 is backwards and 1 is forwards.
 //Maybe this can be a bitfield instead
 uint8_t azimuth_direction = 0;
 uint8_t inclination_direction = 0;
@@ -134,7 +146,7 @@ void TIM14_IRQHandler()
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_7); //blue led (LD6)
-    
+
     //If msg_received is greater than the set limit, then reset (or do something else)
     if (msg_received > MSG_WATCHDOG_INTERVAL)
     {
@@ -154,13 +166,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         msg_received = 1 && (azimuth_motor_duty_cycle || inclination_motor_duty_cycle);
     }
 }
-
-//Is this needed?
-/*
-void HAL_SYSTICK_Callback(void)
-{
-    ms_elapsed ++;
-}*/
 
 void Timer_Init(uint32_t period)
 {
@@ -194,13 +199,24 @@ void GPIO_Init(void)
 
     // Direction control pins
     GPIO_InitTypeDef DirCtrl_InitStruct = {
-            .Pin        = GPIO_PIN_8 | GPIO_PIN_9, //Pin 8 for azimuth, pin 9 for inclination. Change as needed  
+            .Pin        = GPIO_PIN_8 | GPIO_PIN_9, //Pin 8 for azimuth, pin 9 for inclination. Change as needed
             .Mode       = GPIO_MODE_OUTPUT_PP,
             .Pull       = GPIO_NOPULL,
             .Speed      = GPIO_SPEED_FREQ_HIGH
     };
     HAL_GPIO_Init(GPIOC, &DirCtrl_InitStruct);
 
+#if BOARD_TYPE == 1
+    //Limit switch init. Assumes 4 limit switches
+    GPIO_InitTypeDef LimitSwitch_InitStruct = {
+        .Pin            = LIMIT_SWITCH_1_PIN | LIMIT_SWITCH_2_PIN | LIMIT_SWITCH_3_PIN | LIMIT_SWITCH_4_PIN,
+        .Mode           = GPIO_MODE_INPUT,
+        .Pull           = GPIO_NOPULL,
+        .Speed          = GPIO_SPEED_FREQ_HIGH
+    };
+
+    HAL_GPIO_Init(GPIOC, &LimitSwitch_InitStruct);
+#elif BOARD_TYPE == 2
     //Limit switch init. Assumes 2 limit switches
     GPIO_InitTypeDef LimitSwitch_InitStruct = {
         .Pin            = LIMIT_SWITCH_1_PIN | LIMIT_SWITCH_2_PIN,
@@ -210,25 +226,17 @@ void GPIO_Init(void)
     };
 
     HAL_GPIO_Init(GPIOC, &LimitSwitch_InitStruct);
+#endif
 
-    GPIO_InitTypeDef ALT_PIM = {
-        .Pin            = GPIO_PIN_10 | GPIO_PIN_11,
+    // Alternate direction pin
+    GPIO_InitTypeDef ALT_PIN = {
+        .Pin            = GPIO_PIN_11,
         .Mode           = GPIO_MODE_OUTPUT_PP,
         .Pull           = GPIO_NOPULL,
         .Speed          = GPIO_SPEED_FREQ_HIGH
     };
 
-    HAL_GPIO_Init(GPIOB, &ALT_PIM);
-
-
-    GPIO_InitTypeDef ALT_PIM_2 = {
-        .Pin            = GPIO_PIN_4,
-        .Mode           = GPIO_MODE_OUTPUT_PP,
-        .Pull           = GPIO_NOPULL,
-        .Speed          = GPIO_SPEED_FREQ_HIGH
-    };
-
-    HAL_GPIO_Init(GPIOA, &ALT_PIM_2);
+    HAL_GPIO_Init(GPIOB, &ALT_PIN);
 }
 
 void HAL_MspInit(void)
@@ -247,9 +255,9 @@ int main(void)
     HAL_Init();
     CLK_Init();
     GPIO_Init();
-    Timer_Init(PERIOD); // 500 ms timer 
-    
-    
+    Timer_Init(PERIOD); // 500 ms timer
+
+
     if (CANLIB_Init(CAN_TX_ID, 0) != 0)
     {
         Error_Handler();
@@ -261,7 +269,7 @@ int main(void)
 
     HAL_NVIC_SetPriority(TIM14_IRQn, 1, 2);
     HAL_NVIC_EnableIRQ(TIM14_IRQn);
-    
+
     if (PWMLIB_Init(PWM_AZIMUTH_ID) != 0)
     {
         Error_Handler();
@@ -279,20 +287,19 @@ int main(void)
     /*if (EncoderLib_Init(ENCODER1))
     {
         Error_Handler();
-    } 
+    }
     else if (EncoderLib_Init(ENCODER2))
     {
         Error_Handler();
     }*/
 
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_SET);
-    // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_SET);
-    // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
     while(1)
     {
-        /* 
+        /*
         The code here would get and send encoder readings over CAN, given a working library
-        
+
         encoder_1_reading = EncoderLib_ReadCount(ENCODER1);
         encoder_2_reading = EncoderLib_ReadCount(ENCODER2);
         CANLIB_ChangeID(CAN_ENCODER_READ_ID);
@@ -301,28 +308,56 @@ int main(void)
         CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
         */
 
-        //Read limit switches into bitfield and shut off launchappropriate motor as req'd and send reading over CAN
+        //Read limit switches into bitfield and shut off appropriate motor as req'd and send reading over CAN
         //Assumes limit switches will output high when hit
-        // limit_switch_readings = 
-        //     HAL_GPIO_ReadPin(LIMIT_SWITCH_1_PORT, LIMIT_SWITCH_1_PIN) |
-        //     HAL_GPIO_ReadPin(LIMIT_SWITCH_2_PORT, LIMIT_SWITCH_2_PIN) << 1;
+#if BOARD_TYPE == 1
+        limit_switch_readings =
+            HAL_GPIO_ReadPin(LIMIT_SWITCH_1_PORT, LIMIT_SWITCH_1_PIN) |
+            HAL_GPIO_ReadPin(LIMIT_SWITCH_2_PORT, LIMIT_SWITCH_2_PIN) << 1 |
+            HAL_GPIO_ReadPin(LIMIT_SWITCH_3_PORT, LIMIT_SWITCH_3_PIN) << 2 |
+            HAL_GPIO_ReadPin(LIMIT_SWITCH_4_PORT, LIMIT_SWITCH_4_PIN) << 3;
+#elif BOARD_TYPE == 2
+        limit_switch_readings =
+            HAL_GPIO_ReadPin(LIMIT_SWITCH_1_PORT, LIMIT_SWITCH_1_PIN) |
+            HAL_GPIO_ReadPin(LIMIT_SWITCH_2_PORT, LIMIT_SWITCH_2_PIN) << 1;
+#endif
 
-        // if (limit_switch_readings & 0b0001)
-        // {
-        //     PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
-            
-        //     CANLIB_Tx_SetByte(limit_switch_readings, 0);
-        //     CANLIB_ChangeID(CAN_LIMIT_SW_READ_ID);
-        //     CANLIB_Tx_SendData(CANLIB_DLC_FIRST_BYTE);
-        // }
-        // if (limit_switch_readings & 0b0010)
-        // {
-        //     PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = 0);
-            
-        //     CANLIB_Tx_SetByte(limit_switch_readings, 0);
-        //     CANLIB_ChangeID(CAN_LIMIT_SW_READ_ID);
-        //     CANLIB_Tx_SendData(CANLIB_DLC_FIRST_BYTE);
-        // }
+// Check extra switches for turntable
+#if BOARD_TYPE == 1
+        //only stop if the motion is in the direction that triggers limit
+        if (limit_switch_readings & 0b0100 && azimuth_direction == 0)
+        {
+            PWMLIB_Write(PWM_AZIMUTH_ID, inclination_motor_duty_cycle = 0);
+        }
+        //only stop if the motion is in the direction that triggers limit
+        if (limit_switch_readings & 0b1000 && azimuth_direction == 1)
+        {
+            PWMLIB_Write(PWM_AZIMUTH_ID, inclination_motor_duty_cycle = 0);
+        }
+        CANLIB_Tx_SetByte((limit_switch_readings >> 2), 0);
+        CANLIB_Tx_SetByte(0, 1);
+        CANLIB_ChangeID(CAN_LIMIT_SW_SHOULDER_ID);
+        CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
+#endif
+// Don't check limit switches if wrist board
+#if BOARD_TYPE != 3
+        if (limit_switch_readings & 0b0001 && inclination_direction == 0)
+        {
+            PWMLIB_Write(PWM_INCLINATION_ID, azimuth_motor_duty_cycle = 0);
+        }
+        if (limit_switch_readings & 0b0010 && inclination_direction == 1)
+        {
+            PWMLIB_Write(PWM_INCLINATION_ID, azimuth_motor_duty_cycle = 0);
+        }
+        CANLIB_Tx_SetByte(limit_switch_readings, 0);
+        CANLIB_Tx_SetByte(0, 1);
+    #if BOARD_TYPE == 1
+        CANLIB_ChangeID(CAN_LIMIT_SW_TABLE_ID);
+    #elif BOARD_TYPE == 2
+        CANLIB_ChangeID(CAN_LIMIT_SW_ELBOW_ID);
+    #endif
+        CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
+#endif
 
         //If there's no incoming data, restart the loop
         //Otherwise a message was received to change duty cycle
