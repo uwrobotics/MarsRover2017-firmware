@@ -307,7 +307,7 @@ int main(void)
         CANLIB_Tx_SetInt(encoder_2_reading, CANLIB_INDEX_1);
         CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
         */
-
+        limit_switch_readings = 0;
         //Read limit switches into bitfield and shut off appropriate motor as req'd and send reading over CAN
         //Assumes limit switches will output high when hit
 #if BOARD_TYPE == 1
@@ -320,44 +320,62 @@ int main(void)
         limit_switch_readings =
             HAL_GPIO_ReadPin(LIMIT_SWITCH_1_PORT, LIMIT_SWITCH_1_PIN) |
             HAL_GPIO_ReadPin(LIMIT_SWITCH_2_PORT, LIMIT_SWITCH_2_PIN) << 1;
+#elif BOARD_TYPE == 3
+        limit_switch_readings = 0xFF;
 #endif
 
 // Check extra switches for turntable
 #if BOARD_TYPE == 1
         //only stop if the motion is in the direction that triggers limit
-        if (limit_switch_readings & 0b0100 && azimuth_direction == 0)
+        //PC14 triggered, moved too much in CCW direction (0)
+        if (!(limit_switch_readings & 0b0100) && azimuth_direction == 0)
         {
-            PWMLIB_Write(PWM_AZIMUTH_ID, inclination_motor_duty_cycle = 0);
+            PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
         }
         //only stop if the motion is in the direction that triggers limit
-        if (limit_switch_readings & 0b1000 && azimuth_direction == 1)
+        //PC15 triggered, moved too much in CW direction (1)
+        if (!(limit_switch_readings & 0b1000) && azimuth_direction == 1)
         {
-            PWMLIB_Write(PWM_AZIMUTH_ID, inclination_motor_duty_cycle = 0);
+            PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
         }
-        CANLIB_Tx_SetByte((limit_switch_readings >> 2), 0);
-        CANLIB_Tx_SetByte(0, 1);
+        CANLIB_Tx_SetInt((limit_switch_readings >> 2), 0);
+        CANLIB_Tx_SetInt(0, 1);
+        CANLIB_ChangeID(CAN_LIMIT_SW_TABLE_ID);
+        CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
+
+        //PC12 triggered, shoulder leaned forward too much (1) direction
+        if (!(limit_switch_readings & 0b0001) && inclination_direction == 1)
+        {
+            PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = 0);
+        }
+        //PC13 triggered, shoulder leaned back too much (0) direction
+        if (!(limit_switch_readings & 0b0010) && inclination_direction == 0)
+        {
+            PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = 0);
+        }
+        CANLIB_Tx_SetInt(limit_switch_readings & 0x3, 0);
+        CANLIB_Tx_SetInt(0, 1);
         CANLIB_ChangeID(CAN_LIMIT_SW_SHOULDER_ID);
         CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
 #endif
-// Don't check limit switches if wrist board
-#if BOARD_TYPE != 3
-        if (limit_switch_readings & 0b0001 && inclination_direction == 0)
+
+#if BOARD_TYPE == 2
+        //PC12 triggered, elbow leaned back too much (0) direction
+        if (!(limit_switch_readings & 0b0001) && azimuth_direction == 0)
         {
-            PWMLIB_Write(PWM_INCLINATION_ID, azimuth_motor_duty_cycle = 0);
+            PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
         }
-        if (limit_switch_readings & 0b0010 && inclination_direction == 1)
+        //PC13 triggered, elbow leaned forward too much (1) direction
+        if (!(limit_switch_readings & 0b0010) && azimuth_direction == 1)
         {
-            PWMLIB_Write(PWM_INCLINATION_ID, azimuth_motor_duty_cycle = 0);
+            PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
         }
-        CANLIB_Tx_SetByte(limit_switch_readings, 0);
-        CANLIB_Tx_SetByte(0, 1);
-    #if BOARD_TYPE == 1
-        CANLIB_ChangeID(CAN_LIMIT_SW_TABLE_ID);
-    #elif BOARD_TYPE == 2
+        CANLIB_Tx_SetInt(limit_switch_readings & 0x3, 0);
+        CANLIB_Tx_SetInt(0, 1);
         CANLIB_ChangeID(CAN_LIMIT_SW_ELBOW_ID);
-    #endif
         CANLIB_Tx_SendData(CANLIB_DLC_ALL_BYTES);
 #endif
+// Don't check limit switches if wrist board
 
         //If there's no incoming data, restart the loop
         //Otherwise a message was received to change duty cycle
@@ -379,23 +397,37 @@ int main(void)
         {
             PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = 0);
         }
-        else if (!(limit_switch_readings & 0b0001) || (azimuth_direction != (joy_cmd[AZIMUTH_AXIS_ID] > 0)))
+        //board with no limit switch will always pass this case
+        else if (((limit_switch_readings & 0b0001) && (limit_switch_readings & 0b0010)) || (azimuth_direction != (joy_cmd[AZIMUTH_AXIS_ID] > 0)))
         {
             HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, azimuth_direction = joy_cmd[AZIMUTH_AXIS_ID] > 0);
             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, azimuth_direction = joy_cmd[AZIMUTH_AXIS_ID] > 0);
             PWMLIB_Write(PWM_AZIMUTH_ID, azimuth_motor_duty_cycle = fmin(fabs(joy_cmd[AZIMUTH_AXIS_ID]), 0.5f));
         }
 
-        //Same as above but for azimuth motors
+#if BOARD_TYPE == 1
+        //extra check for turntables for this board
         if (joy_cmd[INCLINATION_AXIS_ID] > (0.0 - epsilon) && joy_cmd[INCLINATION_AXIS_ID] < (0.0 + epsilon))
         {
             PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = 0);
         }
-        else if (!(limit_switch_readings & 0b0010) || (inclination_direction != (joy_cmd[INCLINATION_AXIS_ID] > 0)))
+        else if (((limit_switch_readings & 0b0100) && (limit_switch_readings & 0b1000)) || (inclination_direction != (joy_cmd[INCLINATION_AXIS_ID] > 0)))
         {
             HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, inclination_direction = joy_cmd[INCLINATION_AXIS_ID] > 0);
             PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = fmin(fabs(joy_cmd[INCLINATION_AXIS_ID]), 0.5f));
         }
+#else //other boards don't have a limit switches for motors on PWM2
+        if (joy_cmd[INCLINATION_AXIS_ID] > (0.0 - epsilon) && joy_cmd[INCLINATION_AXIS_ID] < (0.0 + epsilon))
+        {
+            PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = 0);
+        }
+        else
+        {
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, inclination_direction = joy_cmd[INCLINATION_AXIS_ID] > 0);
+            PWMLIB_Write(PWM_INCLINATION_ID, inclination_motor_duty_cycle = fmin(fabs(joy_cmd[INCLINATION_AXIS_ID]), 0.5f));
+        }
+#endif
+    HAL_Delay(20); //run at 50Hz
 
     }
     return 0;

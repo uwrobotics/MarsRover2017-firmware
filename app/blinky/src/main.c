@@ -54,6 +54,15 @@ int main(void)
 
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+	GPIO_InitTypeDef LimitSwitch_InitStruct = {
+        .Pin            = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15,
+        .Mode           = GPIO_MODE_INPUT,
+        .Pull           = GPIO_NOPULL,
+        .Speed          = GPIO_SPEED_FREQ_HIGH
+    };
+
+    HAL_GPIO_Init(GPIOC, &LimitSwitch_InitStruct);
+
 	// UART_LIB_INIT();
 	// uint8_t a[] = "Hello";
 	// UART_LIB_PRINT_CHAR_ARRAY(a, sizeof(a));
@@ -63,10 +72,17 @@ int main(void)
 
 	// double c = 555.123;
 	// UART_LIB_PRINT_DOUBLE(c);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
 	while(1) {
 		 //Toggle the state of pin PC9
-		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_10);
-		HAL_Delay(500);
+		 if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_14) == 1)
+		 {
+			 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_SET);
+		 }
+		 else
+		 {
+			 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_RESET);
+		 }
+		//HAL_Delay(500);
 	}
 }
